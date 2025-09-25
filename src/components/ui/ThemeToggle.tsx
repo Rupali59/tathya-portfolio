@@ -1,10 +1,8 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import dynamic from "next/dynamic";
 import { useTheme } from "../../contexts/ThemeContext";
-
-type Theme = "light" | "dark" | "system";
 
 // Clean SVG icons for themes
 const SunIcon = ({ className }: { className?: string }) => (

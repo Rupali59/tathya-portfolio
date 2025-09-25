@@ -1,4 +1,5 @@
-"use client";
+// Force this page to be dynamic (SSR) instead of static
+export const dynamic = 'force-dynamic'
 
 import Link from "next/link";
 import Navigation from "../../components/layout/Navigation";

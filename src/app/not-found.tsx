@@ -1,3 +1,6 @@
+// Force this error page to be dynamic (SSR) instead of static
+export const dynamic = 'force-dynamic'
+
 import Link from "next/link";
 
 export default function NotFound(): JSX.Element {
