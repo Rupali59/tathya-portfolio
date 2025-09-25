@@ -22,11 +22,16 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     setMounted(true);
 
     // Get initial theme from localStorage or system preference
-    const savedTheme = localStorage.getItem("theme") as Theme;
-    if (savedTheme && ["light", "dark", "system"].includes(savedTheme)) {
-      setTheme(savedTheme);
-    } else {
-      // Set default theme immediately to prevent flash
+    try {
+      const savedTheme = localStorage.getItem("theme") as Theme;
+      if (savedTheme && ["light", "dark", "system"].includes(savedTheme)) {
+        setTheme(savedTheme);
+      } else {
+        // Set default theme immediately to prevent flash
+        setTheme("system");
+      }
+    } catch (error) {
+      // Handle localStorage access errors during SSR
       setTheme("system");
     }
   }, []);
@@ -34,45 +39,55 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (!mounted) return;
 
-    const root = window.document.documentElement;
+    try {
+      const root = window.document.documentElement;
 
-    // Remove existing theme classes
-    root.classList.remove("light", "dark");
-    root.removeAttribute("data-theme");
+      // Remove existing theme classes
+      root.classList.remove("light", "dark");
+      root.removeAttribute("data-theme");
 
-    if (theme === "system") {
-      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
-        .matches
-        ? "dark"
-        : "light";
-      root.classList.add(systemTheme);
-      setResolvedTheme(systemTheme);
-    } else {
-      root.classList.add(theme);
-      root.setAttribute("data-theme", theme);
-      setResolvedTheme(theme);
+      if (theme === "system") {
+        const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
+          .matches
+          ? "dark"
+          : "light";
+        root.classList.add(systemTheme);
+        setResolvedTheme(systemTheme);
+      } else {
+        root.classList.add(theme);
+        root.setAttribute("data-theme", theme);
+        setResolvedTheme(theme);
+      }
+
+      // Save to localStorage
+      localStorage.setItem("theme", theme);
+    } catch (error) {
+      // Handle browser API access errors during SSR
+      console.warn("Theme context error:", error);
     }
-
-    // Save to localStorage
-    localStorage.setItem("theme", theme);
   }, [theme, mounted]);
 
   useEffect(() => {
     if (!mounted) return;
 
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    try {
+      const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
-    const handleChange = () => {
-      if (theme === "system") {
-        const systemTheme = mediaQuery.matches ? "dark" : "light";
-        document.documentElement.classList.remove("light", "dark");
-        document.documentElement.classList.add(systemTheme);
-        setResolvedTheme(systemTheme);
-      }
-    };
+      const handleChange = () => {
+        if (theme === "system") {
+          const systemTheme = mediaQuery.matches ? "dark" : "light";
+          document.documentElement.classList.remove("light", "dark");
+          document.documentElement.classList.add(systemTheme);
+          setResolvedTheme(systemTheme);
+        }
+      };
 
-    mediaQuery.addEventListener("change", handleChange);
-    return () => mediaQuery.removeEventListener("change", handleChange);
+      mediaQuery.addEventListener("change", handleChange);
+      return () => mediaQuery.removeEventListener("change", handleChange);
+    } catch (error) {
+      // Handle browser API access errors during SSR
+      console.warn("Media query error:", error);
+    }
   }, [theme, mounted]);
 
   // Prevent hydration mismatch by not rendering until mounted
@@ -90,7 +105,12 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 export function useTheme() {
   const context = useContext(ThemeContext);
   if (context === undefined) {
-    throw new Error("useTheme must be used within a ThemeProvider");
+    // Return default values instead of throwing error during SSR
+    return {
+      theme: "system" as Theme,
+      setTheme: () => {},
+      resolvedTheme: "dark" as "light" | "dark",
+    };
   }
   return context;
 }

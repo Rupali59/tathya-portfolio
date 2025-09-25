@@ -1,6 +1,3 @@
-// Force this page to be dynamic (SSR) instead of static
-export const dynamic = "force-dynamic";
-
 import { Suspense, lazy } from "react";
 import Navigation from "../../components/layout/Navigation";
 import Footer from "../../components/layout/Footer";
