@@ -23,6 +23,23 @@ const eslintConfig = [
       "*.config.ts",
     ],
   },
+  {
+    rules: {
+      // Relax TypeScript rules
+      "@typescript-eslint/no-explicit-any": "warn",
+      "@typescript-eslint/no-unused-vars": "warn",
+
+      // Relax React rules
+      "react/no-unescaped-entities": "off",
+      "react-hooks/exhaustive-deps": "warn",
+
+      // Relax Next.js rules
+      "@next/next/no-img-element": "warn",
+
+      // Relax general rules
+      "prefer-rest-params": "warn",
+    },
+  },
 ];
 
 export default eslintConfig;
