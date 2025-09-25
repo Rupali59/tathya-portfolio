@@ -2,6 +2,9 @@ import { Suspense, lazy } from "react";
 import Navigation from "../../components/layout/Navigation";
 import Footer from "../../components/layout/Footer";
 
+// Force SSR for this page
+export const dynamic = "force-dynamic";
+
 // Dynamic imports for better performance
 const Team = lazy(() => import("../../components/content/Team"));
 

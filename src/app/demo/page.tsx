@@ -1,8 +1,9 @@
-"use client";
-
 import Link from "next/link";
 import Navigation from "../../components/layout/Navigation";
 import { ThemeToggle } from "../../components/ui/ThemeToggle";
+
+// Force SSR for this page
+export const dynamic = "force-dynamic";
 
 export default function DemoPage() {
   return (

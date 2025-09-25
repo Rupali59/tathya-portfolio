@@ -64,9 +64,9 @@ const nextConfig = {
 
   // Error pages are now dynamic (SSR) for better error handling
   trailingSlash: false,
-  
+
   // Force SSR mode to avoid static generation issues with Context
-  output: 'standalone',
+  output: "standalone",
 
   // Webpack optimizations for CSS
   webpack: (config, { dev, isServer }) => {
