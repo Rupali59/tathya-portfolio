@@ -4,7 +4,7 @@
 
 **Project Name:** Tathya Portfolio  
 **Domain:** https://tathya.dev  
-**Repository:** https://github.com/Rupali59/tathya-portfolio  
+**Repository:** https://github.com/Rupali59/tathya  
 **Deployment:** Vercel (tathya-portfolio.vercel.app)  
 **Last Updated:** September 2024  
 
@@ -153,6 +153,7 @@ tathya-portfolio/
 - **Technical SEO:** Security headers, compression, cache optimization
 - **Content SEO:** Multiple pages with proper internal linking
 - **Error Handling:** Custom 404 and 500 pages with SEO metadata
+- **Social Media SEO:** Instagram and Twitter optimization with structured data
 
 ### 3. **Accessibility (WCAG 2.1 AA Compliant)**
 - **ARIA Attributes:** 50+ ARIA labels and roles
@@ -336,11 +337,11 @@ const nextConfig: NextConfig = {
 
 ### Installation Steps
 ```bash
-# Clone repository
-git clone https://github.com/Rupali59/tathya-portfolio.git
+# Clone repository with submodules
+git clone --recursive https://github.com/Rupali59/tathya.git
 
-# Navigate to project
-cd tathya-portfolio
+# Navigate to portfolio
+cd tathya/tathya-portfolio
 
 # Install dependencies
 npm install
@@ -467,6 +468,7 @@ npm start
 - `/docs/NEXTJS-IMPROVEMENTS.md` - Technical improvements summary
 - `/docs/SEO-CHECKLIST.md` - SEO implementation details
 - `/docs/THEME-SYSTEM.md` - Theme system documentation
+- `/docs/INSTAGRAM-SEO-GUIDE.md` - Instagram SEO implementation guide
 
 ### Configuration Files
 - `package.json` - Dependencies and scripts

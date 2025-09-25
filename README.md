@@ -41,7 +41,7 @@ The portfolio is deployed at: [tathya-portfolio.vercel.app](https://tathya-portf
 
 ## 📚 Documentation
 
-- [Project Documentation](../PROJECT_DOCUMENTATION.md) - Complete project overview and development history
+- [Project Documentation](./PROJECT_DOCUMENTATION.md) - Complete project overview and development history
 - [Next.js Improvements](./docs/NEXTJS-IMPROVEMENTS.md) - Technical improvements and best practices
 - [SEO Checklist](./docs/SEO-CHECKLIST.md) - SEO implementation details
 - [Theme System](./docs/THEME-SYSTEM.md) - Theme system documentation

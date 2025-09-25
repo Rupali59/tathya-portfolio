@@ -74,9 +74,8 @@ export const metadata: Metadata = {
     title: "Tathya - Digital Growth Partner",
     description: "End-to-End Business Websites & CRM Solutions",
     images: ["https://tathya.dev/og-image.jpg"],
-  },
-  verification: {
-    google: "your-google-verification-code",
+    creator: "@tathya_dev",
+    site: "@tathya_dev",
   },
 };
 
@@ -161,6 +160,51 @@ export default function RootLayout({
           as="font"
           type="font/woff2"
           crossOrigin="anonymous"
+        />
+
+        {/* Instagram SEO Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "Tathya",
+              description:
+                "Tathya delivers full-stack business websites, CRM integration, and campaign management. We're a passionate team building clean, functional solutions that drive business growth.",
+              url: "https://tathya.dev",
+              logo: "https://tathya.dev/logo.png",
+              sameAs: [
+                "https://instagram.com/tathya_dev",
+                "https://twitter.com/tathya_dev",
+                "https://linkedin.com/company/tathya",
+                "https://github.com/Rupali59/tathya",
+              ],
+              contactPoint: {
+                "@type": "ContactPoint",
+                telephone: "+1-555-0123",
+                contactType: "customer service",
+                email: "hello@tathya.dev",
+              },
+              address: {
+                "@type": "PostalAddress",
+                addressCountry: "Global",
+                addressLocality: "Remote",
+              },
+              socialMedia: {
+                "@type": "SocialMediaPosting",
+                author: {
+                  "@type": "Organization",
+                  name: "Tathya",
+                },
+                publisher: {
+                  "@type": "Organization",
+                  name: "Tathya",
+                  sameAs: "https://instagram.com/tathya_dev",
+                },
+              },
+            }),
+          }}
         />
       </head>
       <body
