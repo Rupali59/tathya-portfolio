@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "NODE_ENV=production next build",
-    "start": "NODE_ENV=production next start",
+    "start": "pkill -f 'next' || true && pkill -f 'npm' || true && lsof -ti:3000 | xargs kill -9 || true && npm run build && NODE_ENV=production next start",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "type-check": "tsc --noEmit",

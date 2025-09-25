@@ -8,73 +8,95 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Ocean Palette Colors
-        'baby-powder': {
-          DEFAULT: "var(--baby-powder)",
-          50: "var(--baby-powder-50)",
-          100: "var(--baby-powder-100)",
-          200: "var(--baby-powder-200)",
-          300: "var(--baby-powder-300)",
-          400: "var(--baby-powder-400)",
-          500: "var(--baby-powder-500)",
-          600: "var(--baby-powder-600)",
-          700: "var(--baby-powder-700)",
-          800: "var(--baby-powder-800)",
-          900: "var(--baby-powder-900)",
-        },
-        'caribbean-current': {
-          DEFAULT: "var(--caribbean-current)",
-          50: "var(--caribbean-current-50)",
-          100: "var(--caribbean-current-100)",
-          200: "var(--caribbean-current-200)",
-          300: "var(--caribbean-current-300)",
-          400: "var(--caribbean-current-400)",
-          500: "var(--caribbean-current-500)",
-          600: "var(--caribbean-current-600)",
-          700: "var(--caribbean-current-700)",
-          800: "var(--caribbean-current-800)",
-          900: "var(--caribbean-current-900)",
-        },
-        'verdigris': {
-          DEFAULT: "var(--verdigris)",
-          50: "var(--verdigris-50)",
-          100: "var(--verdigris-100)",
-          200: "var(--verdigris-200)",
-          300: "var(--verdigris-300)",
-          400: "var(--verdigris-400)",
-          500: "var(--verdigris-500)",
-          600: "var(--verdigris-600)",
-          700: "var(--verdigris-700)",
-          800: "var(--verdigris-800)",
-          900: "var(--verdigris-900)",
-        },
-        'tiffany-blue': {
-          DEFAULT: "var(--tiffany-blue)",
-          50: "var(--tiffany-blue-50)",
-          100: "var(--tiffany-blue-100)",
-          200: "var(--tiffany-blue-200)",
-          300: "var(--tiffany-blue-300)",
-          400: "var(--tiffany-blue-400)",
-          500: "var(--tiffany-blue-500)",
-          600: "var(--tiffany-blue-600)",
-          700: "var(--tiffany-blue-700)",
-          800: "var(--tiffany-blue-800)",
-          900: "var(--tiffany-blue-900)",
-        },
-        'teal': {
-          DEFAULT: "var(--teal)",
-          50: "var(--teal-50)",
-          100: "var(--teal-100)",
-          200: "var(--teal-200)",
-          300: "var(--teal-300)",
-          400: "var(--teal-400)",
-          500: "var(--teal-500)",
-          600: "var(--teal-600)",
-          700: "var(--teal-700)",
-          800: "var(--teal-800)",
-          900: "var(--teal-900)",
-        },
-        // Theme-aware colors
+        // Base Palette Colors - Tathya Brand Colors
+        primary: "#1E293B", // Slate-800 - Dark blue-gray
+        secondary: "#0EA5E9", // Sky-500 - Bright blue
+        accent: "#FACC15", // Yellow-400 - Bright yellow
+        background: "#FFFFFF", // White
+        text: "#111827", // Gray-900 - Dark gray
+
+        // Extended Palette
+        "primary-50": "#F8FAFC",
+        "primary-100": "#F1F5F9",
+        "primary-200": "#E2E8F0",
+        "primary-300": "#CBD5E1",
+        "primary-400": "#94A3B8",
+        "primary-500": "#64748B",
+        "primary-600": "#475569",
+        "primary-700": "#334155",
+        "primary-800": "#1E293B",
+        "primary-900": "#0F172A",
+
+        // Ocean Color Palette - Tathya Brand Colors
+        "baby-powder": "#FEFEFE",
+        "baby-powder-100": "#F8FAFC",
+        "baby-powder-200": "#F1F5F9",
+
+        "caribbean-current": "#006466",
+        "caribbean-current-300": "#4A9FA0",
+        "caribbean-current-600": "#004D4E",
+        "caribbean-current-700": "#003A3B",
+
+        teal: "#0D9488",
+        "teal-300": "#5EEAD4",
+
+        verdigris: "#0891B2",
+        "verdigris-300": "#67E8F9",
+
+        "tiffany-blue": "#14B8A6",
+        "tiffany-blue-200": "#99F6E4",
+        "tiffany-blue-300": "#5EEAD4",
+        "tiffany-blue-400": "#2DD4BF",
+        "tiffany-blue-500": "#14B8A6",
+
+        "secondary-50": "#F0F9FF",
+        "secondary-100": "#E0F2FE",
+        "secondary-200": "#BAE6FD",
+        "secondary-300": "#7DD3FC",
+        "secondary-400": "#38BDF8",
+        "secondary-500": "#0EA5E9",
+        "secondary-600": "#0284C7",
+        "secondary-700": "#0369A1",
+        "secondary-800": "#075985",
+        "secondary-900": "#0C4A6E",
+
+        "accent-50": "#FEFCE8",
+        "accent-100": "#FEF3C7",
+        "accent-200": "#FDE68A",
+        "accent-300": "#FCD34D",
+        "accent-400": "#FACC15",
+        "accent-500": "#EAB308",
+        "accent-600": "#CA8A04",
+        "accent-700": "#A16207",
+        "accent-800": "#854D0E",
+        "accent-900": "#713F12",
+
+        // Semantic Color System
+        // Background colors
+        "bg-primary": "var(--bg-primary)",
+        "bg-secondary": "var(--bg-secondary)",
+
+        // Text colors
+        "text-primary": "var(--text-primary)",
+        "text-secondary": "var(--text-secondary)",
+
+        // Button colors
+        "btn-cta-bg": "var(--btn-cta-bg)",
+        "btn-cta-hover": "var(--btn-cta-hover)",
+        "btn-cta-text": "var(--btn-cta-text)",
+        "btn-secondary-bg": "var(--btn-secondary-bg)",
+        "btn-secondary-hover": "var(--btn-secondary-hover)",
+        "btn-secondary-text": "var(--btn-secondary-text)",
+
+        // Card colors
+        "card-bg": "var(--card-bg)",
+        "card-border": "var(--card-border)",
+
+        // Utility colors
+        divider: "var(--divider)",
+        accent: "var(--accent)",
+
+        // Legacy theme-aware colors (keeping for backward compatibility)
         background: {
           primary: "var(--color-background-primary)",
           secondary: "var(--color-background-secondary)",
