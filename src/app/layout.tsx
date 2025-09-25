@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { Analytics as VercelAnalytics } from "@vercel/analytics/react";
 import { ThemeProvider } from "../contexts/ThemeContext";
+import Navigation from "../components/layout/Navigation";
 // Temporarily disabled AnimatedBackground components to fix webpack issues
 // import {
 //   AnimatedBackground,
@@ -230,7 +231,10 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${jetbrainsMono.variable} antialiased bg-background-primary text-text-primary`}
       >
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <Navigation />
+          {children}
+        </ThemeProvider>
         <VercelAnalytics />
       </body>
     </html>
