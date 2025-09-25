@@ -2,9 +2,16 @@ name: Build Checks
 
 on:
   push:
-    branches: [main, develop]
+    branches: 
+      - main
+      - develop
+      - 'feature/*'
+      - 'hotfix/*'
+      - 'release/*'
   pull_request:
-    branches: [main, develop]
+    branches: 
+      - main
+      - develop
 
 jobs:
   build-checks:
