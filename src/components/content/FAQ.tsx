@@ -2,13 +2,7 @@ export default function FAQ(): JSX.Element {
   return (
     <section className="py-20 text-text-primary relative">
       {/* Background image with opacity control */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-fixed"
-        style={{
-          backgroundImage: "url('/images/assets/backgrounds/griddots.png')",
-          opacity: "var(--bg-image-opacity, 1)",
-        }}
-      />
+      <div className="absolute inset-0 background-image-responsive background-image" />
 
       <div className="relative z-10">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">

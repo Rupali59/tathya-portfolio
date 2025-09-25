@@ -8,68 +8,72 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Base Palette Colors - Tathya Brand Colors
-        primary: "#1E293B", // Slate-800 - Dark blue-gray
-        secondary: "#0EA5E9", // Sky-500 - Bright blue
-        accent: "#FACC15", // Yellow-400 - Bright yellow
-        background: "#FFFFFF", // White
-        text: "#111827", // Gray-900 - Dark gray
+        // Base Palette Colors - Tathya Ocean Theme
+        primary: "#0d5c63", // Caribbean Current - Dark teal base
+        secondary: "#44a1a0", // Verdigris - Muted teal for secondary
+        accent: "#78cdd7", // Tiffany Blue - Friendly accent
+        background: "#fffffa", // Baby Powder - Very light near-white
+        text: "#0d5c63", // Caribbean Current - Dark teal for text
 
-        // Extended Palette
-        "primary-50": "#F8FAFC",
-        "primary-100": "#F1F5F9",
-        "primary-200": "#E2E8F0",
-        "primary-300": "#CBD5E1",
-        "primary-400": "#94A3B8",
-        "primary-500": "#64748B",
-        "primary-600": "#475569",
-        "primary-700": "#334155",
-        "primary-800": "#1E293B",
-        "primary-900": "#0F172A",
+        // Extended Ocean Palette - Caribbean Current
+        "primary-50": "#f0fdfa",
+        "primary-100": "#ccfbf1",
+        "primary-200": "#99f6e4",
+        "primary-300": "#5eead4",
+        "primary-400": "#2dd4bf",
+        "primary-500": "#14b8a6",
+        "primary-600": "#0d9488",
+        "primary-700": "#0f766e",
+        "primary-800": "#115e59",
+        "primary-900": "#0d5c63",
 
         // Ocean Color Palette - Tathya Brand Colors
-        "baby-powder": "#FEFEFE",
+        "baby-powder": "#fffffa",
         "baby-powder-100": "#F8FAFC",
         "baby-powder-200": "#F1F5F9",
 
-        "caribbean-current": "#006466",
+        "caribbean-current": "#0d5c63",
         "caribbean-current-300": "#4A9FA0",
         "caribbean-current-600": "#004D4E",
         "caribbean-current-700": "#003A3B",
 
-        teal: "#0D9488",
+        teal: "#247b7b",
         "teal-300": "#5EEAD4",
 
-        verdigris: "#0891B2",
+        verdigris: "#44a1a0",
         "verdigris-300": "#67E8F9",
 
-        "tiffany-blue": "#14B8A6",
+        "tiffany-blue": "#78cdd7",
         "tiffany-blue-200": "#99F6E4",
         "tiffany-blue-300": "#5EEAD4",
         "tiffany-blue-400": "#2DD4BF",
-        "tiffany-blue-500": "#14B8A6",
+        "tiffany-blue-500": "#78cdd7",
 
-        "secondary-50": "#F0F9FF",
-        "secondary-100": "#E0F2FE",
-        "secondary-200": "#BAE6FD",
-        "secondary-300": "#7DD3FC",
-        "secondary-400": "#38BDF8",
-        "secondary-500": "#0EA5E9",
-        "secondary-600": "#0284C7",
-        "secondary-700": "#0369A1",
-        "secondary-800": "#075985",
-        "secondary-900": "#0C4A6E",
+        "cta-color": "#2fb6b6",
 
-        "accent-50": "#FEFCE8",
-        "accent-100": "#FEF3C7",
-        "accent-200": "#FDE68A",
-        "accent-300": "#FCD34D",
-        "accent-400": "#FACC15",
-        "accent-500": "#EAB308",
-        "accent-600": "#CA8A04",
-        "accent-700": "#A16207",
-        "accent-800": "#854D0E",
-        "accent-900": "#713F12",
+        // Extended Ocean Palette - Verdigris
+        "secondary-50": "#f0fdfa",
+        "secondary-100": "#ccfbf1",
+        "secondary-200": "#99f6e4",
+        "secondary-300": "#5eead4",
+        "secondary-400": "#2dd4bf",
+        "secondary-500": "#14b8a6",
+        "secondary-600": "#0d9488",
+        "secondary-700": "#0f766e",
+        "secondary-800": "#115e59",
+        "secondary-900": "#44a1a0",
+
+        // Extended Ocean Palette - Tiffany Blue
+        "accent-50": "#f0fdfa",
+        "accent-100": "#ccfbf1",
+        "accent-200": "#99f6e4",
+        "accent-300": "#5eead4",
+        "accent-400": "#2dd4bf",
+        "accent-500": "#14b8a6",
+        "accent-600": "#0d9488",
+        "accent-700": "#0f766e",
+        "accent-800": "#115e59",
+        "accent-900": "#78cdd7",
 
         // Semantic Color System
         // Background colors
@@ -127,7 +131,7 @@ module.exports = {
           "secondary-hover": "var(--color-interactive-secondary-hover)",
           "secondary-active": "var(--color-interactive-secondary-active)",
         },
-        // Semantic colors
+        // Semantic colors (Ocean themed)
         success: {
           50: "var(--color-success-50)",
           500: "var(--color-success-500)",
@@ -152,6 +156,56 @@ module.exports = {
           600: "var(--color-info-600)",
           700: "var(--color-info-700)",
         },
+        cta: {
+          color: "var(--cta-color)",
+        },
+
+        // Dark Theme Ocean Colors
+        "dark-bg": {
+          primary: "var(--dark-bg-primary)",
+          secondary: "var(--dark-bg-secondary)",
+          tertiary: "var(--dark-bg-tertiary)",
+          elevated: "var(--dark-bg-elevated)",
+        },
+        "dark-text": {
+          primary: "var(--dark-text-primary)",
+          secondary: "var(--dark-text-secondary)",
+          tertiary: "var(--dark-text-tertiary)",
+          inverse: "var(--dark-text-inverse)",
+        },
+        "dark-border": {
+          primary: "var(--dark-border-primary)",
+          secondary: "var(--dark-border-secondary)",
+          focus: "var(--dark-border-focus)",
+        },
+        "dark-surface": {
+          primary: "var(--dark-surface-primary)",
+          secondary: "var(--dark-surface-secondary)",
+          elevated: "var(--dark-surface-elevated)",
+        },
+        "dark-interactive": {
+          primary: "var(--dark-interactive-primary)",
+          "primary-hover": "var(--dark-interactive-primary-hover)",
+          "primary-active": "var(--dark-interactive-primary-active)",
+          secondary: "var(--dark-interactive-secondary)",
+          "secondary-hover": "var(--dark-interactive-secondary-hover)",
+          "secondary-active": "var(--dark-interactive-secondary-active)",
+        },
+        "dark-cta": {
+          bg: "var(--dark-cta-bg)",
+          hover: "var(--dark-cta-hover)",
+          text: "var(--dark-cta-text)",
+        },
+        "dark-btn": {
+          "secondary-bg": "var(--dark-btn-secondary-bg)",
+          "secondary-hover": "var(--dark-btn-secondary-hover)",
+          "secondary-text": "var(--dark-btn-secondary-text)",
+        },
+        "dark-card": {
+          bg: "var(--dark-card-bg)",
+          border: "var(--dark-card-border)",
+        },
+        "dark-divider": "var(--dark-divider)",
       },
       fontFamily: {
         sans: ["var(--font-inter)", "system-ui", "-apple-system", "sans-serif"],

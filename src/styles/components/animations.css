@@ -22,6 +22,35 @@
     animation: scaleIn 0.6s ease-out forwards;
 }
 
+
+/* Ripple Loading Spinner */
+.ripple-spinner {
+    position: relative;
+    width: 64px;
+    height: 64px;
+    margin: 0 auto;
+}
+
+.ripple-spinner div {
+    position: absolute;
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    animation: ripple-loading 1.2s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+
+.ripple-spinner div:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.ripple-spinner div:nth-child(2) {
+    animation-delay: 0.4s;
+}
+
+.ripple-spinner div:nth-child(3) {
+    animation-delay: 0.8s;
+}
+
+
 /* Glass morphism effect */
 .glass {
     background: rgba(255, 255, 255, 0.1);
@@ -30,9 +59,10 @@
 }
 
 .glass-dark {
-    background: rgba(0, 0, 0, 0.2);
+    background: var(--dark-bg-primary);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--dark-border-primary);
+    opacity: 0.8;
 }
 
 /* Theme-aware glass effects */
@@ -43,9 +73,10 @@
 }
 
 .dark .glass {
-    background: rgba(0, 0, 0, 0.3);
+    background: var(--dark-bg-primary);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--dark-border-primary);
+    opacity: 0.8;
 }
 
 /* Custom scrollbar styles for chat interface only */
@@ -148,14 +179,69 @@ body::-webkit-scrollbar-thumb:hover {
     }
 }
 
+
+@keyframes ripple-loading {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 0;
+    }
+}
+
 @keyframes flowingCarousel {
     0% {
         transform: translateX(0);
     }
 
     100% {
-        transform: translateX(-100%);
+        transform: translateX(-50%);
     }
+}
+
+/* Auto-scroll classes for motion ticker */
+.auto-scroll-fast {
+    animation: flowingCarousel 20s linear infinite;
+}
+
+.auto-scroll-medium {
+    animation: flowingCarousel 30s linear infinite;
+}
+
+.auto-scroll-slow {
+    animation: flowingCarousel 40s linear infinite;
+}
+
+.pause-animation {
+    animation-play-state: paused;
+}
+
+/* Motion ticker optimizations */
+.carousel-container {
+    position: relative;
+    overflow: hidden;
+    will-change: transform;
+}
+
+.carousel-container .flex {
+    will-change: transform;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}
+
+/* Smooth gradient transitions */
+.carousel-container .bg-gradient-to-r,
+.carousel-container .bg-gradient-to-l {
+    transition: opacity 0.3s ease;
+}
+
+/* Enhanced team card animations */
+.team-card {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
 }
 
 /* Enhanced scrollbar for dark theme */

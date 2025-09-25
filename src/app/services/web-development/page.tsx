@@ -88,7 +88,7 @@ export default function WebDevelopmentPage() {
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="text-center">
-              <div className="bg-secondary text-white p-4 rounded-lg mb-3">
+              <div className="p-4 rounded-lg mb-3" className="service-card">
                 <h3 className="font-semibold">Frontend</h3>
               </div>
               <p className="text-sm text-text-secondary">
@@ -96,7 +96,7 @@ export default function WebDevelopmentPage() {
               </p>
             </div>
             <div className="text-center">
-              <div className="bg-secondary text-white p-4 rounded-lg mb-3">
+              <div className="p-4 rounded-lg mb-3" className="service-card">
                 <h3 className="font-semibold">Backend</h3>
               </div>
               <p className="text-sm text-text-secondary">
@@ -104,7 +104,7 @@ export default function WebDevelopmentPage() {
               </p>
             </div>
             <div className="text-center">
-              <div className="bg-secondary text-white p-4 rounded-lg mb-3">
+              <div className="p-4 rounded-lg mb-3" className="service-card">
                 <h3 className="font-semibold">Cloud</h3>
               </div>
               <p className="text-sm text-text-secondary">
@@ -112,7 +112,7 @@ export default function WebDevelopmentPage() {
               </p>
             </div>
             <div className="text-center">
-              <div className="bg-secondary text-white p-4 rounded-lg mb-3">
+              <div className="p-4 rounded-lg mb-3" className="service-card">
                 <h3 className="font-semibold">Tools</h3>
               </div>
               <p className="text-sm text-text-secondary">

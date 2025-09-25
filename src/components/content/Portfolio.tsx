@@ -2,13 +2,7 @@ export default function Portfolio(): JSX.Element {
   return (
     <section className="py-20 text-text-primary relative">
       {/* Background image with opacity control */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-fixed"
-        style={{
-          backgroundImage: "url('/images/assets/backgrounds/griddots.png')",
-          opacity: "var(--bg-image-opacity, 1)",
-        }}
-      />
+      <div className="absolute inset-0 background-image-responsive background-image" />
 
       {/* Dark theme overlay for reduced opacity */}
       <div className="absolute inset-0 bg-background-primary/50 dark:bg-background-primary/80" />

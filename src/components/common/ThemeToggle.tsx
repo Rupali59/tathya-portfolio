@@ -89,7 +89,7 @@ function ThemeToggleInternal() {
       onMouseLeave={() => setIsOpen(false)}
     >
       <button
-        className="p-2 rounded-lg text-text-secondary hover:text-secondary hover:bg-secondary/20 hover:scale-105 hover:shadow-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-secondary/20"
+        className="p-2 rounded-lg hover:scale-105 hover:shadow-md transition-all duration-200 focus:outline-none theme-toggle-button"
         aria-label="Toggle theme"
       >
         <CurrentIcon className="w-5 h-5" />
@@ -112,10 +112,10 @@ function ThemeToggleInternal() {
                 setTheme(themeOption.value);
                 setIsOpen(false);
               }}
-              className={`w-full flex items-center gap-2 px-3 py-2 text-sm transition-all duration-200 ${
+              className={`w-full flex items-center gap-2 text-sm ${
                 theme === themeOption.value
-                  ? "bg-secondary/20 text-secondary border-l-2 border-secondary font-semibold"
-                  : "text-text-secondary hover:text-secondary hover:bg-secondary/15 hover:border-l-2 hover:border-secondary/70 hover:font-medium"
+                  ? "dropdown-item-active"
+                  : "dropdown-item"
               }`}
             >
               <IconComponent className="w-4 h-4" />
@@ -132,7 +132,7 @@ function ThemeToggleInternal() {
 export const ThemeToggle = dynamic(() => Promise.resolve(ThemeToggleInternal), {
   ssr: false,
   loading: () => (
-    <div className="p-2 rounded-lg text-text-secondary">
+    <div className="p-2 rounded-lg theme-toggle-button">
       <div className="w-5 h-5" />
     </div>
   ),

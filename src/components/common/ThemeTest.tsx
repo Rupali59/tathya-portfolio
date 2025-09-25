@@ -92,19 +92,19 @@ const ThemeTest: React.FC = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div className="bg-primary text-white p-4 rounded-lg text-center">
             <p className="font-semibold">Primary</p>
-            <p className="text-sm">#1E293B</p>
+            <p className="text-sm">#0d5c63</p>
           </div>
           <div className="bg-secondary text-white p-4 rounded-lg text-center">
             <p className="font-semibold">Secondary</p>
-            <p className="text-sm">#0EA5E9</p>
+            <p className="text-sm">#44a1a0</p>
           </div>
           <div className="bg-accent text-primary-800 p-4 rounded-lg text-center">
             <p className="font-semibold">Accent</p>
-            <p className="text-sm">#FACC15</p>
+            <p className="text-sm">#78cdd7</p>
           </div>
           <div className="bg-background border border-primary-200 text-text p-4 rounded-lg text-center">
             <p className="font-semibold">Background</p>
-            <p className="text-sm">#FFFFFF</p>
+            <p className="text-sm">#fffffa</p>
           </div>
         </div>
       </div>

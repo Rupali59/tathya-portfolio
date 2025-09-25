@@ -46,18 +46,18 @@ export function AnimatedBackground({
     // Color palettes for different themes
     const colorPalettes = {
       light: [
-        "#10b981", // emerald-500
-        "#059669", // emerald-600
-        "#047857", // emerald-700
-        "#6b7280", // gray-500
-        "#4b5563", // gray-600
+        "#78cdd7", // tiffany-blue
+        "#44a1a0", // verdigris
+        "#247b7b", // teal
+        "#0d5c63", // caribbean-current
+        "#5EEAD4", // tiffany-blue-300
       ],
       dark: [
-        "#34d399", // emerald-400
-        "#10b981", // emerald-500
-        "#059669", // emerald-600
-        "#9ca3af", // gray-400
-        "#6b7280", // gray-500
+        "#78cdd7", // tiffany-blue (accent)
+        "#2fb6b6", // cta-color
+        "#44a1a0", // verdigris (secondary UI)
+        "#2b6f70", // surface/cards
+        "#e6f7f7", // text-primary
       ],
     };
 
@@ -200,41 +200,35 @@ export function FloatingShapes() {
       style={{ zIndex: -1 }}
     >
       {/* Large floating circles */}
-      <div
-        className="absolute top-1/4 left-1/4 w-32 h-32 rounded-full bg-primary-400/10 animate-pulse"
-        style={{ animationDelay: "0s", animationDuration: "4s" }}
-      />
-      <div
-        className="absolute top-3/4 right-1/4 w-24 h-24 rounded-full bg-primary-500/15 animate-pulse"
-        style={{ animationDelay: "2s", animationDuration: "6s" }}
-      />
+      <div className="absolute top-1/4 left-1/4 w-32 h-32 rounded-full bg-primary-400/10 animate-pulse animate-delay-0 animate-duration-4" />
+      <div className="absolute top-3/4 right-1/4 w-24 h-24 rounded-full bg-primary-500/15 animate-pulse animate-delay-6 animate-duration-6" />
       <div
         className="absolute bottom-1/4 left-1/3 w-40 h-40 rounded-full bg-primary-600/5 animate-pulse"
-        style={{ animationDelay: "1s", animationDuration: "8s" }}
+        className="animate-delay-4 animate-duration-8"
       />
 
       {/* Medium floating shapes */}
       <div
         className="absolute top-1/2 right-1/3 w-16 h-16 bg-primary-300/20 rounded-lg rotate-45 animate-bounce"
-        style={{ animationDelay: "0.5s", animationDuration: "3s" }}
+        className="animate-delay-3 animate-duration-3"
       />
       <div
         className="absolute bottom-1/3 right-1/2 w-20 h-20 bg-primary-400/15 rounded-full animate-pulse"
-        style={{ animationDelay: "3s", animationDuration: "5s" }}
+        className="animate-delay-8 animate-duration-5"
       />
 
       {/* Small floating dots */}
       <div
         className="absolute top-1/6 right-1/6 w-3 h-3 bg-primary-500/30 rounded-full animate-ping"
-        style={{ animationDelay: "1.5s" }}
+        className="animate-delay-5"
       />
       <div
         className="absolute bottom-1/6 left-1/6 w-2 h-2 bg-primary-400/40 rounded-full animate-ping"
-        style={{ animationDelay: "2.5s" }}
+        className="animate-delay-7"
       />
       <div
         className="absolute top-2/3 left-1/6 w-4 h-4 bg-primary-600/25 rounded-full animate-ping"
-        style={{ animationDelay: "4s" }}
+        className="animate-delay-9"
       />
     </div>
   );
@@ -248,24 +242,12 @@ export function GradientOrbs() {
       style={{ zIndex: -1 }}
     >
       {/* Large gradient orbs */}
-      <div
-        className="absolute -top-1/2 -left-1/2 w-full h-full bg-gradient-radial from-primary-500/20 via-primary-600/10 to-transparent rounded-full animate-pulse"
-        style={{ animationDuration: "8s" }}
-      />
-      <div
-        className="absolute -bottom-1/2 -right-1/2 w-full h-full bg-gradient-radial from-primary-400/15 via-primary-500/5 to-transparent rounded-full animate-pulse"
-        style={{ animationDelay: "4s", animationDuration: "12s" }}
-      />
+      <div className="absolute -top-1/2 -left-1/2 w-full h-full bg-gradient-radial from-primary-500/20 via-primary-600/10 to-transparent rounded-full animate-pulse animate-duration-8" />
+      <div className="absolute -bottom-1/2 -right-1/2 w-full h-full bg-gradient-radial from-primary-400/15 via-primary-500/5 to-transparent rounded-full animate-pulse animate-delay-9 animate-duration-12" />
 
       {/* Medium gradient orbs */}
-      <div
-        className="absolute top-1/3 right-1/4 w-96 h-96 bg-gradient-radial from-primary-300/25 via-primary-400/10 to-transparent rounded-full animate-pulse"
-        style={{ animationDelay: "2s", animationDuration: "6s" }}
-      />
-      <div
-        className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-gradient-radial from-primary-600/20 via-primary-700/8 to-transparent rounded-full animate-pulse"
-        style={{ animationDelay: "6s", animationDuration: "10s" }}
-      />
+      <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-gradient-radial from-primary-300/25 via-primary-400/10 to-transparent rounded-full animate-pulse animate-delay-6 animate-duration-6" />
+      <div className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-gradient-radial from-primary-600/20 via-primary-700/8 to-transparent rounded-full animate-pulse animate-delay-10 animate-duration-10" />
     </div>
   );
 }

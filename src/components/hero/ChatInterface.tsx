@@ -86,21 +86,11 @@ export default function ChatInterface(): JSX.Element {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden"
-        style={{
-          backgroundColor: "var(--bg-primary)",
-          borderColor: "var(--color-border-primary)",
-        }}
+        className="rounded-2xl shadow-xl overflow-hidden chat-container border border-border-primary"
       >
         {/* Chat Header */}
-        <div
-          className="px-4 py-2 border-b flex items-center space-x-2"
-          style={{
-            backgroundColor: "var(--bg-secondary)",
-            borderColor: "var(--color-border-primary)",
-          }}
-        >
-          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+        <div className="px-4 py-2 border-b flex items-center space-x-2 chat-header border-border-primary">
+          <div className="w-2 h-2 rounded-full bg-accent"></div>
           <Logo size="sm" showTagline={false} />
         </div>
 
@@ -120,25 +110,14 @@ export default function ChatInterface(): JSX.Element {
               >
                 <div
                   className={`max-w-sm lg:max-w-lg xl:max-w-xl px-4 py-2 rounded-lg ${
-                    message.isUser ? "bg-blue-500 text-white" : ""
+                    message.isUser ? "chat-message-user" : "chat-message-ai"
                   }`}
-                  style={{
-                    backgroundColor: message.isUser
-                      ? "var(--btn-cta-bg)"
-                      : "var(--bg-secondary)",
-                    color: message.isUser
-                      ? "var(--btn-cta-text)"
-                      : "var(--text-primary)",
-                  }}
                 >
                   <p className="text-sm">{message.content}</p>
                   <p
-                    className="text-xs mt-1"
-                    style={{
-                      color: message.isUser
-                        ? "rgba(255,255,255,0.8)"
-                        : "var(--text-secondary)",
-                    }}
+                    className={`text-xs mt-1 ${
+                      message.isUser ? "text-white/80" : "text-text-secondary"
+                    }`}
                   >
                     {message.timestamp.toLocaleTimeString([], {
                       hour: "2-digit",
@@ -157,22 +136,11 @@ export default function ChatInterface(): JSX.Element {
               animate={{ opacity: 1 }}
               className="flex justify-start"
             >
-              <div
-                className="rounded-lg px-4 py-2"
-                style={{
-                  backgroundColor: "var(--bg-secondary)",
-                }}
-              >
+              <div className="rounded-lg px-4 py-2 bg-bg-secondary">
                 <div className="flex space-x-1">
-                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                  <div
-                    className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-                    style={{ animationDelay: "0.1s" }}
-                  ></div>
-                  <div
-                    className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-                    style={{ animationDelay: "0.2s" }}
-                  ></div>
+                  <div className="w-2 h-2 rounded-full animate-bounce chat-typing-dot"></div>
+                  <div className="w-2 h-2 rounded-full animate-bounce chat-typing-dot animate-delay-1"></div>
+                  <div className="w-2 h-2 rounded-full animate-bounce chat-typing-dot animate-delay-2"></div>
                 </div>
               </div>
             </motion.div>
@@ -182,12 +150,7 @@ export default function ChatInterface(): JSX.Element {
         </div>
 
         {/* Input Area */}
-        <div
-          className="p-4 border-t"
-          style={{
-            borderColor: "var(--color-border-primary)",
-          }}
-        >
+        <div className="p-4 border-t border-border-primary">
           <form onSubmit={handleSendMessage} className="flex space-x-2">
             <input
               ref={inputRef}
@@ -196,22 +159,13 @@ export default function ChatInterface(): JSX.Element {
               onChange={(e) => setInputValue(e.target.value)}
               onKeyPress={handleKeyPress}
               placeholder="Type your message..."
-              className="flex-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              style={{
-                borderColor: "var(--color-border-primary)",
-                backgroundColor: "var(--bg-primary)",
-                color: "var(--text-primary)",
-              }}
+              className="flex-1 px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:border-transparent chat-input text-text-primary"
               disabled={isLoading}
             />
             <motion.button
               type="submit"
               disabled={!inputValue.trim() || isLoading}
-              className="px-4 py-2 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
-              style={{
-                backgroundColor: "var(--btn-cta-bg)",
-                color: "var(--btn-cta-text)",
-              }}
+              className="px-4 py-2 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200 chat-send-button"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -244,12 +198,7 @@ export default function ChatInterface(): JSX.Element {
           <motion.button
             key={action}
             onClick={() => setInputValue(action)}
-            className="px-4 py-2 border rounded-full transition-colors duration-200 text-sm font-medium"
-            style={{
-              backgroundColor: "var(--bg-primary)",
-              color: "var(--text-primary)",
-              borderColor: "var(--color-border-primary)",
-            }}
+            className="px-4 py-2 rounded-full transition-colors duration-200 text-sm font-medium chat-action-button border border-border-primary"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >

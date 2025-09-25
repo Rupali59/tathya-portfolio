@@ -34,13 +34,13 @@ export default function Navigation(): JSX.Element {
           <div className="hidden md:flex space-x-8">
             <Link
               href="/"
-              className="text-text-secondary hover:text-secondary transition-colors"
+              className="text-text-secondary transition-colors nav-link"
             >
               Home
             </Link>
             <Link
               href="/about"
-              className="text-text-secondary hover:text-secondary transition-colors"
+              className="text-text-secondary transition-colors nav-link"
             >
               About
             </Link>
@@ -51,7 +51,7 @@ export default function Navigation(): JSX.Element {
               onMouseEnter={() => setIsServicesOpen(true)}
               onMouseLeave={() => setIsServicesOpen(false)}
             >
-              <button className="flex items-center gap-1 text-text-secondary hover:text-secondary transition-colors">
+              <button className="flex items-center gap-1 text-text-secondary transition-colors nav-link">
                 Services
                 <ChevronDownIcon
                   className={`w-4 h-4 transition-transform duration-200 ${
@@ -73,7 +73,7 @@ export default function Navigation(): JSX.Element {
                     <Link
                       key={item.href}
                       href={item.href}
-                      className="block px-4 py-2 text-sm text-text-secondary hover:text-secondary hover:bg-secondary/15 hover:border-l-2 hover:border-secondary/70 hover:font-medium transition-all duration-200"
+                      className="block dropdown-item"
                     >
                       {item.name}
                     </Link>
@@ -84,19 +84,13 @@ export default function Navigation(): JSX.Element {
 
             <Link
               href="/pricing"
-              className="text-text-secondary hover:text-secondary transition-colors"
+              className="text-text-secondary transition-colors nav-link"
             >
               Pricing
             </Link>
             <Link
-              href="/contact"
-              className="text-text-secondary hover:text-secondary transition-colors"
-            >
-              Contact
-            </Link>
-            <Link
               href="/demo"
-              className="text-text-secondary hover:text-secondary transition-colors"
+              className="text-text-secondary transition-colors nav-link"
             >
               Demo
             </Link>
@@ -110,7 +104,13 @@ export default function Navigation(): JSX.Element {
             <div className="md:hidden">
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="text-text-secondary hover:text-secondary transition-colors"
+                className="text-text-secondary transition-colors"
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = "var(--accent)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = "var(--text-secondary)";
+                }}
               >
                 {isMobileMenuOpen ? (
                   <XMarkIcon className="h-6 w-6" />
@@ -134,14 +134,14 @@ export default function Navigation(): JSX.Element {
             <div className="space-y-2">
               <Link
                 href="/"
-                className="block px-4 py-2 text-text-secondary hover:text-secondary hover:bg-secondary/15 hover:border-l-2 hover:border-secondary/70 hover:font-medium rounded-lg transition-all duration-200"
+                className="block dropdown-item"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Home
               </Link>
               <Link
                 href="/about"
-                className="block px-4 py-2 text-text-secondary hover:text-secondary hover:bg-secondary/15 hover:border-l-2 hover:border-secondary/70 hover:font-medium rounded-lg transition-all duration-200"
+                className="block dropdown-item"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 About
@@ -151,7 +151,7 @@ export default function Navigation(): JSX.Element {
               <div className="px-4">
                 <button
                   onClick={() => setIsServicesOpen(!isServicesOpen)}
-                  className="flex items-center justify-between w-full py-2 text-text-secondary hover:text-secondary transition-colors"
+                  className="flex items-center justify-between w-full py-2 text-text-secondary transition-colors nav-link"
                 >
                   Services
                   <ChevronDownIcon
@@ -172,7 +172,20 @@ export default function Navigation(): JSX.Element {
                     <Link
                       key={item.href}
                       href={item.href}
-                      className="block px-4 py-2 text-sm text-text-secondary hover:text-secondary hover:bg-secondary/15 hover:border-l-2 hover:border-secondary/70 hover:font-medium rounded-lg transition-all duration-200"
+                      className="block px-4 py-2 text-sm text-text-secondary hover:border-l-2 hover:font-medium rounded-lg transition-all duration-200"
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.color = "var(--accent)";
+                        e.currentTarget.style.backgroundColor = "var(--accent)";
+                        e.currentTarget.style.opacity = "0.15";
+                        e.currentTarget.style.borderLeftColor = "var(--accent)";
+                        e.currentTarget.style.opacity = "0.7";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.color = "var(--text-secondary)";
+                        e.currentTarget.style.backgroundColor = "transparent";
+                        e.currentTarget.style.opacity = "1";
+                        e.currentTarget.style.borderLeftColor = "transparent";
+                      }}
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       {item.name}
@@ -183,21 +196,14 @@ export default function Navigation(): JSX.Element {
 
               <Link
                 href="/pricing"
-                className="block px-4 py-2 text-text-secondary hover:text-secondary hover:bg-secondary/15 hover:border-l-2 hover:border-secondary/70 hover:font-medium rounded-lg transition-all duration-200"
+                className="block dropdown-item"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Pricing
               </Link>
               <Link
-                href="/contact"
-                className="block px-4 py-2 text-text-secondary hover:text-secondary hover:bg-secondary/15 hover:border-l-2 hover:border-secondary/70 hover:font-medium rounded-lg transition-all duration-200"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Contact
-              </Link>
-              <Link
                 href="/demo"
-                className="block px-4 py-2 text-text-secondary hover:text-secondary hover:bg-secondary/15 hover:border-l-2 hover:border-secondary/70 hover:font-medium rounded-lg transition-all duration-200"
+                className="block dropdown-item"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Demo

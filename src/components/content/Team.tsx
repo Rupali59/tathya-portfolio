@@ -103,7 +103,7 @@ export default function Team(): JSX.Element {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <section className="py-20 bg-background-secondary text-text-primary relative overflow-hidden">
+    <section className="py-20 bg-background-primary text-text-primary relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 bg-gradient-to-br from-interactive-primary/5 via-transparent to-interactive-secondary/5"></div>
 
@@ -130,7 +130,7 @@ export default function Team(): JSX.Element {
           </motion.p>
         </motion.div>
 
-        {/* Flowing Carousel Container */}
+        {/* Motion Ticker Container */}
         <motion.div
           className="relative overflow-hidden carousel-container"
           onMouseEnter={() => setIsHovered(true)}
@@ -138,11 +138,14 @@ export default function Team(): JSX.Element {
           whileHover={{ scale: 1.01 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
         >
-          {/* Flowing Carousel */}
+          {/* Motion Ticker */}
           <div
             className={`flex space-x-4 md:space-x-6 py-8 ${
-              isHovered ? "pause-animation" : "auto-scroll-fast"
+              isHovered ? "pause-animation" : "auto-scroll-medium"
             }`}
+            style={{
+              willChange: isHovered ? "auto" : "transform",
+            }}
           >
             {/* Duplicate team members for seamless loop */}
             {[...teamMembers, ...teamMembers].map((member, index) => (
@@ -242,8 +245,8 @@ export default function Team(): JSX.Element {
           </div>
 
           {/* Gradient overlays for smooth edges */}
-          <div className="absolute left-0 top-0 bottom-0 w-16 md:w-20 bg-gradient-to-r from-background-secondary to-transparent pointer-events-none z-20"></div>
-          <div className="absolute right-0 top-0 bottom-0 w-16 md:w-20 bg-gradient-to-l from-background-secondary to-transparent pointer-events-none z-20"></div>
+          <div className="absolute left-0 top-0 bottom-0 w-16 md:w-20 bg-gradient-to-r from-background-primary to-transparent pointer-events-none z-20"></div>
+          <div className="absolute right-0 top-0 bottom-0 w-16 md:w-20 bg-gradient-to-l from-background-primary to-transparent pointer-events-none z-20"></div>
         </motion.div>
       </div>
     </section>

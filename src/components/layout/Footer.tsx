@@ -79,14 +79,6 @@ export default function Footer(): JSX.Element {
                   Pricing
                 </a>
               </li>
-              <li>
-                <a
-                  href="/contact"
-                  className="hover:text-interactive-primary transition-colors"
-                >
-                  Contact
-                </a>
-              </li>
             </ul>
           </div>
 

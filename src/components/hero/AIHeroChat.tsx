@@ -265,10 +265,10 @@ export default function AIHeroChat(): JSX.Element {
                       onClick={() =>
                         handleInputChange(questions[currentStep].key, option)
                       }
-                      className={`px-4 py-3 rounded-lg border transition-all ${
+                      className={`rounded-lg border transition-all ${
                         formData[questions[currentStep].key] === option
-                          ? "bg-tiffany-blue text-white border-transparent"
-                          : "bg-white/10 backdrop-blur-sm border-white/20 text-text-primary hover:border-tiffany-blue/50"
+                          ? "dropdown-item-active"
+                          : "dropdown-item bg-white/10 backdrop-blur-sm border-white/20 hover:border-tiffany-blue/50"
                       }`}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}

@@ -59,12 +59,6 @@ export const trackPageView = (url: string, title?: string) => {
 };
 
 // Common business events to track
-export const trackContactFormSubmit = () => {
-  trackEvent('contact_form_submit', {
-    event_category: 'engagement',
-    event_label: 'contact_form',
-  });
-};
 
 export const trackServicePageView = (serviceName: string) => {
   trackEvent('service_page_view', {
