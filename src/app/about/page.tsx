@@ -46,7 +46,7 @@ export default function About() {
       <Navigation />
 
       {/* Hero Section */}
-      <section className="pt-20 pb-16 bg-gradient-to-b from-black to-gray-900">
+      <section className="pt-20 pb-16 bg-background-secondary">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
@@ -60,7 +60,7 @@ export default function About() {
       </section>
 
       {/* Mission Section */}
-      <section className="py-16 bg-black">
+      <section className="py-16 bg-background-primary">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
@@ -133,7 +133,7 @@ export default function About() {
       </section>
 
       {/* Values Section */}
-      <section className="py-16 bg-gray-900">
+      <section className="py-16 bg-background-secondary">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-white mb-4">Our Values</h2>
@@ -192,7 +192,7 @@ export default function About() {
       </Suspense>
 
       {/* CTA Section */}
-      <section className="py-16 bg-black">
+      <section className="py-16 bg-background-primary">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold text-white mb-4">
             Ready to Work Together?

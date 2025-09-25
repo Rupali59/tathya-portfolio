@@ -11,7 +11,7 @@ const Contact = lazy(() => import("@/components/forms/Contact"));
 
 // Loading component for Suspense fallback
 const LoadingSpinner = () => (
-  <div className="min-h-screen bg-black/80 backdrop-blur-sm text-white flex items-center justify-center">
+  <div className="min-h-screen bg-background-primary text-text-primary flex items-center justify-center">
     <div className="text-center">
       <div className="w-16 h-16 border-4 border-green-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
       <p className="text-gray-300">Loading...</p>
@@ -48,7 +48,7 @@ export default function ServicesPage() {
       <Navigation />
 
       {/* Hero Section */}
-      <section className="pt-20 pb-16 bg-gradient-to-b from-black to-gray-900">
+      <section className="pt-20 pb-16 bg-background-secondary">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
@@ -63,7 +63,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Services Overview */}
-      <section className="py-16 bg-black">
+      <section className="py-16 bg-background-primary">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-white mb-4">

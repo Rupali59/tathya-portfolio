@@ -32,6 +32,15 @@ export default function Analytics({
       return;
     }
 
+    // Check if we have valid environment variables before proceeding
+    const hasValidConfig = gaMeasurementId || hotjarSiteId || clarityProjectId;
+    if (!hasValidConfig) {
+      console.log(
+        "Analytics: No valid configuration found, skipping initialization"
+      );
+      return;
+    }
+
     // Add error handling for browser extension conflicts
     const handleError = (error: ErrorEvent) => {
       if (
@@ -47,74 +56,86 @@ export default function Analytics({
     window.addEventListener("error", handleError);
 
     // Initialize Google Analytics
-    if (gaMeasurementId) {
-      // Load Google Analytics script
-      const script = document.createElement("script");
-      script.async = true;
-      script.src = `https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`;
-      document.head.appendChild(script);
+    if (gaMeasurementId && gaMeasurementId.trim() !== "") {
+      try {
+        // Load Google Analytics script
+        const script = document.createElement("script");
+        script.async = true;
+        script.src = `https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`;
+        document.head.appendChild(script);
 
-      // Initialize gtag
-      window.dataLayer = window.dataLayer || [];
-      const gtag = (...args: any[]) => {
-        window.dataLayer!.push(args);
-      };
-      window.gtag = gtag;
+        // Initialize gtag
+        window.dataLayer = window.dataLayer || [];
+        const gtag = (...args: any[]) => {
+          window.dataLayer!.push(args);
+        };
+        window.gtag = gtag;
 
-      gtag("js", new Date());
-      gtag("config", gaMeasurementId, {
-        page_title: document.title,
-        page_location: window.location.href,
-      });
-
-      // Track page views on route changes
-      const handleRouteChange = () => {
+        gtag("js", new Date());
         gtag("config", gaMeasurementId, {
           page_title: document.title,
           page_location: window.location.href,
         });
-      };
 
-      // Listen for route changes (Next.js)
-      window.addEventListener("popstate", handleRouteChange);
+        // Track page views on route changes
+        const handleRouteChange = () => {
+          gtag("config", gaMeasurementId, {
+            page_title: document.title,
+            page_location: window.location.href,
+          });
+        };
 
-      return () => {
-        window.removeEventListener("popstate", handleRouteChange);
-        window.removeEventListener("error", handleError);
-      };
+        // Listen for route changes (Next.js)
+        window.addEventListener("popstate", handleRouteChange);
+
+        return () => {
+          window.removeEventListener("popstate", handleRouteChange);
+          window.removeEventListener("error", handleError);
+        };
+      } catch (error) {
+        console.warn("Failed to initialize Google Analytics:", error);
+      }
     }
 
     // Initialize Hotjar
-    if (hotjarSiteId) {
-      (function (h: any, o: any, t: any, j: any, a?: any, r?: any) {
-        h.hj =
-          h.hj ||
-          function (...args: any[]) {
-            (h.hj.q = h.hj.q || []).push(args);
-          };
-        h._hjSettings = { hjid: hotjarSiteId, hjsv: 6 };
-        a = o.getElementsByTagName("head")[0];
-        r = o.createElement("script");
-        r.async = 1;
-        r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
-        a.appendChild(r);
-      })(window, document, "https://static.hotjar.com/c/hotjar-", ".js?sv=");
+    if (hotjarSiteId && hotjarSiteId.trim() !== "") {
+      try {
+        (function (h: any, o: any, t: any, j: any, a?: any, r?: any) {
+          h.hj =
+            h.hj ||
+            function (...args: any[]) {
+              (h.hj.q = h.hj.q || []).push(args);
+            };
+          h._hjSettings = { hjid: hotjarSiteId, hjsv: 6 };
+          a = o.getElementsByTagName("head")[0];
+          r = o.createElement("script");
+          r.async = 1;
+          r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+          a.appendChild(r);
+        })(window, document, "https://static.hotjar.com/c/hotjar-", ".js?sv=");
+      } catch (error) {
+        console.warn("Failed to initialize Hotjar:", error);
+      }
     }
 
     // Initialize Microsoft Clarity
-    if (clarityProjectId) {
-      (function (c: any, l: any, a: any, r: any, i: any, t?: any, y?: any) {
-        c[a] =
-          c[a] ||
-          function () {
-            (c[a].q = c[a].q || []).push(arguments);
-          };
-        t = l.createElement(r);
-        t.async = 1;
-        t.src = "https://www.clarity.ms/tag/" + i;
-        y = l.getElementsByTagName(r)[0];
-        y.parentNode.insertBefore(t, y);
-      })(window, document, "clarity", "script", clarityProjectId);
+    if (clarityProjectId && clarityProjectId.trim() !== "") {
+      try {
+        (function (c: any, l: any, a: any, r: any, i: any, t?: any, y?: any) {
+          c[a] =
+            c[a] ||
+            function () {
+              (c[a].q = c[a].q || []).push(arguments);
+            };
+          t = l.createElement(r);
+          t.async = 1;
+          t.src = "https://www.clarity.ms/tag/" + i;
+          y = l.getElementsByTagName(r)[0];
+          y.parentNode.insertBefore(t, y);
+        })(window, document, "clarity", "script", clarityProjectId);
+      } catch (error) {
+        console.warn("Failed to initialize Microsoft Clarity:", error);
+      }
     }
 
     // Cleanup function
@@ -158,7 +179,7 @@ export const useAnalytics = () => {
     }
 
     // Google Analytics page view
-    if (window.gtag) {
+    if (window.gtag && process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID) {
       window.gtag("config", process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID, {
         page_title: title || document.title,
         page_location: url,

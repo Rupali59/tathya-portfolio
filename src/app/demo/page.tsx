@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import Navigation from "@/components/layout/Navigation";
-import { ThemeToggle } from "@/components/ui/ThemeToggle";
-import AIHeroChat from "@/components/ui/AIHeroChat";
+import { ThemeToggle } from "@/components/common/ThemeToggle";
+import AIHeroChat from "@/components/hero/AIHeroChat";
 
 // Force SSR for this page
 export const dynamic = "force-dynamic";
@@ -14,7 +14,7 @@ export default function DemoPage() {
     <>
       <Navigation />
 
-      <main className="min-h-screen bg-background-primary text-text-primary pt-20">
+      <main className="min-h-screen bg-background-secondary text-text-primary pt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           {/* Header */}
           <div className="text-center mb-16">
