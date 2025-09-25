@@ -39,11 +39,11 @@ jobs:
       - name: Run ESLint
         run: npm run lint -- --max-warnings 0
 
-    - name: Build application
-      run: npm run build
-      env:
-        # Disable Next.js telemetry during build
-        NEXT_TELEMETRY_DISABLED: 1
+      - name: Build application
+        run: npm run build
+        env:
+          # Disable Next.js telemetry during build
+          NEXT_TELEMETRY_DISABLED: 1
 
       - name: Verify build output
         run: |
