@@ -218,6 +218,9 @@
     --z-tooltip: 1070;
     --z-toast: 1080;
 
+    /* Background Image Opacity */
+    --bg-image-opacity: 1;
+
     /* Ocean Color Palette - Tathya Brand Colors */
     --baby-powder: #FEFEFE;
     --baby-powder-100: #F8FAFC;
@@ -345,6 +348,9 @@
     --color-interactive-secondary: var(--tiffany-blue-400);
     --color-interactive-secondary-hover: var(--tiffany-blue-300);
     --color-interactive-secondary-active: var(--tiffany-blue-200);
+
+    /* Background Image Opacity - Dark Theme */
+    --bg-image-opacity: 0.1;
 }
 
 /* System Theme - Follows OS preference (Tathya Colors) */
@@ -422,5 +428,8 @@
         --color-interactive-secondary: var(--tiffany-blue-400);
         --color-interactive-secondary-hover: var(--tiffany-blue-300);
         --color-interactive-secondary-active: var(--tiffany-blue-200);
+
+        /* Background Image Opacity - System Dark Theme */
+        --bg-image-opacity: 0.1;
     }
 }

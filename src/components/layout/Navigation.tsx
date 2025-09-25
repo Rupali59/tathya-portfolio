@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { ThemeToggle } from "@/components/ui/ThemeToggle";
-import Logo from "@/components/ui/Logo";
+import { ThemeToggle } from "@/components/common/ThemeToggle";
+import Logo from "@/components/common/Logo";
 import {
   ChevronDownIcon,
   Bars3Icon,

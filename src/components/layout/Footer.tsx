@@ -1,4 +1,4 @@
-import Logo from "@/components/ui/Logo";
+import Logo from "@/components/common/Logo";
 
 export default function Footer(): JSX.Element {
   return (
@@ -131,8 +131,34 @@ export default function Footer(): JSX.Element {
           </div>
         </div>
 
-        <div className="border-t border-border-primary mt-8 pt-8 text-center text-text-tertiary">
-          <p>&copy; 2024 Tathya. All rights reserved.</p>
+        <div className="border-t border-border-primary mt-8 pt-8">
+          <div className="text-center text-text-tertiary mb-4">
+            <p>&copy; 2024 Tathya. All rights reserved.</p>
+          </div>
+
+          <div className="text-center text-text-tertiary text-sm">
+            <p className="mb-2">
+              <a
+                href="/privacy"
+                className="hover:text-interactive-primary transition-colors underline"
+              >
+                Privacy Policy
+              </a>
+              {" • "}
+              <a
+                href="/terms"
+                className="hover:text-interactive-primary transition-colors underline"
+              >
+                Terms of Service
+              </a>
+            </p>
+            <p className="text-xs opacity-75">
+              We acknowledge that we have the necessary privacy disclosures and
+              rights from our end users for the collection and processing of
+              their data, including the association of such data with the
+              visitation information Google Analytics collects from our site.
+            </p>
+          </div>
         </div>
       </div>
     </footer>
