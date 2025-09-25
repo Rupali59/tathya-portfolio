@@ -1,15 +1,12 @@
+import Logo from "@/components/ui/Logo";
+
 export default function Footer(): JSX.Element {
   return (
     <footer className="bg-background-primary text-text-primary py-12 border-t border-border-primary">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-4 gap-8">
           <div>
-            <h3 className="text-2xl font-bold mb-4 text-text-primary">
-              Tathya
-            </h3>
-            <p className="text-text-secondary mb-4">
-              Building Solutions Grounded in Facts
-            </p>
+            <Logo size="md" showTagline={true} className="mb-4" />
             <p className="text-text-tertiary">hello@tathya.dev</p>
           </div>
 
@@ -84,7 +81,7 @@ export default function Footer(): JSX.Element {
               </li>
               <li>
                 <a
-                  href="#contact"
+                  href="/contact"
                   className="hover:text-interactive-primary transition-colors"
                 >
                   Contact

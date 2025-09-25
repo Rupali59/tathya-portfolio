@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import dynamic from "next/dynamic";
-import { useTheme } from "../../contexts/ThemeContext";
+import { useTheme } from "@/contexts/ThemeContext";
 
 // Clean SVG icons for themes
 const SunIcon = ({ className }: { className?: string }) => (
@@ -83,48 +83,47 @@ function ThemeToggleInternal() {
   const CurrentIcon = currentTheme.icon;
 
   return (
-    <div className="relative">
+    <div
+      className="relative group"
+      onMouseEnter={() => setIsOpen(true)}
+      onMouseLeave={() => setIsOpen(false)}
+    >
       <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="p-2 rounded-lg text-text-secondary hover:text-text-primary hover:bg-background-secondary/50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-interactive-primary/20"
+        className="p-2 rounded-lg text-text-secondary hover:text-secondary hover:bg-secondary/20 hover:scale-105 hover:shadow-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-secondary/20"
         aria-label="Toggle theme"
       >
         <CurrentIcon className="w-5 h-5" />
       </button>
 
-      {isOpen && (
-        <>
-          {/* Backdrop */}
-          <div
-            className="fixed inset-0 z-40"
-            onClick={() => setIsOpen(false)}
-          />
-
-          {/* Dropdown */}
-          <div className="absolute right-0 top-full mt-2 w-32 bg-background-elevated/95 backdrop-blur-sm border border-border-primary/50 rounded-lg shadow-lg z-50 overflow-hidden">
-            {themes.map((themeOption) => {
-              const IconComponent = themeOption.icon;
-              return (
-                <button
-                  key={themeOption.value}
-                  onClick={() => {
-                    setTheme(themeOption.value);
-                    setIsOpen(false);
-                  }}
-                  className={`w-full flex items-center gap-2 px-3 py-2 text-sm transition-colors duration-150 ${
-                    theme === themeOption.value
-                      ? "bg-interactive-primary/10 text-interactive-primary"
-                      : "text-text-secondary hover:text-text-primary hover:bg-background-secondary/50"
-                  }`}
-                >
-                  <IconComponent className="w-4 h-4" />
-                  <span className="font-medium">{themeOption.label}</span>
-                </button>
-              );
-            })}
-          </div>
-        </>
-      )}
+      {/* Dropdown */}
+      <div
+        className={`absolute right-0 top-full mt-2 w-32 bg-background-elevated/95 backdrop-blur-sm border border-border-primary/50 rounded-lg shadow-lg z-50 overflow-hidden hover:shadow-xl transition-all duration-200 ${
+          isOpen
+            ? "opacity-100 visible translate-y-0"
+            : "opacity-0 invisible -translate-y-2"
+        }`}
+      >
+        {themes.map((themeOption) => {
+          const IconComponent = themeOption.icon;
+          return (
+            <button
+              key={themeOption.value}
+              onClick={() => {
+                setTheme(themeOption.value);
+                setIsOpen(false);
+              }}
+              className={`w-full flex items-center gap-2 px-3 py-2 text-sm transition-all duration-200 ${
+                theme === themeOption.value
+                  ? "bg-secondary/20 text-secondary border-l-2 border-secondary font-semibold"
+                  : "text-text-secondary hover:text-secondary hover:bg-secondary/15 hover:border-l-2 hover:border-secondary/70 hover:font-medium"
+              }`}
+            >
+              <IconComponent className="w-4 h-4" />
+              <span className="font-medium">{themeOption.label}</span>
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 }

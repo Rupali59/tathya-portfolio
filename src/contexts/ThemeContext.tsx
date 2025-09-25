@@ -14,10 +14,10 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>("system");
-  const [resolvedTheme, setResolvedTheme] = useState<"light" | "dark">("dark");
+  const [resolvedTheme, setResolvedTheme] = useState<"light" | "dark">("light");
   const [mounted, setMounted] = useState(false);
 
-  // Handle hydration
+  // Handle hydration and initial theme setup
   useEffect(() => {
     setMounted(true);
 
@@ -52,6 +52,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
           ? "dark"
           : "light";
         root.classList.add(systemTheme);
+        root.setAttribute("data-theme", systemTheme);
         setResolvedTheme(systemTheme);
       } else {
         root.classList.add(theme);
@@ -77,7 +78,9 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
         if (theme === "system") {
           const systemTheme = mediaQuery.matches ? "dark" : "light";
           document.documentElement.classList.remove("light", "dark");
+          document.documentElement.removeAttribute("data-theme");
           document.documentElement.classList.add(systemTheme);
+          document.documentElement.setAttribute("data-theme", systemTheme);
           setResolvedTheme(systemTheme);
         }
       };
@@ -109,7 +112,7 @@ export function useTheme() {
     return {
       theme: "system" as Theme,
       setTheme: () => {},
-      resolvedTheme: "dark" as "light" | "dark",
+      resolvedTheme: "light" as "light" | "dark",
     };
   }
   return context;
