@@ -1,18 +1,68 @@
-/* Enterprise Theme System - CSS Custom Properties */
+/* Ocean-Inspired Theme System - CSS Custom Properties */
 
 :root {
-    /* Brand Colors - Green Primary */
-    --color-primary-50: #ecfdf5;
-    --color-primary-100: #d1fae5;
-    --color-primary-200: #a7f3d0;
-    --color-primary-300: #6ee7b7;
-    --color-primary-400: #34d399;
-    --color-primary-500: #10b981;
-    --color-primary-600: #059669;
-    --color-primary-700: #047857;
-    --color-primary-800: #065f46;
-    --color-primary-900: #064e3b;
-    --color-primary-950: #022c22;
+    /* Ocean Palette - Primary Colors */
+    --baby-powder: #fffffa;
+    --caribbean-current: #0d5c63;
+    --verdigris: #44a1a0;
+    --tiffany-blue: #78cdd7;
+    --teal: #247b7b;
+
+    /* Extended Ocean Palette */
+    --baby-powder-50: #fffffe;
+    --baby-powder-100: #fffffd;
+    --baby-powder-200: #fffffc;
+    --baby-powder-300: #fffffb;
+    --baby-powder-400: #fffffa;
+    --baby-powder-500: #fffffa;
+    --baby-powder-600: #ffff95;
+    --baby-powder-700: #ffff30;
+    --baby-powder-800: #caca00;
+    --baby-powder-900: #656500;
+
+    --caribbean-current-50: #b9f1f6;
+    --caribbean-current-100: #72e2ed;
+    --caribbean-current-200: #2cd4e4;
+    --caribbean-current-300: #169daa;
+    --caribbean-current-400: #0d5c63;
+    --caribbean-current-500: #0d5c63;
+    --caribbean-current-600: #0a4a4f;
+    --caribbean-current-700: #08373c;
+    --caribbean-current-800: #052528;
+    --caribbean-current-900: #031214;
+
+    --verdigris-50: #d7eeee;
+    --verdigris-100: #b0dedd;
+    --verdigris-200: #88cdcc;
+    --verdigris-300: #61bdbb;
+    --verdigris-400: #44a1a0;
+    --verdigris-500: #44a1a0;
+    --verdigris-600: #368180;
+    --verdigris-700: #296160;
+    --verdigris-800: #1b4140;
+    --verdigris-900: #0e2020;
+
+    --tiffany-blue-50: #e4f5f7;
+    --tiffany-blue-100: #caebef;
+    --tiffany-blue-200: #afe1e7;
+    --tiffany-blue-300: #94d8df;
+    --tiffany-blue-400: #78cdd7;
+    --tiffany-blue-500: #78cdd7;
+    --tiffany-blue-600: #46bbc8;
+    --tiffany-blue-700: #2e919c;
+    --tiffany-blue-800: #1f6068;
+    --tiffany-blue-900: #0f3034;
+
+    --teal-50: #c8efef;
+    --teal-100: #92dfdf;
+    --teal-200: #5bcfcf;
+    --teal-300: #33b1b1;
+    --teal-400: #247b7b;
+    --teal-500: #247b7b;
+    --teal-600: #1c6262;
+    --teal-700: #154a4a;
+    --teal-800: #0e3131;
+    --teal-900: #071919;
 
     /* Neutral Colors */
     --color-neutral-0: #ffffff;
@@ -159,87 +209,87 @@
     --z-tooltip: 1070;
     --z-toast: 1080;
 
-    /* Light Theme (Default) */
-    --color-background-primary: var(--color-neutral-0);
-    --color-background-secondary: var(--color-neutral-50);
-    --color-background-tertiary: var(--color-neutral-100);
-    --color-background-elevated: var(--color-neutral-0);
+    /* Light Theme (Default) - Ocean Colors */
+    --color-background-primary: var(--baby-powder);
+    --color-background-secondary: var(--baby-powder-100);
+    --color-background-tertiary: var(--baby-powder-200);
+    --color-background-elevated: var(--baby-powder);
 
-    --color-text-primary: var(--color-neutral-900);
-    --color-text-secondary: var(--color-neutral-700);
-    --color-text-tertiary: var(--color-neutral-500);
-    --color-text-inverse: var(--color-neutral-0);
+    --color-text-primary: var(--caribbean-current);
+    --color-text-secondary: var(--teal);
+    --color-text-tertiary: var(--verdigris);
+    --color-text-inverse: var(--baby-powder);
 
-    --color-border-primary: var(--color-neutral-200);
-    --color-border-secondary: var(--color-neutral-300);
-    --color-border-focus: var(--color-primary-500);
+    --color-border-primary: var(--tiffany-blue-200);
+    --color-border-secondary: var(--tiffany-blue-300);
+    --color-border-focus: var(--caribbean-current);
 
-    --color-surface-primary: var(--color-neutral-0);
-    --color-surface-secondary: var(--color-neutral-50);
-    --color-surface-elevated: var(--color-neutral-0);
+    --color-surface-primary: var(--baby-powder);
+    --color-surface-secondary: var(--baby-powder-100);
+    --color-surface-elevated: var(--baby-powder);
 
-    --color-interactive-primary: var(--color-primary-500);
-    --color-interactive-primary-hover: var(--color-primary-600);
-    --color-interactive-primary-active: var(--color-primary-700);
-    --color-interactive-secondary: var(--color-neutral-200);
-    --color-interactive-secondary-hover: var(--color-neutral-300);
-    --color-interactive-secondary-active: var(--color-neutral-400);
+    --color-interactive-primary: var(--caribbean-current);
+    --color-interactive-primary-hover: var(--caribbean-current-600);
+    --color-interactive-primary-active: var(--caribbean-current-700);
+    --color-interactive-secondary: var(--tiffany-blue-200);
+    --color-interactive-secondary-hover: var(--tiffany-blue-300);
+    --color-interactive-secondary-active: var(--tiffany-blue-400);
 }
 
-/* Dark Theme */
+/* Dark Theme - Ocean Colors */
 [data-theme="dark"] {
-    --color-background-primary: var(--color-neutral-900);
-    --color-background-secondary: var(--color-neutral-800);
-    --color-background-tertiary: var(--color-neutral-700);
-    --color-background-elevated: var(--color-neutral-800);
+    --color-background-primary: var(--caribbean-current-900);
+    --color-background-secondary: var(--caribbean-current-800);
+    --color-background-tertiary: var(--caribbean-current-700);
+    --color-background-elevated: var(--caribbean-current-800);
 
-    --color-text-primary: var(--color-neutral-100);
-    --color-text-secondary: var(--color-neutral-300);
-    --color-text-tertiary: var(--color-neutral-400);
-    --color-text-inverse: var(--color-neutral-900);
+    --color-text-primary: var(--baby-powder);
+    --color-text-secondary: var(--tiffany-blue-200);
+    --color-text-tertiary: var(--tiffany-blue-300);
+    --color-text-inverse: var(--caribbean-current);
 
-    --color-border-primary: var(--color-neutral-700);
-    --color-border-secondary: var(--color-neutral-600);
-    --color-border-focus: var(--color-primary-400);
+    --color-border-primary: var(--caribbean-current-600);
+    --color-border-secondary: var(--caribbean-current-500);
+    --color-border-focus: var(--tiffany-blue);
 
-    --color-surface-primary: var(--color-neutral-800);
-    --color-surface-secondary: var(--color-neutral-700);
-    --color-surface-elevated: var(--color-neutral-800);
+    --color-surface-primary: var(--caribbean-current-800);
+    --color-surface-secondary: var(--caribbean-current-700);
+    --color-surface-elevated: var(--caribbean-current-800);
 
-    --color-interactive-primary: var(--color-primary-400);
-    --color-interactive-primary-hover: var(--color-primary-300);
-    --color-interactive-primary-active: var(--color-primary-500);
-    --color-interactive-secondary: var(--color-neutral-700);
-    --color-interactive-secondary-hover: var(--color-neutral-600);
-    --color-interactive-secondary-active: var(--color-neutral-500);
+    --color-interactive-primary: var(--tiffany-blue);
+    --color-interactive-primary-hover: var(--tiffany-blue-300);
+    --color-interactive-primary-active: var(--tiffany-blue-400);
+    --color-interactive-secondary: var(--caribbean-current-600);
+    --color-interactive-secondary-hover: var(--caribbean-current-500);
+    --color-interactive-secondary-active: var(--caribbean-current-400);
 }
 
-/* System Theme - Follows OS preference */
+/* System Theme - Follows OS preference (Ocean Colors) */
 @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-        --color-background-primary: var(--color-neutral-900);
-        --color-background-secondary: var(--color-neutral-800);
-        --color-background-tertiary: var(--color-neutral-700);
-        --color-background-elevated: var(--color-neutral-800);
+        --color-background-primary: var(--caribbean-current-900);
+        --color-background-secondary: var(--caribbean-current-800);
+        --color-background-tertiary: var(--caribbean-current-700);
+        --color-background-elevated: var(--caribbean-current-800);
 
-        --color-text-primary: var(--color-neutral-100);
-        --color-text-secondary: var(--color-neutral-300);
-        --color-text-tertiary: var(--color-neutral-400);
-        --color-text-inverse: var(--color-neutral-900);
+        --color-text-primary: var(--baby-powder);
+        --color-text-secondary: var(--tiffany-blue-200);
+        --color-text-tertiary: var(--tiffany-blue-300);
+        --color-text-inverse: var(--caribbean-current);
 
-        --color-border-primary: var(--color-neutral-700);
-        --color-border-secondary: var(--color-neutral-600);
-        --color-border-focus: var(--color-primary-400);
+        --color-border-primary: var(--caribbean-current-600);
+        --color-border-secondary: var(--caribbean-current-500);
+        --color-border-focus: var(--tiffany-blue);
 
-        --color-surface-primary: var(--color-neutral-800);
-        --color-surface-secondary: var(--color-neutral-700);
-        --color-surface-elevated: var(--color-neutral-800);
+        --color-surface-primary: var(--caribbean-current-800);
+        --color-surface-secondary: var(--caribbean-current-700);
+        --color-surface-elevated: var(--caribbean-current-800);
 
-        --color-interactive-primary: var(--color-primary-400);
-        --color-interactive-primary-hover: var(--color-primary-300);
-        --color-interactive-primary-active: var(--color-primary-500);
-        --color-interactive-secondary: var(--color-neutral-700);
-        --color-interactive-secondary-hover: var(--color-neutral-600);
-        --color-interactive-secondary-active: var(--color-neutral-500);
+        --color-interactive-primary: var(--tiffany-blue);
+        --color-interactive-primary-hover: var(--tiffany-blue-300);
+        --color-interactive-primary-active: var(--tiffany-blue-400);
+        --color-interactive-secondary: var(--caribbean-current-600);
+        --color-interactive-secondary-hover: var(--caribbean-current-500);
+        --color-interactive-secondary-active: var(--caribbean-current-400);
     }
 }
