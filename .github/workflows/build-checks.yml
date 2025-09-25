@@ -1,0 +1,91 @@
+name: Build Checks
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  build-checks:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Clean previous builds
+        run: npm run clean
+
+      - name: Run TypeScript type checking
+        run: npm run type-check
+
+      - name: Run ESLint
+        run: npm run lint -- --max-warnings 0
+
+      - name: Build application
+        run: npm run build
+        env:
+          # Allow build to complete despite static generation errors
+          NEXT_TELEMETRY_DISABLED: 1
+
+      - name: Verify build output
+        run: |
+          if [ ! -d ".next" ]; then
+            echo "❌ Build failed: .next directory not found"
+            exit 1
+          fi
+
+          if [ ! -f ".next/BUILD_ID" ]; then
+            echo "❌ Build failed: BUILD_ID file not found"
+            exit 1
+          fi
+
+          echo "✅ Build successful!"
+          echo "Build ID: $(cat .next/BUILD_ID)"
+
+      - name: Check bundle size
+        run: |
+          if [ -d ".next/static/chunks" ]; then
+            echo "📦 Bundle size analysis:"
+            du -sh .next/static/chunks/* | sort -hr | head -5
+          fi
+
+  security-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run security audit
+        run: npm audit --audit-level=moderate
+
+      - name: Check for high severity vulnerabilities
+        run: |
+          echo "🔍 Checking for high severity vulnerabilities..."
+          if npm audit --audit-level=high --json | jq -e '.vulnerabilities | length > 0' > /dev/null 2>&1; then
+            echo "❌ High severity vulnerabilities found!"
+            npm audit --audit-level=high
+            exit 1
+          else
+            echo "✅ No high severity vulnerabilities found"
+          fi

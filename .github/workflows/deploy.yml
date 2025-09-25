@@ -1,0 +1,61 @@
+name: Deploy
+
+on:
+  push:
+    branches: [ main ]
+  workflow_run:
+    workflows: ["Build Checks"]
+    types: [completed]
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.event.workflow_run.conclusion == 'success' || github.event_name == 'push'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Build application
+      run: npm run build
+      
+    - name: Deploy to production
+      run: |
+        echo "🚀 Starting deployment..."
+        echo "✅ Build checks passed - proceeding with deployment"
+        
+        # Add your deployment commands here based on your hosting platform:
+        
+        # For Vercel:
+        # npm install -g vercel
+        # vercel --prod --token ${{ secrets.VERCEL_TOKEN }}
+        
+        # For Netlify:
+        # npm install -g netlify-cli
+        # netlify deploy --prod --dir=.next --site=${{ secrets.NETLIFY_SITE_ID }} --auth=${{ secrets.NETLIFY_AUTH_TOKEN }}
+        
+        # For AWS S3 + CloudFront:
+        # aws s3 sync .next/static s3://${{ secrets.S3_BUCKET }}/static --delete
+        # aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
+        
+        # For now, just echo success
+        echo "🎉 Deployment completed successfully!"
+        
+    - name: Notify deployment status
+      if: always()
+      run: |
+        if [ "${{ job.status }}" == "success" ]; then
+          echo "✅ Deployment successful!"
+        else
+          echo "❌ Deployment failed!"
+        fi

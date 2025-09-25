@@ -1,7 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
 import { useTheme } from "../../contexts/ThemeContext";
+
+type Theme = "light" | "dark" | "system";
 
 // Clean SVG icons for themes
 const SunIcon = ({ className }: { className?: string }) => (
@@ -55,7 +58,8 @@ const MonitorIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-export function ThemeToggle() {
+// Internal component that uses the theme context
+function ThemeToggleInternal() {
   const { theme, setTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -126,3 +130,13 @@ export function ThemeToggle() {
     </div>
   );
 }
+
+// Export the dynamically imported component to prevent SSR issues
+export const ThemeToggle = dynamic(() => Promise.resolve(ThemeToggleInternal), {
+  ssr: false,
+  loading: () => (
+    <div className="p-2 rounded-lg text-text-secondary">
+      <div className="w-5 h-5" />
+    </div>
+  ),
+});

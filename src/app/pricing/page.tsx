@@ -315,7 +315,7 @@ export default function Pricing() {
 
             <div className="bg-gray-900 rounded-lg p-6">
               <h3 className="text-lg font-semibold text-white mb-2">
-                What's included in the support period?
+                What&apos;s included in the support period?
               </h3>
               <p className="text-gray-300">
                 Support includes bug fixes, minor updates, security patches, and
@@ -331,7 +331,7 @@ export default function Pricing() {
               <p className="text-gray-300">
                 Absolutely! We can upgrade your existing package or add
                 additional services at any time. Pricing will be prorated based
-                on what you've already paid.
+                on what you&apos;ve already paid.
               </p>
             </div>
 
@@ -367,7 +367,7 @@ export default function Pricing() {
             Ready to Get Started?
           </h2>
           <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
-            Let's discuss your project requirements and find the perfect
+            Let&apos;s discuss your project requirements and find the perfect
             solution for your business needs and budget.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

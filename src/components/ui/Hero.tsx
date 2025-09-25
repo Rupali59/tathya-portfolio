@@ -29,9 +29,9 @@ export default function Hero(): JSX.Element {
         {/* Description with scale-in animation */}
         <div className="animate-scale-in" style={{ animationDelay: "0.4s" }}>
           <p className="text-lg sm:text-xl mb-12 text-text-tertiary max-w-4xl mx-auto leading-relaxed">
-            We're a passionate team of developers and designers who love
+            We&apos;re a passionate team of developers and designers who love
             creating clean, functional solutions based on facts, data, and
-            proven methodologies. Let's build something amazing together.
+            proven methodologies. Let&apos;s build something amazing together.
           </p>
         </div>
 

@@ -73,9 +73,9 @@ export default function About() {
               </p>
               <p className="text-gray-300 mb-6">
                 Our team combines technical expertise with business acumen to
-                deliver websites, CRM systems, and digital solutions that don't
-                just look good—they drive real, measurable growth for your
-                business.
+                deliver websites, CRM systems, and digital solutions that
+                don&apos;t just look good—they drive real, measurable growth for
+                your business.
               </p>
               <div className="flex flex-wrap gap-4">
                 <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-4">
@@ -175,8 +175,8 @@ export default function About() {
                 Partnership
               </h3>
               <p className="text-gray-300">
-                We're not just vendors—we're your digital growth partners,
-                invested in your long-term success.
+                We&apos;re not just vendors—we&apos;re your digital growth
+                partners, invested in your long-term success.
               </p>
             </div>
           </div>
@@ -195,8 +195,8 @@ export default function About() {
             Ready to Work Together?
           </h2>
           <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
-            Let's discuss how Tathya can help transform your digital presence
-            with solutions grounded in facts and focused on growth.
+            Let&apos;s discuss how Tathya can help transform your digital
+            presence with solutions grounded in facts and focused on growth.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a

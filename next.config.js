@@ -62,8 +62,7 @@ const nextConfig = {
     optimizePackageImports: ["framer-motion", "@heroicons/react"],
   },
 
-  // Skip static generation for error pages to avoid Html import issues
-  // This will make error pages dynamic instead of static
+  // Error pages are now dynamic (SSR) for better error handling
   trailingSlash: false,
 
   // Webpack optimizations for CSS

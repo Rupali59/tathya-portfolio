@@ -19,7 +19,7 @@ export default function Error({
         <h1 className="text-6xl font-bold mb-4">500</h1>
         <h2 className="text-2xl mb-4">Something went wrong!</h2>
         <p className="text-gray-400 mb-8">
-          We're sorry, but something unexpected happened.
+          We&apos;re sorry, but something unexpected happened.
         </p>
         <button
           onClick={reset}

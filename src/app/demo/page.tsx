@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense } from "react";
+import Link from "next/link";
 import Navigation from "../../components/layout/Navigation";
 import { ThemeToggle } from "../../components/ui/ThemeToggle";
 
@@ -227,7 +227,7 @@ export default function DemoPage() {
 
           {/* Back to Home */}
           <div className="text-center">
-            <a
+            <Link
               href="/"
               className="inline-flex items-center gap-2 px-6 py-3 bg-interactive-primary hover:bg-interactive-primary-hover text-white rounded-lg transition-all duration-300 transform hover:scale-105"
             >
@@ -245,7 +245,7 @@ export default function DemoPage() {
                 />
               </svg>
               Back to Home
-            </a>
+            </Link>
           </div>
         </div>
       </main>
