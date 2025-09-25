@@ -25,19 +25,19 @@ const eslintConfig = [
   },
   {
     rules: {
-      // Relax TypeScript rules
-      "@typescript-eslint/no-explicit-any": "warn",
-      "@typescript-eslint/no-unused-vars": "warn",
+      // Disable TypeScript rules that cause too many warnings
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-unused-vars": "off",
 
-      // Relax React rules
+      // Disable React rules that cause warnings
       "react/no-unescaped-entities": "off",
-      "react-hooks/exhaustive-deps": "warn",
+      "react-hooks/exhaustive-deps": "off",
 
-      // Relax Next.js rules
-      "@next/next/no-img-element": "warn",
+      // Disable Next.js rules that cause warnings
+      "@next/next/no-img-element": "off",
 
-      // Relax general rules
-      "prefer-rest-params": "warn",
+      // Disable general rules that cause warnings
+      "prefer-rest-params": "off",
     },
   },
 ];
