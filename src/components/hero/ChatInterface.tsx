@@ -80,7 +80,7 @@ export default function ChatInterface(): JSX.Element {
   ];
 
   return (
-    <div className="w-full max-w-4xl mx-auto relative z-10">
+    <div className="w-full relative z-10">
       {/* Chat Interface */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -119,7 +119,7 @@ export default function ChatInterface(): JSX.Element {
                 }`}
               >
                 <div
-                  className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
+                  className={`max-w-sm lg:max-w-lg xl:max-w-xl px-4 py-2 rounded-lg ${
                     message.isUser ? "bg-blue-500 text-white" : ""
                   }`}
                   style={{

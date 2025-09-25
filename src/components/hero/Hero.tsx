@@ -4,7 +4,7 @@ import ChatInterface from "./ChatInterface";
 
 export default function Hero(): JSX.Element {
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 relative">
+    <div className="min-h-screen flex items-center justify-center px-2 py-8 relative">
       {/* Background image with opacity control */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-fixed"
@@ -17,7 +17,7 @@ export default function Hero(): JSX.Element {
       {/* Dark theme overlay for reduced opacity */}
       <div className="absolute inset-0 bg-background-primary/50 dark:bg-background-primary/80" />
 
-      <div className="relative z-10">
+      <div className="w-full max-w-6xl mx-auto relative z-10">
         <ChatInterface />
       </div>
     </div>
