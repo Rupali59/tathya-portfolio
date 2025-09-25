@@ -231,7 +231,7 @@ export default function PerformancePage() {
                 <h3 className="font-semibold">Google Tools</h3>
               </div>
               <p className="text-sm text-text-secondary">
-                PageSpeed Insights, Lighthouse, Search Console
+                PageSpeed Insights, Search Console
               </p>
             </div>
             <div className="text-center">
