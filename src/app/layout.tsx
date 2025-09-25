@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { Analytics as VercelAnalytics } from "@vercel/analytics/react";
+import { ThemeProvider } from "../contexts/ThemeContext";
+// Temporarily disabled AnimatedBackground components to fix webpack issues
+// import {
+//   AnimatedBackground,
+//   FloatingShapes,
+//   GradientOrbs,
+// } from "../components/ui/AnimatedBackground";
 import "./globals.css";
 import "../styles/theme.css";
 
@@ -87,6 +94,33 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Theme initialization script - prevents flash of unstyled content */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  const theme = localStorage.getItem('theme') || 'system';
+                  const root = document.documentElement;
+                  
+                  if (theme === 'system') {
+                    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                    root.classList.add(prefersDark ? 'dark' : 'light');
+                    root.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+                  } else {
+                    root.classList.add(theme);
+                    root.setAttribute('data-theme', theme);
+                  }
+                } catch (e) {
+                  // Fallback to dark theme if localStorage fails
+                  document.documentElement.classList.add('dark');
+                  document.documentElement.setAttribute('data-theme', 'dark');
+                }
+              })();
+            `,
+          }}
+        />
+
         {/* Critical CSS - Inline for fastest rendering */}
         <style
           dangerouslySetInnerHTML={{
@@ -146,21 +180,7 @@ export default function RootLayout({
           }}
         />
 
-        {/* Preload critical fonts */}
-        <link
-          rel="preload"
-          href="/_next/static/media/inter.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preload"
-          href="/_next/static/media/jetbrains-mono.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
+        {/* Fonts are handled by Next.js font optimization */}
 
         {/* Instagram SEO Structured Data */}
         <script
@@ -208,9 +228,9 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${inter.variable} ${jetbrainsMono.variable} antialiased`}
+        className={`${inter.variable} ${jetbrainsMono.variable} antialiased bg-background-primary text-text-primary`}
       >
-        {children}
+        <ThemeProvider>{children}</ThemeProvider>
         <VercelAnalytics />
       </body>
     </html>

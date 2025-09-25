@@ -1,36 +1,52 @@
 export default function Footer(): JSX.Element {
   return (
-    <footer className="bg-black text-white py-12 border-t border-gray-800">
+    <footer className="bg-background-primary text-text-primary py-12 border-t border-border-primary">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-4 gap-8">
           <div>
-            <h3 className="text-2xl font-bold mb-4">Tathya</h3>
-            <p className="text-gray-400 mb-4">
+            <h3 className="text-2xl font-bold mb-4 text-text-primary">
+              Tathya
+            </h3>
+            <p className="text-text-secondary mb-4">
               Building Solutions Grounded in Facts
             </p>
-            <p className="text-gray-500">hello@tathya.dev</p>
+            <p className="text-text-tertiary">hello@tathya.dev</p>
           </div>
 
           <div>
-            <h4 className="text-lg font-semibold mb-4">Services</h4>
-            <ul className="space-y-2 text-gray-400">
+            <h4 className="text-lg font-semibold mb-4 text-text-primary">
+              Services
+            </h4>
+            <ul className="space-y-2 text-text-secondary">
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <a
+                  href="#"
+                  className="hover:text-interactive-primary transition-colors"
+                >
                   Web Development
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <a
+                  href="#"
+                  className="hover:text-interactive-primary transition-colors"
+                >
                   Software Development
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <a
+                  href="#"
+                  className="hover:text-interactive-primary transition-colors"
+                >
                   Technical Consulting
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <a
+                  href="#"
+                  className="hover:text-interactive-primary transition-colors"
+                >
                   Mobile Development
                 </a>
               </li>
@@ -38,17 +54,22 @@ export default function Footer(): JSX.Element {
           </div>
 
           <div>
-            <h4 className="text-lg font-semibold mb-4">Company</h4>
-            <ul className="space-y-2 text-gray-400">
+            <h4 className="text-lg font-semibold mb-4 text-text-primary">
+              Company
+            </h4>
+            <ul className="space-y-2 text-text-secondary">
               <li>
-                <a href="/about" className="hover:text-white transition-colors">
+                <a
+                  href="/about"
+                  className="hover:text-interactive-primary transition-colors"
+                >
                   About
                 </a>
               </li>
               <li>
                 <a
                   href="/services"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-interactive-primary transition-colors"
                 >
                   Services
                 </a>
@@ -56,7 +77,7 @@ export default function Footer(): JSX.Element {
               <li>
                 <a
                   href="/pricing"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-interactive-primary transition-colors"
                 >
                   Pricing
                 </a>
@@ -64,7 +85,7 @@ export default function Footer(): JSX.Element {
               <li>
                 <a
                   href="#contact"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-interactive-primary transition-colors"
                 >
                   Contact
                 </a>
@@ -73,12 +94,14 @@ export default function Footer(): JSX.Element {
           </div>
 
           <div>
-            <h4 className="text-lg font-semibold mb-4">Connect</h4>
-            <ul className="space-y-2 text-gray-400">
+            <h4 className="text-lg font-semibold mb-4 text-text-primary">
+              Connect
+            </h4>
+            <ul className="space-y-2 text-text-secondary">
               <li>
                 <a
                   href="https://github.com/Rupali59"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-interactive-primary transition-colors"
                 >
                   GitHub
                 </a>
@@ -86,7 +109,7 @@ export default function Footer(): JSX.Element {
               <li>
                 <a
                   href="https://linkedin.com/in/rupali-bhatnagar-b4864957"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-interactive-primary transition-colors"
                 >
                   LinkedIn
                 </a>
@@ -94,7 +117,7 @@ export default function Footer(): JSX.Element {
               <li>
                 <a
                   href="https://twitter.com/rupali_dev"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-interactive-primary transition-colors"
                 >
                   Twitter
                 </a>
@@ -102,7 +125,7 @@ export default function Footer(): JSX.Element {
               <li>
                 <a
                   href="https://tathya.dev"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-interactive-primary transition-colors"
                 >
                   Website
                 </a>
@@ -111,7 +134,7 @@ export default function Footer(): JSX.Element {
           </div>
         </div>
 
-        <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500">
+        <div className="border-t border-border-primary mt-8 pt-8 text-center text-text-tertiary">
           <p>&copy; 2024 Tathya. All rights reserved.</p>
         </div>
       </div>

@@ -6,7 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "clean": "rm -rf .next && rm -rf node_modules/.cache",
+    "clean-dev": "npm run clean && npm run build && npm run dev",
+    "fresh": "pkill -f 'next dev' || true && pkill -f 'npm run dev' || true && lsof -ti:3000 | xargs kill -9 || true && npm run clean && npm run dev",
+    "fresh-build": "pkill -f 'next dev' || true && pkill -f 'npm run dev' || true && lsof -ti:3000 | xargs kill -9 || true && npm run clean && npm run build && npm run dev"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
