@@ -1,7 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
-
 export default function Error({
   error,
   reset,
@@ -9,21 +7,31 @@ export default function Error({
   error: Error & { digest?: string };
   reset: () => void;
 }): JSX.Element {
-  useEffect(() => {
-    console.error(error);
-  }, [error]);
-
   return (
-    <div className="min-h-screen bg-black text-white flex items-center justify-center">
-      <div className="text-center">
-        <h1 className="text-6xl font-bold mb-4">500</h1>
-        <h2 className="text-2xl mb-4">Something went wrong!</h2>
-        <p className="text-gray-400 mb-8">
+    <div style={{ 
+      minHeight: '100vh', 
+      backgroundColor: '#000', 
+      color: '#fff', 
+      display: 'flex', 
+      alignItems: 'center', 
+      justifyContent: 'center' 
+    }}>
+      <div style={{ textAlign: 'center' }}>
+        <h1 style={{ fontSize: '4rem', fontWeight: 'bold', marginBottom: '1rem' }}>500</h1>
+        <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>Something went wrong!</h2>
+        <p style={{ color: '#9ca3af', marginBottom: '2rem' }}>
           We&apos;re sorry, but something unexpected happened.
         </p>
         <button
           onClick={reset}
-          className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors"
+          style={{
+            backgroundColor: '#10b981',
+            color: '#fff',
+            padding: '0.75rem 1.5rem',
+            borderRadius: '0.5rem',
+            border: 'none',
+            cursor: 'pointer'
+          }}
         >
           Try again
         </button>

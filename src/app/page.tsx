@@ -1,5 +1,5 @@
 // Force this page to be dynamic (SSR) instead of static
-export const dynamic = 'force-dynamic'
+export const dynamic = "force-dynamic";
 
 import Hero from "../components/ui/Hero";
 import Services from "../components/content/Services";
