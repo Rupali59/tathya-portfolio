@@ -103,7 +103,7 @@ export default function Team(): JSX.Element {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <section className="py-20 bg-background-primary text-text-primary relative overflow-hidden">
+    <section className="py-20 bg-background-primary text-text-primary relative overflow-hidden alternating-background">
       {/* Background decoration */}
       <div className="absolute inset-0 bg-gradient-to-br from-interactive-primary/5 via-transparent to-interactive-secondary/5"></div>
 

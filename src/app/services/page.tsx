@@ -65,7 +65,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Services Overview */}
-      <section className="py-16 bg-background-primary">
+      <section className="py-16 bg-background-primary alternating-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-white mb-4">
@@ -203,7 +203,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Process Section */}
-      <section className="py-16 bg-bg-secondary">
+      <section className="py-16 bg-bg-secondary alternating-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-text-primary mb-4">
@@ -277,7 +277,7 @@ export default function ServicesPage() {
       </Suspense>
 
       {/* Technology Stack */}
-      <section className="py-16 bg-black">
+      <section className="py-16 bg-black alternating-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-white mb-4">

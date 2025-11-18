@@ -22,6 +22,10 @@
     animation: scaleIn 0.6s ease-out forwards;
 }
 
+.animate-fade-in-up {
+    animation: fadeInUp 0.3s ease-out forwards;
+}
+
 
 /* Ripple Loading Spinner */
 .ripple-spinner {
@@ -179,6 +183,18 @@ body::-webkit-scrollbar-thumb:hover {
     }
 }
 
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 
 @keyframes ripple-loading {
     0% {
@@ -278,4 +294,69 @@ body::-webkit-scrollbar-thumb:hover {
 
 .light ::-webkit-scrollbar-thumb:hover {
     background: rgba(16, 185, 129, 0.7);
+}
+
+/* Floating Action Button specific styles */
+.floating-button-container {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 50;
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 640px) {
+    .floating-button-container {
+        bottom: 1rem;
+        right: 1rem;
+    }
+
+    .floating-button-main {
+        width: 3rem;
+        height: 3rem;
+    }
+
+    .floating-button-option {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+
+    .floating-button-text {
+        font-size: 0.875rem;
+        padding: 0.5rem 0.75rem;
+    }
+}
+
+/* Dark mode specific adjustments */
+[data-theme="dark"] .floating-button-text {
+    background: var(--dark-bg-elevated);
+    border-color: var(--dark-border-primary);
+    color: var(--dark-text-primary);
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+
+    .floating-button-main,
+    .floating-button-option {
+        border: 2px solid currentColor;
+    }
+}
+
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+
+    .floating-button-main,
+    .floating-button-option,
+    .floating-button-text {
+        transition: none;
+        animation: none;
+    }
+
+    .animate-fade-in-up {
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
 }

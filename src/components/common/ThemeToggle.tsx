@@ -97,7 +97,7 @@ function ThemeToggleInternal() {
 
       {/* Dropdown */}
       <div
-        className={`absolute right-0 top-full mt-2 w-32 bg-background-elevated/95 backdrop-blur-sm border border-border-primary/50 rounded-lg shadow-lg z-50 overflow-hidden hover:shadow-xl transition-all duration-200 ${
+        className={`absolute right-0 top-full mt-2 w-12 bg-background-elevated/95 backdrop-blur-sm border border-border-primary/50 rounded-lg shadow-lg z-50 overflow-hidden hover:shadow-xl transition-all duration-200 ${
           isOpen
             ? "opacity-100 visible translate-y-0"
             : "opacity-0 invisible -translate-y-2"
@@ -112,14 +112,14 @@ function ThemeToggleInternal() {
                 setTheme(themeOption.value);
                 setIsOpen(false);
               }}
-              className={`w-full flex items-center gap-2 text-sm ${
+              className={`w-full flex items-center justify-center p-2 ${
                 theme === themeOption.value
                   ? "dropdown-item-active"
                   : "dropdown-item"
               }`}
+              title={themeOption.label}
             >
               <IconComponent className="w-4 h-4" />
-              <span className="font-medium">{themeOption.label}</span>
             </button>
           );
         })}

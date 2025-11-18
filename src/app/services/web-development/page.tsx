@@ -1,18 +1,98 @@
 import React from "react";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Web Development Services | Tathya",
-  description:
-    "Professional web development services including custom websites, web applications, and e-commerce solutions. Built with modern technologies for optimal performance.",
-  keywords: [
-    "web development",
-    "custom websites",
-    "web applications",
-    "e-commerce",
-    "responsive design",
-  ],
-};
+// Dynamic metadata generation
+export async function generateMetadata(): Promise<Metadata> {
+  const serviceData = {
+    title: "Web Development Services | Tathya",
+    description:
+      "Professional web development services including custom websites, web applications, and e-commerce solutions. Built with modern technologies for optimal performance.",
+    keywords: [
+      "web development",
+      "custom websites",
+      "web applications",
+      "e-commerce",
+      "responsive design",
+      "React development",
+      "Next.js development",
+      "TypeScript development",
+    ],
+    service: "Web Development",
+    features: [
+      "Custom Websites",
+      "Web Applications",
+      "E-commerce Solutions",
+      "Performance Optimization",
+    ],
+    technologies: [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Node.js",
+      "PostgreSQL",
+    ],
+    pricing: "Starting from $2,500",
+    timeline: "2-8 weeks",
+  };
+
+  return {
+    title: serviceData.title,
+    description: serviceData.description,
+    keywords: serviceData.keywords,
+    authors: [{ name: "Tathya Team" }],
+    creator: "Tathya",
+    publisher: "Tathya",
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
+    },
+    alternates: {
+      canonical: "https://tathya.dev/services/web-development",
+    },
+    openGraph: {
+      type: "website",
+      locale: "en_US",
+      url: "https://tathya.dev/services/web-development",
+      title: `${serviceData.service} - Tathya Digital Solutions`,
+      description: serviceData.description,
+      siteName: "Tathya",
+      images: [
+        {
+          url: "https://tathya.dev/og-image.jpg",
+          width: 1200,
+          height: 630,
+          alt: `${serviceData.service} - Tathya Digital Solutions`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${serviceData.service} - Tathya Digital Solutions`,
+      description: serviceData.description,
+      images: ["https://tathya.dev/og-image.jpg"],
+      creator: "@tathya_dev",
+      site: "@tathya_dev",
+    },
+    other: {
+      "service:name": serviceData.service,
+      "service:features": serviceData.features.join(", "),
+      "service:technologies": serviceData.technologies.join(", "),
+      "service:pricing": serviceData.pricing,
+      "service:timeline": serviceData.timeline,
+    },
+  };
+}
+
+// Enable ISR for this page
+export const revalidate = 3600; // 1 hour
 
 export default function WebDevelopmentPage() {
   return (
@@ -88,7 +168,7 @@ export default function WebDevelopmentPage() {
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="text-center">
-              <div className="p-4 rounded-lg mb-3" className="service-card">
+              <div className="p-4 rounded-lg mb-3 service-card">
                 <h3 className="font-semibold">Frontend</h3>
               </div>
               <p className="text-sm text-text-secondary">
@@ -96,7 +176,7 @@ export default function WebDevelopmentPage() {
               </p>
             </div>
             <div className="text-center">
-              <div className="p-4 rounded-lg mb-3" className="service-card">
+              <div className="p-4 rounded-lg mb-3 service-card">
                 <h3 className="font-semibold">Backend</h3>
               </div>
               <p className="text-sm text-text-secondary">
@@ -104,7 +184,7 @@ export default function WebDevelopmentPage() {
               </p>
             </div>
             <div className="text-center">
-              <div className="p-4 rounded-lg mb-3" className="service-card">
+              <div className="p-4 rounded-lg mb-3 service-card">
                 <h3 className="font-semibold">Cloud</h3>
               </div>
               <p className="text-sm text-text-secondary">
@@ -112,7 +192,7 @@ export default function WebDevelopmentPage() {
               </p>
             </div>
             <div className="text-center">
-              <div className="p-4 rounded-lg mb-3" className="service-card">
+              <div className="p-4 rounded-lg mb-3 service-card">
                 <h3 className="font-semibold">Tools</h3>
               </div>
               <p className="text-sm text-text-secondary">

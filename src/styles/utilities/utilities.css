@@ -190,7 +190,6 @@ button.theme-option.theme-option-active {
 .dropdown-item:hover {
     color: var(--accent);
     background-color: rgba(120, 205, 215, 0.1);
-    border-left-color: var(--accent);
     font-weight: 600;
 }
 
@@ -242,7 +241,45 @@ button.theme-option.theme-option-active {
     background-attachment: scroll;
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
+    background-repeat: repeat;
+}
+
+/* Alternating background pattern for sections without background images */
+.alternating-background {
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.07) 2px,
+            transparent 2px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.07) 2px, transparent 2px),
+        linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+    background-size: 50px 50px, 50px 50px, 10px 10px, 10px 10px;
+    background-position: 0 0, 0 0, 0 0, 0 0;
+}
+
+/* Dark theme version of alternating background */
+[data-theme="dark"] .alternating-background {
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.05) 2px,
+            transparent 2px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 2px, transparent 2px),
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px, 50px 50px, 10px 10px, 10px 10px;
+    background-position: 0 0, 0 0, 0 0, 0 0;
+}
+
+/* System dark theme version */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .alternating-background {
+        background-image:
+            linear-gradient(rgba(255, 255, 255, 0.05) 2px,
+                transparent 2px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.05) 2px, transparent 2px),
+            linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        background-size: 50px 50px, 50px 50px, 10px 10px, 10px 10px;
+        background-position: 0 0, 0 0, 0 0, 0 0;
+    }
 }
 
 @media (min-width: 640px) {
@@ -257,6 +294,7 @@ button.theme-option.theme-option-active {
         background-size: 120% auto;
         /* Squeeze the image horizontally */
         background-position: center top;
+        background-repeat: repeat;
         will-change: auto;
     }
 }
@@ -267,6 +305,7 @@ button.theme-option.theme-option-active {
         background-size: 140% auto;
         /* Even more squeezed on small phones */
         background-position: center top;
+        background-repeat: repeat;
     }
 }
 
@@ -339,6 +378,7 @@ button.theme-option.theme-option-active {
 
 .background-image {
     background-image: url('/images/assets/backgrounds/griddots.png');
+    background-repeat: repeat;
     opacity: var(--bg-image-opacity, 1);
 }
 

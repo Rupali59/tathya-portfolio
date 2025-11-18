@@ -3,6 +3,12 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import Navigation from "@/components/layout/Navigation";
 import Analytics from "@/components/analytics/Analytics";
+import FloatingActionButton from "@/components/common/FloatingActionButton";
+import PerformanceMonitor from "@/components/analytics/PerformanceMonitor";
+import {
+  generateOrganizationSchema,
+  generateWebsiteSchema,
+} from "@/lib/structured-data";
 import "./globals.css";
 
 const inter = Inter({
@@ -94,6 +100,10 @@ export default function RootLayout({
     clarityProjectId: process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID,
   };
 
+  // Generate structured data
+  const organizationSchema = generateOrganizationSchema();
+  const websiteSchema = generateWebsiteSchema();
+
   return (
     <html lang="en">
       <head>
@@ -102,6 +112,19 @@ export default function RootLayout({
           href="/images/assets/logos/favicon.png"
           type="image/png"
         />
+        {/* Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationSchema),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteSchema),
+          }}
+        />
       </head>
       <body
         className={`${inter.variable} ${jetbrainsMono.variable} antialiased bg-background-primary text-text-primary`}
@@ -109,10 +132,14 @@ export default function RootLayout({
         <ThemeProvider>
           <Navigation />
           <main>{children}</main>
+          <FloatingActionButton />
         </ThemeProvider>
 
         {/* Analytics Components */}
         <Analytics {...analyticsConfig} />
+
+        {/* Performance Monitor (Development Only) */}
+        <PerformanceMonitor />
       </body>
     </html>
   );

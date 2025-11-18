@@ -202,34 +202,16 @@ export function FloatingShapes() {
       {/* Large floating circles */}
       <div className="absolute top-1/4 left-1/4 w-32 h-32 rounded-full bg-primary-400/10 animate-pulse animate-delay-0 animate-duration-4" />
       <div className="absolute top-3/4 right-1/4 w-24 h-24 rounded-full bg-primary-500/15 animate-pulse animate-delay-6 animate-duration-6" />
-      <div
-        className="absolute bottom-1/4 left-1/3 w-40 h-40 rounded-full bg-primary-600/5 animate-pulse"
-        className="animate-delay-4 animate-duration-8"
-      />
+      <div className="absolute bottom-1/4 left-1/3 w-40 h-40 rounded-full bg-primary-600/5 animate-pulse animate-delay-4 animate-duration-8" />
 
       {/* Medium floating shapes */}
-      <div
-        className="absolute top-1/2 right-1/3 w-16 h-16 bg-primary-300/20 rounded-lg rotate-45 animate-bounce"
-        className="animate-delay-3 animate-duration-3"
-      />
-      <div
-        className="absolute bottom-1/3 right-1/2 w-20 h-20 bg-primary-400/15 rounded-full animate-pulse"
-        className="animate-delay-8 animate-duration-5"
-      />
+      <div className="absolute top-1/2 right-1/3 w-16 h-16 bg-primary-300/20 rounded-lg rotate-45 animate-bounce animate-delay-3 animate-duration-3" />
+      <div className="absolute bottom-1/3 right-1/2 w-20 h-20 bg-primary-400/15 rounded-full animate-pulse animate-delay-8 animate-duration-5" />
 
       {/* Small floating dots */}
-      <div
-        className="absolute top-1/6 right-1/6 w-3 h-3 bg-primary-500/30 rounded-full animate-ping"
-        className="animate-delay-5"
-      />
-      <div
-        className="absolute bottom-1/6 left-1/6 w-2 h-2 bg-primary-400/40 rounded-full animate-ping"
-        className="animate-delay-7"
-      />
-      <div
-        className="absolute top-2/3 left-1/6 w-4 h-4 bg-primary-600/25 rounded-full animate-ping"
-        className="animate-delay-9"
-      />
+      <div className="absolute top-1/6 right-1/6 w-3 h-3 bg-primary-500/30 rounded-full animate-ping animate-delay-5" />
+      <div className="absolute bottom-1/6 left-1/6 w-2 h-2 bg-primary-400/40 rounded-full animate-ping animate-delay-7" />
+      <div className="absolute top-2/3 left-1/6 w-4 h-4 bg-primary-600/25 rounded-full animate-ping animate-delay-9" />
     </div>
   );
 }

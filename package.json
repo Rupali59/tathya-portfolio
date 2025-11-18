@@ -1,7 +1,28 @@
 {
   "name": "tathya-portfolio",
   "version": "0.1.0",
+  "description": "Tathya - Business Websites & CRM Solutions Portfolio",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Rupali59/tathya-portfolio.git"
+  },
+  "homepage": "https://tathya.dev",
+  "bugs": {
+    "url": "https://github.com/Rupali59/tathya-portfolio/issues"
+  },
+  "keywords": [
+    "business-websites",
+    "crm-solutions",
+    "web-development",
+    "nextjs",
+    "react",
+    "typescript",
+    "portfolio",
+    "tathya"
+  ],
+  "author": "Tathya Team",
+  "license": "UNLICENSED",
   "scripts": {
     "dev": "next dev",
     "build": "NODE_ENV=production next build",
@@ -13,13 +34,19 @@
     "clean-dev": "npm run clean && npm run build && npm run dev",
     "fresh": "pkill -f 'next dev' || true && pkill -f 'npm run dev' || true && lsof -ti:3000 | xargs kill -9 || true && npm run clean && npm run dev",
     "fresh-build": "pkill -f 'next dev' || true && pkill -f 'npm run dev' || true && lsof -ti:3000 | xargs kill -9 || true && npm run clean && npm run build && npm run dev",
-    "ci": "npm run type-check && npm run lint && npm run build"
+    "ci": "npm run type-check && npm run lint && npm run build",
+    "analyze": "ANALYZE=true npm run build",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
     "@vercel/analytics": "^1.5.0",
     "framer-motion": "^12.23.21",
+    "gsap": "^3.13.0",
     "lottie-react": "^2.4.1",
+    "lucide-react": "^0.544.0",
     "next": "^14.2.15",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"

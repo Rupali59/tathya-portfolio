@@ -86,7 +86,7 @@ export default function CRMIntegrationPage() {
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="text-center">
-              <div className="p-4 rounded-lg mb-3" className="service-card">
+              <div className="p-4 rounded-lg mb-3 service-card">
                 <h3 className="font-semibold">Salesforce</h3>
               </div>
               <p className="text-sm text-text-secondary">
@@ -94,7 +94,7 @@ export default function CRMIntegrationPage() {
               </p>
             </div>
             <div className="text-center">
-              <div className="p-4 rounded-lg mb-3" className="service-card">
+              <div className="p-4 rounded-lg mb-3 service-card">
                 <h3 className="font-semibold">HubSpot</h3>
               </div>
               <p className="text-sm text-text-secondary">
@@ -102,7 +102,7 @@ export default function CRMIntegrationPage() {
               </p>
             </div>
             <div className="text-center">
-              <div className="p-4 rounded-lg mb-3" className="service-card">
+              <div className="p-4 rounded-lg mb-3 service-card">
                 <h3 className="font-semibold">Pipedrive</h3>
               </div>
               <p className="text-sm text-text-secondary">
@@ -110,7 +110,7 @@ export default function CRMIntegrationPage() {
               </p>
             </div>
             <div className="text-center">
-              <div className="p-4 rounded-lg mb-3" className="service-card">
+              <div className="p-4 rounded-lg mb-3 service-card">
                 <h3 className="font-semibold">Custom Solutions</h3>
               </div>
               <p className="text-sm text-text-secondary">

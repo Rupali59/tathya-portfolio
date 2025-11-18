@@ -1,0 +1,73 @@
+name: 📚 Documentation
+description: Report documentation issues or request documentation improvements
+title: "[Docs]: "
+labels: ["documentation", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Help us improve our documentation! Whether you found unclear information, missing content, or have suggestions for better docs.
+
+  - type: dropdown
+    id: doc-type
+    attributes:
+      label: Documentation Type
+      description: What type of documentation issue is this?
+      options:
+        - Missing Documentation
+        - Unclear/Confusing Content
+        - Outdated Information
+        - Typo/Grammar Error
+        - Formatting Issue
+        - Request for New Documentation
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: doc-description
+    attributes:
+      label: Documentation Issue Description
+      description: Describe the documentation problem or improvement needed.
+      placeholder: What documentation issue did you encounter?
+    validations:
+      required: true
+
+  - type: input
+    id: doc-url
+    attributes:
+      label: Documentation URL
+      description: Link to the specific documentation page (if applicable)
+      placeholder: https://github.com/Rupali59/tathya-portfolio/wiki/...
+
+  - type: textarea
+    id: current-content
+    attributes:
+      label: Current Content
+      description: What does the current documentation say? (Copy/paste relevant sections)
+      placeholder: Paste the current documentation content here...
+
+  - type: textarea
+    id: suggested-improvement
+    attributes:
+      label: Suggested Improvement
+      description: How should the documentation be improved?
+      placeholder: Describe what changes you'd like to see...
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other context about the documentation issue.
+      placeholder: Additional information that might be helpful...
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      description: Please confirm the following
+      options:
+        - label: I have searched for existing documentation issues
+          required: true
+        - label: I have provided clear details about the documentation problem
+          required: true

@@ -1,6 +1,6 @@
 "use client";
 
-import ChatInterface from "./ChatInterface";
+import AIHeroChat from "./AIHeroChat";
 
 export default function Hero(): JSX.Element {
   return (
@@ -9,7 +9,7 @@ export default function Hero(): JSX.Element {
       <div className="absolute inset-0 background-image-responsive background-image" />
 
       <div className="w-full max-w-6xl mx-auto relative z-10">
-        <ChatInterface />
+        <AIHeroChat />
       </div>
     </div>
   );

@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 GitHub Discussions
+    url: https://github.com/Rupali59/tathya-portfolio/discussions
+    about: Ask questions and discuss ideas with the community
+  - name: 📧 Email Support
+    url: mailto:support@tathya.com
+    about: Contact us directly for urgent issues or private matters
+  - name: 📖 Documentation
+    url: https://github.com/Rupali59/tathya-portfolio/wiki
+    about: Check our documentation for common questions and guides

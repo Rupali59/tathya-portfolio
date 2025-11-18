@@ -136,25 +136,25 @@ export default function SEOPage() {
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="text-center">
-              <div className="p-6 rounded-lg mb-3" className="service-card">
+              <div className="p-6 rounded-lg mb-3 service-card">
                 <h3 className="text-2xl font-bold">50%+</h3>
                 <p className="text-sm">Average Traffic Increase</p>
               </div>
             </div>
             <div className="text-center">
-              <div className="p-6 rounded-lg mb-3" className="service-card">
+              <div className="p-6 rounded-lg mb-3 service-card">
                 <h3 className="text-2xl font-bold">3-6</h3>
                 <p className="text-sm">Months to See Results</p>
               </div>
             </div>
             <div className="text-center">
-              <div className="p-6 rounded-lg mb-3" className="service-card">
+              <div className="p-6 rounded-lg mb-3 service-card">
                 <h3 className="text-2xl font-bold">95%</h3>
                 <p className="text-sm">Client Satisfaction</p>
               </div>
             </div>
             <div className="text-center">
-              <div className="p-6 rounded-lg mb-3" className="service-card">
+              <div className="p-6 rounded-lg mb-3 service-card">
                 <h3 className="text-2xl font-bold">24/7</h3>
                 <p className="text-sm">Monitoring & Support</p>
               </div>
@@ -169,7 +169,7 @@ export default function SEOPage() {
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="text-center">
-              <div className="p-4 rounded-lg mb-3" className="service-card">
+              <div className="p-4 rounded-lg mb-3 service-card">
                 <h3 className="font-semibold">Analytics</h3>
               </div>
               <p className="text-sm text-text-secondary">
@@ -177,7 +177,7 @@ export default function SEOPage() {
               </p>
             </div>
             <div className="text-center">
-              <div className="p-4 rounded-lg mb-3" className="service-card">
+              <div className="p-4 rounded-lg mb-3 service-card">
                 <h3 className="font-semibold">Keyword Research</h3>
               </div>
               <p className="text-sm text-text-secondary">
@@ -185,7 +185,7 @@ export default function SEOPage() {
               </p>
             </div>
             <div className="text-center">
-              <div className="p-4 rounded-lg mb-3" className="service-card">
+              <div className="p-4 rounded-lg mb-3 service-card">
                 <h3 className="font-semibold">Technical SEO</h3>
               </div>
               <p className="text-sm text-text-secondary">
@@ -193,7 +193,7 @@ export default function SEOPage() {
               </p>
             </div>
             <div className="text-center">
-              <div className="p-4 rounded-lg mb-3" className="service-card">
+              <div className="p-4 rounded-lg mb-3 service-card">
                 <h3 className="font-semibold">Content</h3>
               </div>
               <p className="text-sm text-text-secondary">

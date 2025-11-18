@@ -88,25 +88,25 @@ export default function PerformancePage() {
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="text-center">
-              <div className="p-6 rounded-lg mb-3" className="service-card">
+              <div className="p-6 rounded-lg mb-3 service-card">
                 <h3 className="text-2xl font-bold">50%+</h3>
                 <p className="text-sm">Faster Load Times</p>
               </div>
             </div>
             <div className="text-center">
-              <div className="p-6 rounded-lg mb-3" className="service-card">
+              <div className="p-6 rounded-lg mb-3 service-card">
                 <h3 className="text-2xl font-bold">90+</h3>
                 <p className="text-sm">PageSpeed Score</p>
               </div>
             </div>
             <div className="text-center">
-              <div className="p-6 rounded-lg mb-3" className="service-card">
+              <div className="p-6 rounded-lg mb-3 service-card">
                 <h3 className="text-2xl font-bold">30%+</h3>
                 <p className="text-sm">Better Conversion</p>
               </div>
             </div>
             <div className="text-center">
-              <div className="p-6 rounded-lg mb-3" className="service-card">
+              <div className="p-6 rounded-lg mb-3 service-card">
                 <h3 className="text-2xl font-bold">24/7</h3>
                 <p className="text-sm">Monitoring</p>
               </div>
@@ -170,7 +170,7 @@ export default function PerformancePage() {
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div className="text-center">
-              <div className="p-4 rounded-lg mb-3" className="service-card">
+              <div className="p-4 rounded-lg mb-3 service-card">
                 <h3 className="font-semibold">Server Optimization</h3>
               </div>
               <p className="text-sm text-text-secondary">
@@ -178,7 +178,7 @@ export default function PerformancePage() {
               </p>
             </div>
             <div className="text-center">
-              <div className="p-4 rounded-lg mb-3" className="service-card">
+              <div className="p-4 rounded-lg mb-3 service-card">
                 <h3 className="font-semibold">Database Optimization</h3>
               </div>
               <p className="text-sm text-text-secondary">
@@ -186,7 +186,7 @@ export default function PerformancePage() {
               </p>
             </div>
             <div className="text-center">
-              <div className="p-4 rounded-lg mb-3" className="service-card">
+              <div className="p-4 rounded-lg mb-3 service-card">
                 <h3 className="font-semibold">Frontend Optimization</h3>
               </div>
               <p className="text-sm text-text-secondary">
@@ -194,7 +194,7 @@ export default function PerformancePage() {
               </p>
             </div>
             <div className="text-center">
-              <div className="p-4 rounded-lg mb-3" className="service-card">
+              <div className="p-4 rounded-lg mb-3 service-card">
                 <h3 className="font-semibold">Mobile Optimization</h3>
               </div>
               <p className="text-sm text-text-secondary">
@@ -202,7 +202,7 @@ export default function PerformancePage() {
               </p>
             </div>
             <div className="text-center">
-              <div className="p-4 rounded-lg mb-3" className="service-card">
+              <div className="p-4 rounded-lg mb-3 service-card">
                 <h3 className="font-semibold">Security & Performance</h3>
               </div>
               <p className="text-sm text-text-secondary">
@@ -210,7 +210,7 @@ export default function PerformancePage() {
               </p>
             </div>
             <div className="text-center">
-              <div className="p-4 rounded-lg mb-3" className="service-card">
+              <div className="p-4 rounded-lg mb-3 service-card">
                 <h3 className="font-semibold">Third-party Optimization</h3>
               </div>
               <p className="text-sm text-text-secondary">
@@ -227,7 +227,7 @@ export default function PerformancePage() {
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="text-center">
-              <div className="p-4 rounded-lg mb-3" className="service-card">
+              <div className="p-4 rounded-lg mb-3 service-card">
                 <h3 className="font-semibold">Google Tools</h3>
               </div>
               <p className="text-sm text-text-secondary">
@@ -235,7 +235,7 @@ export default function PerformancePage() {
               </p>
             </div>
             <div className="text-center">
-              <div className="p-4 rounded-lg mb-3" className="service-card">
+              <div className="p-4 rounded-lg mb-3 service-card">
                 <h3 className="font-semibold">WebPageTest</h3>
               </div>
               <p className="text-sm text-text-secondary">
@@ -243,7 +243,7 @@ export default function PerformancePage() {
               </p>
             </div>
             <div className="text-center">
-              <div className="p-4 rounded-lg mb-3" className="service-card">
+              <div className="p-4 rounded-lg mb-3 service-card">
                 <h3 className="font-semibold">GTmetrix</h3>
               </div>
               <p className="text-sm text-text-secondary">
@@ -251,7 +251,7 @@ export default function PerformancePage() {
               </p>
             </div>
             <div className="text-center">
-              <div className="p-4 rounded-lg mb-3" className="service-card">
+              <div className="p-4 rounded-lg mb-3 service-card">
                 <h3 className="font-semibold">Custom Solutions</h3>
               </div>
               <p className="text-sm text-text-secondary">
