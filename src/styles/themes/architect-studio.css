@@ -1,0 +1,138 @@
+/**
+ * Architect's Studio Theme - Premium Light Theme
+ * Background: #F8F9FA (Off-white/Soft Gray)
+ * Surfaces: Pure White (#FFFFFF) with 1px Silver (#E2E8F0) borders
+ * Accents: Deep Sapphire (#0747A6), Forest Emerald (#2D8A4E)
+ */
+
+:root {
+  /* Architect's Studio Light Theme Colors */
+  --arch-bg-primary: #F8F9FA;
+  --arch-bg-secondary: #FFFFFF;
+  
+  --arch-surface: #FFFFFF;
+  --arch-border: #E2E8F0;
+  --arch-border-hover: #CBD5E1;
+  
+  --arch-sapphire: #0747A6;
+  --arch-sapphire-light: rgba(7, 71, 166, 0.1);
+  --arch-emerald: #2D8A4E;
+  --arch-emerald-light: rgba(45, 138, 78, 0.1);
+  
+  --arch-text-primary: #0F172A;
+  --arch-text-secondary: #475569;
+  --arch-text-tertiary: #94A3B8;
+  
+  --arch-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --arch-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.06);
+  --arch-shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+  --arch-shadow-pressed: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+  
+  --arch-glass: rgba(255, 255, 255, 0.9);
+  --arch-backdrop-blur: 30px;
+}
+
+/* Light Theme Default */
+.light {
+  --bg-primary: var(--arch-bg-primary);
+  --bg-secondary: var(--arch-bg-secondary);
+  
+  --card-bg: var(--arch-surface);
+  --card-border: var(--arch-border);
+  --card-border-hover: var(--arch-border-hover);
+  
+  --accent-sapphire: var(--arch-sapphire);
+  --accent-emerald: var(--arch-emerald);
+  --accent-sapphire-glow: var(--arch-sapphire-light);
+  --accent-emerald-glow: var(--arch-emerald-light);
+  
+  --text-primary: var(--arch-text-primary);
+  --text-secondary: var(--arch-text-secondary);
+  --text-tertiary: var(--arch-text-tertiary);
+  
+  --shadow-card: var(--arch-shadow-md);
+  --shadow-card-hover: var(--arch-shadow-lg);
+  --shadow-pressed: var(--arch-shadow-pressed);
+  
+  --motherboard-glow: rgba(7, 71, 166, 0.1);
+  --motherboard-glow-pulse: rgba(7, 71, 166, 0.2);
+}
+
+/* Premium Section Spacing - 48px */
+.architect-section {
+  padding-top: 3rem; /* 48px */
+  padding-bottom: 3rem; /* 48px */
+}
+
+@media (max-width: 768px) {
+  .architect-section {
+    padding-top: 2rem; /* 32px */
+    padding-bottom: 2rem; /* 32px */
+  }
+}
+
+/* Neo-skeuomorphic Button Pressed State */
+.neo-pressed {
+  box-shadow: var(--arch-shadow-pressed), var(--arch-shadow-sm);
+  transform: translateY(1px);
+}
+
+/* Chrome Texture for Motherboard */
+.chrome-texture {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(255, 255, 255, 0.7) 25%,
+    rgba(240, 242, 245, 0.8) 50%,
+    rgba(255, 255, 255, 0.7) 75%,
+    rgba(255, 255, 255, 0.9) 100%
+  );
+  background-size: 200% 200%;
+  animation: chrome-shine 3s ease-in-out infinite;
+}
+
+@keyframes chrome-shine {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Frosted Glass Effect */
+.frosted-glass {
+  background: var(--arch-glass);
+  backdrop-filter: blur(var(--arch-backdrop-blur));
+  -webkit-backdrop-filter: blur(var(--arch-backdrop-blur));
+}
+
+/* Sapphire Pearl Indicator */
+.sapphire-pearl {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--arch-sapphire);
+  box-shadow: 0 0 8px rgba(7, 71, 166, 0.5);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sapphire-pearl.active {
+  background: var(--arch-emerald);
+  box-shadow: 0 0 8px rgba(45, 138, 78, 0.5);
+}
+
+/* Hardware Panel - Recessed */
+.hardware-panel {
+  background: var(--arch-bg-primary);
+  border: 1px solid var(--arch-border);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06), 
+              0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* Card Hover Lift Effect */
+.card-lift {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--arch-shadow-lg);
+  border-color: var(--arch-border-hover);
+}

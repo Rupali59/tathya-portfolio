@@ -1,217 +1,193 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
-import { ThemeToggle } from "@/components/common/ThemeToggle";
-import Logo from "@/components/common/Logo";
-import {
-  ChevronDownIcon,
-  Bars3Icon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { useTheme } from "@/contexts/ThemeContext";
+import { usePathname } from "next/navigation";
 
 export default function Navigation(): JSX.Element {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const [isScrolledToProvision, setIsScrolledToProvision] = useState(false);
+  const [utcTime, setUtcTime] = useState("");
+  const { resolvedTheme } = useTheme();
+  const pathname = usePathname();
+  const isLight = resolvedTheme === "light";
 
-  const servicesItems = [
-    { name: "Web Development", href: "/services/web-development" },
-    { name: "CRM Integration", href: "/services/crm-integration" },
-    { name: "SEO Optimization", href: "/services/seo" },
-    { name: "Performance Optimization", href: "/services/performance" },
-  ];
+  // UTC Clock
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      const utc = now.toISOString().substring(11, 19) + " UTC";
+      setUtcTime(utc);
+    };
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Scroll detection for Provision section
+  useEffect(() => {
+    const handleScroll = () => {
+      const configBay = document.getElementById("configuration-bay");
+      if (configBay) {
+        const rect = configBay.getBoundingClientRect();
+        setIsScrolledToProvision(rect.top < window.innerHeight / 2);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const handleAccessShell = () => {
+    const configBay = document.getElementById("configuration-bay");
+    if (configBay) {
+      configBay.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
 
   return (
-    <nav className="fixed top-0 w-full brushed-metal glass-skeuomorphic backdrop-blur-sm border-b border-sapphire-blue-20 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <Link href="/" className="hover:opacity-80 transition-opacity">
-            <Logo size="lg" showTagline={false} useLogo={true} />
-          </Link>
-
-          {/* Desktop Navigation Links */}
-          <div className="hidden md:flex space-x-8">
-            <Link
-              href="/"
-              className="text-white/70 hover:text-sapphire-blue transition-colors duration-300 font-sans"
-            >
-              Home
-            </Link>
-            <Link
-              href="/about"
-              className="text-white/70 hover:text-sapphire-blue transition-colors duration-300 font-sans"
-            >
-              About
-            </Link>
-
-            {/* Services Dropdown */}
-            <div
-              className="relative group"
-              onMouseEnter={() => setIsServicesOpen(true)}
-              onMouseLeave={() => setIsServicesOpen(false)}
-            >
-              <button className="flex items-center gap-1 text-white/70 hover:text-sapphire-blue transition-colors duration-300 font-sans">
-                Services
-                <ChevronDownIcon
-                  className={`w-4 h-4 transition-transform duration-200 ${
-                    isServicesOpen ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
-
-              {/* Dropdown Menu */}
-              <div
-                className={`absolute top-full left-0 mt-2 w-64 brushed-metal glass-skeuomorphic border border-sapphire-blue-20 rounded-lg z-50 overflow-hidden transition-all duration-300 ${
-                  isServicesOpen
-                    ? "opacity-100 visible translate-y-0"
-                    : "opacity-0 invisible -translate-y-2"
-                }`}
-              >
-                <div className="py-2">
-                  {servicesItems.map((item) => (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      className="block dropdown-item"
-                    >
-                      {item.name}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <Link
-              href="/pricing"
-              className="text-white/70 hover:text-sapphire-blue transition-colors duration-300 font-sans"
-            >
-              Pricing
-            </Link>
-            <Link
-              href="/demo"
-              className="text-white/70 hover:text-sapphire-blue transition-colors duration-300 font-sans"
-            >
-              Demo
-            </Link>
-          </div>
-
-          {/* Theme Toggle and Mobile menu button */}
-          <div className="flex items-center gap-4">
-            <ThemeToggle />
-
-            {/* Mobile menu button */}
-            <div className="md:hidden">
-              <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="text-white/70 hover:text-sapphire-blue transition-colors duration-300"
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = "var(--accent)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = "var(--text-secondary)";
-                }}
-              >
-                {isMobileMenuOpen ? (
-                  <XMarkIcon className="h-6 w-6" />
-                ) : (
-                  <Bars3Icon className="h-6 w-6" />
-                )}
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Mobile Menu Dropdown */}
-        <div
-          className={`md:hidden transition-all duration-300 ease-in-out ${
-            isMobileMenuOpen
-              ? "max-h-96 opacity-100 visible"
-              : "max-h-0 opacity-0 invisible"
-          } overflow-hidden`}
-        >
-          <div className="py-4 border-t border-sapphire-blue-20">
-            <div className="space-y-2">
-              <Link
-                href="/"
-                className="block dropdown-item"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Home
-              </Link>
-              <Link
-                href="/about"
-                className="block dropdown-item"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                About
-              </Link>
-
-              {/* Mobile Services Dropdown */}
-              <div className="px-4">
-                <button
-                  onClick={() => setIsServicesOpen(!isServicesOpen)}
-                  className="flex items-center justify-between w-full py-2 text-white/70 hover:text-sapphire-blue transition-colors duration-300 font-sans"
-                >
-                  Services
-                  <ChevronDownIcon
-                    className={`w-4 h-4 transition-transform duration-200 ${
-                      isServicesOpen ? "rotate-180" : ""
-                    }`}
+    <>
+      {/* Desktop: Command Strip */}
+      <nav className="hidden md:block fixed top-0 left-0 right-0 z-50">
+        <div className="frosted-glass border-b" style={{ borderColor: isLight ? '#E2E8F0' : 'rgba(15,82,186,0.2)' }}>
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="flex items-center justify-between h-16">
+              {/* Left: TATHYA.DEV + Sapphire Pearl */}
+              <div className="flex items-center gap-3">
+                <Link href="/" className="font-mono text-sm font-semibold tracking-wider" style={{ color: isLight ? '#0F172A' : '#FFFFFF' }}>
+                  TATHYA.DEV
+                </Link>
+                {isLight ? (
+                  <motion.div
+                    className={isScrolledToProvision ? "led-pearl-emerald" : "led-pearl-sapphire"}
+                    animate={{
+                      scale: isScrolledToProvision ? [1, 1.2, 1] : 1,
+                    }}
+                    transition={{ duration: 0.3 }}
                   />
-                </button>
-
-                <div
-                  className={`ml-4 mt-2 space-y-1 transition-all duration-200 ${
-                    isServicesOpen
-                      ? "max-h-48 opacity-100"
-                      : "max-h-0 opacity-0"
-                  } overflow-hidden`}
-                >
-                  {servicesItems.map((item) => (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      className="block px-4 py-2 text-sm text-white/70 hover:text-sapphire-blue hover:border-l-2 hover:border-sapphire-blue hover:font-medium rounded-lg transition-all duration-300"
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.color = "var(--accent)";
-                        e.currentTarget.style.backgroundColor = "var(--accent)";
-                        e.currentTarget.style.opacity = "0.15";
-                        e.currentTarget.style.borderLeftColor = "var(--accent)";
-                        e.currentTarget.style.opacity = "0.7";
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.color = "var(--text-secondary)";
-                        e.currentTarget.style.backgroundColor = "transparent";
-                        e.currentTarget.style.opacity = "1";
-                        e.currentTarget.style.borderLeftColor = "transparent";
-                      }}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      {item.name}
-                    </Link>
-                  ))}
-                </div>
+                ) : (
+                  <motion.div
+                    className={`sapphire-pearl ${isScrolledToProvision ? 'active' : ''}`}
+                    animate={{
+                      scale: isScrolledToProvision ? [1, 1.2, 1] : 1,
+                    }}
+                    transition={{ duration: 0.3 }}
+                  />
+                )}
               </div>
 
-              <Link
-                href="/pricing"
-                className="block dropdown-item"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Pricing
-              </Link>
-              <Link
-                href="/demo"
-                className="block dropdown-item"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Demo
-              </Link>
+              {/* Center: Navigation Links */}
+              <div className="flex items-center gap-8">
+                <Link
+                  href="/#core"
+                  className="font-sans text-sm font-medium tracking-wide transition-colors duration-200"
+                  style={{ color: isLight ? '#475569' : 'rgba(255,255,255,0.7)' }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.color = isLight ? '#0747A6' : '#0F52BA';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.color = isLight ? '#475569' : 'rgba(255,255,255,0.7)';
+                  }}
+                >
+                  THE TECH
+                </Link>
+                <Link
+                  href="/#blades"
+                  className="font-sans text-sm font-medium tracking-wide transition-colors duration-200"
+                  style={{ color: isLight ? '#475569' : 'rgba(255,255,255,0.7)' }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.color = isLight ? '#0747A6' : '#0F52BA';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.color = isLight ? '#475569' : 'rgba(255,255,255,0.7)';
+                  }}
+                >
+                  SOLUTIONS
+                </Link>
+                <Link
+                  href="/#configuration-bay"
+                  className="font-sans text-sm font-medium tracking-wide transition-colors duration-200"
+                  style={{ color: isLight ? '#475569' : 'rgba(255,255,255,0.7)' }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.color = isLight ? '#0747A6' : '#0F52BA';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.color = isLight ? '#475569' : 'rgba(255,255,255,0.7)';
+                  }}
+                >
+                  BUILD MINE
+                </Link>
+              </div>
+
+              {/* Right: ACCESS SHELL Button + UTC Clock */}
+              <div className="flex items-center gap-4">
+                <motion.button
+                  onClick={handleAccessShell}
+                  className={`px-4 py-1.5 rounded font-sans text-sm font-semibold transition-all duration-200 ${
+                    isLight
+                      ? 'bg-white border border-[#E2E8F0] text-[#0747A6] shadow-[inset_0_2px_4px_rgba(0,0,0,0.06)] hover:shadow-[inset_0_2px_4px_rgba(0,0,0,0.06),0_2px_4px_rgba(0,0,0,0.1)]'
+                      : 'bg-[#121212] border border-[#0F52BA]/20 text-white shadow-[inset_0_2px_4px_rgba(0,0,0,0.5)] hover:border-[#0F52BA]'
+                  }`}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  CLIENT LOGIN
+                </motion.button>
+                <div className="font-mono text-xs" style={{ color: isLight ? '#94A3B8' : 'rgba(255,255,255,0.5)' }}>
+                  {utcTime}
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+
+      {/* Mobile: Bottom Command Bar */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50">
+        <div className="frosted-glass border-t" style={{ borderColor: isLight ? '#E2E8F0' : 'rgba(15,82,186,0.2)' }}>
+          <div className="px-4 py-3">
+            <div className="flex items-center justify-between">
+              {/* Navigation Links */}
+              <div className="flex items-center gap-3 flex-1 overflow-x-auto">
+                <Link
+                  href="/#core"
+                  className="font-sans text-xs font-medium whitespace-nowrap px-2 py-1 rounded transition-colors"
+                  style={{ color: isLight ? '#475569' : 'rgba(255,255,255,0.7)' }}
+                >
+                  THE TECH
+                </Link>
+                <Link
+                  href="/#blades"
+                  className="font-sans text-xs font-medium whitespace-nowrap px-2 py-1 rounded transition-colors"
+                  style={{ color: isLight ? '#475569' : 'rgba(255,255,255,0.7)' }}
+                >
+                  SOLUTIONS
+                </Link>
+                <Link
+                  href="/#configuration-bay"
+                  className="font-sans text-xs font-medium whitespace-nowrap px-2 py-1 rounded transition-colors"
+                  style={{ color: isLight ? '#475569' : 'rgba(255,255,255,0.7)' }}
+                >
+                  BUILD MINE
+                </Link>
+              </div>
+
+              {/* CLIENT LOGIN Button */}
+              <motion.button
+                onClick={handleAccessShell}
+                className={`ml-3 px-3 py-1.5 rounded font-sans text-xs font-semibold transition-all duration-200 whitespace-nowrap ${
+                  isLight
+                    ? 'bg-white border border-[#E2E8F0] text-[#0747A6] shadow-[inset_0_2px_4px_rgba(0,0,0,0.06)]'
+                    : 'bg-[#121212] border border-[#0F52BA]/20 text-white shadow-[inset_0_2px_4px_rgba(0,0,0,0.5)]'
+                }`}
+                whileTap={{ scale: 0.95 }}
+              >
+                LOGIN
+              </motion.button>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </>
   );
 }

@@ -215,6 +215,13 @@ module.exports = {
           border: "var(--dark-card-border)",
         },
         "dark-divider": "var(--dark-divider)",
+        
+        // Frost Engine - Light Theme Colors
+        "frost-bg": "#F8F9FA",
+        "frost-card": "#FFFFFF",
+        "sapphire-ink": "#0747A6",
+        "forest-emerald": "#2D8A4E",
+        "silver-edge": "#E2E8F0",
       },
       fontFamily: {
         sans: ["var(--font-sans)", "system-ui", "-apple-system", "sans-serif"],
@@ -283,6 +290,10 @@ module.exports = {
         lg: "var(--shadow-lg)",
         xl: "var(--shadow-xl)",
         "2xl": "var(--shadow-2xl)",
+        // Frost Engine - Hardware Aesthetic Shadows
+        "tactile-raised": "2px 4px 12px rgba(0, 0, 0, 0.08), 0px 1px 2px rgba(0, 0, 0, 0.04)",
+        "tactile-inner": "inset 2px 2px 4px rgba(0, 0, 0, 0.06), inset -1px -1px 2px rgba(255, 255, 255, 0.5)",
+        "sapphire-pearl": "0 0 10px rgba(7, 71, 166, 0.3)",
       },
       transitionDuration: {
         fast: "var(--transition-fast)",

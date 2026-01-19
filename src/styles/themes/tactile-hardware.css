@@ -139,3 +139,51 @@ h1, h2, h3, h4, h5, h6 {
     padding-bottom: 4rem; /* 64px */
   }
 }
+
+/* Mobile Rack Metaphor - Server Cabinet Stack */
+@media (max-width: 768px) {
+  .rack-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .rack-item {
+    border-left: 3px solid var(--accent-sapphire);
+    padding-left: 1rem;
+    position: relative;
+  }
+  
+  .rack-item::before {
+    content: '';
+    position: absolute;
+    left: -3px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(
+      to bottom,
+      var(--accent-sapphire),
+      transparent 50%,
+      transparent 50%,
+      var(--accent-sapphire)
+    );
+  }
+}
+
+/* Bottom Command Bar - Mobile Thumb Reach */
+@media (max-width: 768px) {
+  body {
+    padding-bottom: 4rem; /* Space for bottom command bar */
+  }
+  
+  .bottom-command-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+}

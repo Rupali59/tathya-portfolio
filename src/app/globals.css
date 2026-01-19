@@ -2,9 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  /* Frost Engine - Hardware Panel Utilities */
+  .frost-panel {
+    @apply bg-frost-card border border-silver-edge rounded-xl shadow-tactile-raised transition-all duration-300;
+  }
+
+  /* When the user clicks a "Module Chip" */
+  .frost-panel-active {
+    @apply shadow-tactile-inner translate-y-0.5 border-sapphire-ink/30;
+  }
+
+  /* The "Pearl" LED indicator */
+  .led-pearl-sapphire {
+    @apply w-1.5 h-1.5 rounded-full bg-sapphire-ink shadow-sapphire-pearl;
+    background: radial-gradient(circle at 30% 30%, #4a90e2, #0747a6);
+  }
+
+  .led-pearl-emerald {
+    @apply w-1.5 h-1.5 rounded-full bg-forest-emerald;
+    background: radial-gradient(circle at 30% 30%, #76d38e, #2d8a4e);
+    box-shadow: 0 0 10px rgba(45, 138, 78, 0.4);
+  }
+}
+
 /* Import structured CSS modules */
 @import '../styles/themes/variables.css';
 @import '../styles/themes/tactile-hardware.css';
+@import '../styles/themes/architect-studio.css';
 @import '../styles/utilities/utilities.css';
 @import '../styles/utilities/brushed-metal.css';
 @import '../styles/components/animations.css';
@@ -16,8 +41,14 @@
 
 /* Ensure content doesn't overlap with fixed navigation */
 main {
-    padding-top: 4rem;
-    /* 64px to account for h-16 navigation */
+    padding-top: 4rem; /* 64px for desktop nav */
+    padding-bottom: 4rem; /* 64px for mobile bottom command bar */
+}
+
+@media (min-width: 768px) {
+    main {
+        padding-bottom: 0; /* No bottom padding on desktop */
+    }
 }
 
 /* Hero Grid Background - Removed */

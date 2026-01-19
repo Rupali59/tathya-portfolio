@@ -2,21 +2,19 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { teamCardEnter, staggerContainer, staggerItem } from "@/lib/animations";
-import { getTeamImagePath, getTeamImageFallback } from "@/lib/imageUtils";
+import { Linkedin, Github, Globe } from "lucide-react";
+import { useTheme } from "@/contexts/ThemeContext";
+import { getTeamImagePath } from "@/lib/imageUtils";
 
 interface TeamMember {
   id: number;
   name: string;
   role: string;
   description: string;
-  emoji: string;
-  imagePath?: string; // Optional profile image path
-  links: {
-    label: string;
-    url: string;
-  }[];
-  specialties: string[];
+  imagePath: string;
+  linkedin: string;
+  github?: string;
+  website?: string;
 }
 
 const teamMembers: TeamMember[] = [
@@ -25,229 +23,200 @@ const teamMembers: TeamMember[] = [
     name: "Rupali B",
     role: "Founder & Lead Developer",
     description:
-      "Passionate developer with extensive experience in web development and software engineering. I love learning new technologies and building solutions that make a real difference in people's lives.",
-    emoji: "👩‍💻",
+      "Passionate developer with 9+ years of experience in web development and software engineering. Expert in building scalable infrastructure and leading technical teams.",
     imagePath: "/images/team/rupali-b.jpeg",
-    links: [
-      { label: "GitHub", url: "https://github.com/Rupali59" },
-      {
-        label: "LinkedIn",
-        url: "https://linkedin.com/in/rupali-bhatnagar-b4864957",
-      },
-    ],
-    specialties: [
-      "Full-Stack Development",
-      "Problem Solving",
-      "Tech Leadership",
-    ],
+    linkedin: "https://linkedin.com/in/rupali-bhatnagar-b4864957",
+    github: "https://github.com/Rupali59",
   },
   {
     id: 2,
     name: "Keerti Kaushik",
     role: "UI/UX Designer",
     description:
-      "Creative designer with a passion for creating beautiful and functional user interfaces. Focused on delivering exceptional user experiences through thoughtful design and attention to detail.",
-    emoji: "👩‍🎨",
+      "Creative designer specializing in premium hardware aesthetics and user experience design. Focused on creating intuitive interfaces for complex systems.",
     imagePath: "/images/team/keerti-kaushik.jpeg",
-    links: [
-      { label: "LinkedIn", url: "https://linkedin.com/in/kumkirt" },
-      { label: "Dribbble", url: "https://dribbble.com/keertikaushik" },
-    ],
-    specialties: ["UI/UX Design", "Visual Design", "User Research"],
+    linkedin: "https://linkedin.com/in/kumkirt",
   },
   {
     id: 3,
     name: "Khushboo P",
-    role: "Business Development & Strategy",
+    role: "Business Development",
     description:
-      "Strategic business professional with expertise in market analysis, client relations, and growth strategies. Passionate about building meaningful partnerships and driving business success.",
-    emoji: "💼",
+      "Strategic business professional with expertise in enterprise partnerships and growth strategies. Passionate about building meaningful client relationships.",
     imagePath: "/images/team/khushboo-p.jpeg",
-    links: [
-      {
-        label: "LinkedIn",
-        url: "https://www.linkedin.com/in/khushbooparasrampuria/",
-      },
-    ],
-    specialties: ["Business Strategy", "Client Relations", "Market Analysis"],
+    linkedin: "https://www.linkedin.com/in/khushbooparasrampuria/",
   },
   {
     id: 4,
     name: "Tipu Ali Khan",
-    role: "Technical Consultant & Developer",
+    role: "Technical Consultant",
     description:
-      "Experienced technical consultant with deep expertise in software architecture and development. Committed to delivering high-quality solutions and mentoring the next generation of developers.",
-    emoji: "👨‍💻",
+      "Experienced technical consultant with deep expertise in software architecture and infrastructure design. Committed to delivering high-quality solutions.",
     imagePath: "/images/team/tipu-ali-khan.jpeg",
-    links: [
-      { label: "LinkedIn", url: "https://www.linkedin.com/in/tipu-ali-khan/" },
-    ],
-    specialties: ["Software Architecture", "Technical Consulting", "Mentoring"],
+    linkedin: "https://www.linkedin.com/in/tipu-ali-khan/",
   },
   {
     id: 5,
     name: "Pooja H Patel",
     role: "Marketing & Communications",
     description:
-      "Creative marketing professional specializing in digital marketing, brand strategy, and content creation. Expert in building compelling narratives that connect with audiences and drive engagement.",
-    emoji: "📈",
+      "Creative marketing professional specializing in digital marketing and brand strategy. Expert in building compelling narratives for technical products.",
     imagePath: "/images/team/pooja-h-patel.webp",
-    links: [
-      { label: "LinkedIn", url: "https://www.linkedin.com/in/poojahpatel/" },
-    ],
-    specialties: ["Digital Marketing", "Brand Strategy", "Content Creation"],
+    linkedin: "https://www.linkedin.com/in/poojahpatel/",
   },
 ];
 
 export default function Team(): JSX.Element {
   const [isHovered, setIsHovered] = useState(false);
+  const { resolvedTheme } = useTheme();
+  const isLight = resolvedTheme === "light";
 
   return (
-    <section className="py-20 bg-background-primary text-text-primary relative overflow-hidden alternating-background">
-      {/* Background decoration */}
-      <div className="absolute inset-0 bg-gradient-to-br from-interactive-primary/5 via-transparent to-interactive-secondary/5"></div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+    <section className="relative architect-section" style={{ backgroundColor: isLight ? '#F8F9FA' : '#000000' }}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           className="text-center mb-16"
-          variants={staggerContainer}
-          initial="initial"
-          whileInView="animate"
+          initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
+          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
         >
-          <motion.h2
-            className="text-4xl md:text-5xl font-bold mb-4 text-text-primary"
-            variants={staggerItem}
-          >
-            Meet Our Team
-          </motion.h2>
-          <motion.p
-            className="text-xl text-text-secondary max-w-2xl mx-auto"
-            variants={staggerItem}
-          >
-            The passionate individuals behind Tathya, working together to create
-            exceptional digital experiences
-          </motion.p>
+          <h2 className="text-4xl md:text-5xl font-serif font-bold mb-4" style={{ color: isLight ? '#0F172A' : '#FFFFFF' }}>
+            System Architects
+          </h2>
+          <p className="text-xl font-sans" style={{ color: isLight ? '#475569' : 'rgba(255,255,255,0.7)' }}>
+            The experts behind the Motherboard infrastructure
+          </p>
         </motion.div>
 
-        {/* Motion Ticker Container */}
-        <motion.div
-          className="relative overflow-hidden carousel-container"
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-          whileHover={{ scale: 1.01 }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
-        >
-          {/* Motion Ticker */}
-          <div
-            className={`flex space-x-4 md:space-x-6 py-8 ${
-              isHovered ? "pause-animation" : "auto-scroll-medium"
-            }`}
-            style={{
-              willChange: isHovered ? "auto" : "transform",
-            }}
-          >
-            {/* Duplicate team members for seamless loop */}
-            {[...teamMembers, ...teamMembers].map((member, index) => (
+        {/* Team Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {teamMembers.map((member, index) => (
+            <motion.div
+              key={member.id}
+              initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
+              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              className="relative group"
+            >
+              {/* Team Card */}
               <motion.div
-                key={`${member.id}-${index}`}
-                className="flex-shrink-0 w-72 md:w-80 glass p-4 md:p-6 rounded-xl text-center cursor-pointer team-card"
-                variants={teamCardEnter}
+                className={`relative p-6 overflow-hidden card-lift ${
+                  isLight ? 'frost-panel' : 'bg-[#121212] border border-[#0F52BA] rounded-lg transition-all duration-300'
+                }`}
                 whileHover={{
-                  y: -15,
-                  scale: 1.08,
-                  boxShadow: "0 20px 40px rgba(0, 0, 0, 0.15)",
-                  transition: { duration: 0.4, ease: "easeOut" },
+                  y: -2,
+                  boxShadow: isLight
+                    ? "0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05)"
+                    : "0 8px 24px rgba(0,0,0,0.5), 0 0 20px rgba(15,82,186,0.4)",
                 }}
-                whileTap={{ scale: 0.95 }}
+                whileTap={{ y: 1 }}
+                transition={{ duration: 0.2 }}
               >
-                <div className="mb-3 md:mb-4 flex justify-center">
-                  {getTeamImagePath(member.imagePath) ? (
-                    <img
-                      src={getTeamImagePath(member.imagePath)!}
-                      alt={`${member.name} profile`}
-                      className="w-16 h-16 md:w-20 md:h-20 rounded-full object-cover border-2 border-interactive-primary/20"
-                      onError={(e) => {
-                        // Fallback to emoji if image fails to load
-                        const target = e.target as HTMLImageElement;
-                        target.style.display = "none";
-                        const parent = target.parentElement;
-                        if (parent) {
-                          parent.innerHTML = `<span class="text-3xl md:text-4xl">${getTeamImageFallback(
-                            member.emoji
-                          )}</span>`;
-                        }
-                      }}
-                    />
-                  ) : (
-                    <span className="text-3xl md:text-4xl">
-                      {getTeamImageFallback(member.emoji)}
-                    </span>
-                  )}
+                {/* Profile Image */}
+                <div className="flex justify-center mb-4">
+                  <motion.div
+                    className={`relative w-20 h-20 rounded-full overflow-hidden border-2 transition-all duration-300 ${
+                      isLight ? 'border-silver-edge' : 'border-[#0F52BA]/30'
+                    }`}
+                    whileHover={{ scale: 1.1 }}
+                  >
+                    {getTeamImagePath(member.imagePath) ? (
+                      <img
+                        src={getTeamImagePath(member.imagePath)!}
+                        alt={member.name}
+                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-300"
+                      />
+                    ) : (
+                      <div
+                        className={`w-full h-full flex items-center justify-center ${
+                          isLight ? 'bg-silver-edge' : 'bg-[#121212]'
+                        }`}
+                      >
+                        <span
+                          className={`text-2xl ${
+                            isLight ? 'text-sapphire-ink' : 'text-[#0F52BA]'
+                          }`}
+                        >
+                          {member.name.charAt(0)}
+                        </span>
+                      </div>
+                    )}
+                  </motion.div>
                 </div>
 
-                <h4 className="text-base md:text-lg font-semibold mb-1 md:mb-2 text-text-primary">
-                  {member.name}
-                </h4>
-
-                <p className="text-interactive-primary text-xs md:text-sm mb-2 md:mb-3">
-                  {member.role}
-                </p>
-
-                <p className="text-text-secondary text-xs mb-3 md:mb-4 leading-relaxed">
-                  {member.description.length > 80
-                    ? `${member.description.substring(0, 80)}...`
-                    : member.description}
-                </p>
-
-                {/* Specialties */}
-                <div className="flex flex-wrap justify-center gap-1 mb-3 md:mb-4">
-                  {member.specialties.slice(0, 2).map((specialty) => (
-                    <motion.span
-                      key={specialty}
-                      className="px-2 py-1 bg-interactive-primary/10 text-interactive-primary rounded text-xs"
-                      whileHover={{ scale: 1.05 }}
-                    >
-                      {specialty}
-                    </motion.span>
-                  ))}
+                {/* Name & Role */}
+                <div className="text-center mb-4">
+                  <h3
+                    className="text-xl font-serif font-bold mb-1"
+                    style={{ color: isLight ? '#0F172A' : '#FFFFFF' }}
+                  >
+                    {member.name}
+                  </h3>
+                  <p
+                    className="text-sm font-mono"
+                    style={{ color: isLight ? '#0747A6' : '#0F52BA' }}
+                  >
+                    {member.role}
+                  </p>
                 </div>
 
-                {/* Links */}
-                <div className="flex justify-center space-x-2 md:space-x-3">
-                  {member.links.slice(0, 2).map((link) => (
+                {/* Description */}
+                <p
+                  className="text-sm font-sans text-center mb-4 leading-relaxed"
+                  style={{ color: isLight ? '#475569' : 'rgba(255,255,255,0.7)' }}
+                >
+                  {member.description}
+                </p>
+
+                {/* Social Links */}
+                <div className="flex justify-center gap-3 pt-4 border-t" style={{ borderColor: isLight ? '#E2E8F0' : 'rgba(15,82,186,0.2)' }}>
+                  <motion.a
+                    href={member.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`transition-colors duration-300 ${
+                      isLight ? 'text-sapphire-ink hover:text-forest-emerald' : 'text-[#0F52BA] hover:text-[#50C878]'
+                    }`}
+                    whileHover={{ scale: 1.2 }}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    <Linkedin className="w-5 h-5" />
+                  </motion.a>
+                  {member.github && (
                     <motion.a
-                      key={link.label}
-                      href={link.url}
+                      href={member.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-text-secondary hover:text-interactive-primary transition-colors duration-300 text-xs flex items-center space-x-1"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
+                      className={`transition-colors duration-300 ${
+                        isLight ? 'text-sapphire-ink hover:text-forest-emerald' : 'text-[#0F52BA] hover:text-[#50C878]'
+                      }`}
+                      whileHover={{ scale: 1.2 }}
+                      whileTap={{ scale: 0.9 }}
                     >
-                      <span>{link.label}</span>
-                      <svg
-                        className="w-3 h-3"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
+                      <Github className="w-5 h-5" />
                     </motion.a>
-                  ))}
+                  )}
+                  {member.website && (
+                    <motion.a
+                      href={member.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`transition-colors duration-300 ${
+                        isLight ? 'text-sapphire-ink hover:text-forest-emerald' : 'text-[#0F52BA] hover:text-[#50C878]'
+                      }`}
+                      whileHover={{ scale: 1.2 }}
+                      whileTap={{ scale: 0.9 }}
+                    >
+                      <Globe className="w-5 h-5" />
+                    </motion.a>
+                  )}
                 </div>
               </motion.div>
-            ))}
-          </div>
-
-          {/* Gradient overlays for smooth edges */}
-          <div className="absolute left-0 top-0 bottom-0 w-16 md:w-20 bg-gradient-to-r from-background-primary to-transparent pointer-events-none z-20"></div>
-          <div className="absolute right-0 top-0 bottom-0 w-16 md:w-20 bg-gradient-to-l from-background-primary to-transparent pointer-events-none z-20"></div>
-        </motion.div>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );

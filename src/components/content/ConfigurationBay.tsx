@@ -6,20 +6,20 @@ import { CheckCircle2, Loader2, HardDrive, Cloud, Cpu, Database, Shield, Zap } f
 import { useTheme } from "@/contexts/ThemeContext";
 
 const primaryObjectives = [
-  "Automate Workflows",
-  "Enhance Customer Experience",
+  "Grow My Business",
+  "Improve Customer Experience",
   "Scale Operations",
-  "Improve Data Insights",
-  "Secure Infrastructure",
+  "Better Data Insights",
+  "Secure My Data",
 ];
 
 const modules = [
-  { id: "crm", name: "CRM Integration", icon: HardDrive },
-  { id: "erp", name: "ERP Solutions", icon: Cloud },
-  { id: "ai", name: "AI/ML Automation", icon: Cpu },
-  { id: "data", name: "Data Warehousing", icon: Database },
-  { id: "security", name: "Advanced Security", icon: Shield },
-  { id: "devops", name: "DevOps Automation", icon: Zap },
+  { id: "crm", name: "Customer Management", icon: HardDrive },
+  { id: "erp", name: "Business Operations", icon: Cloud },
+  { id: "ai", name: "Smart Automation", icon: Cpu },
+  { id: "data", name: "Data Analytics", icon: Database },
+  { id: "security", name: "Bank-Level Security", icon: Shield },
+  { id: "devops", name: "Instant Scaling", icon: Zap },
 ];
 
 export default function ConfigurationBay(): JSX.Element {
@@ -31,7 +31,7 @@ export default function ConfigurationBay(): JSX.Element {
   const [provisionProgress, setProvisionProgress] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
   const { resolvedTheme } = useTheme();
-  const isDark = resolvedTheme === "dark";
+  const isLight = resolvedTheme === "light";
 
   const handleNext = () => {
     if (step === 1 && !companyId) return;
@@ -66,7 +66,7 @@ export default function ConfigurationBay(): JSX.Element {
   };
 
   return (
-    <section className="relative" style={{ backgroundColor: 'var(--bg-primary)' }}>
+    <section id="configuration-bay" className="relative architect-section" style={{ backgroundColor: isLight ? '#F8F9FA' : '#000000' }}>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           className="text-center mb-12"
@@ -75,19 +75,20 @@ export default function ConfigurationBay(): JSX.Element {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-4xl md:text-5xl font-serif font-bold mb-4" style={{ color: 'var(--text-primary)' }}>
-            Integrated Configuration Bay
+          <h2 className="text-4xl md:text-5xl font-serif font-bold mb-4" style={{ color: isLight ? '#0F172A' : '#FFFFFF' }}>
+            Build Your System
           </h2>
-          <p className="text-xl font-sans" style={{ color: 'var(--text-secondary)' }}>
-            Provision your custom business ecosystem with our interactive onboarding interface.
+          <p className="text-xl font-sans" style={{ color: isLight ? '#475569' : 'rgba(255,255,255,0.7)' }}>
+            Customize your business solution. Request a quote tailored to your needs.
           </p>
         </motion.div>
 
+        {/* Recessed Hardware Panel */}
         <motion.div
-          className={`relative p-8 rounded-lg overflow-hidden ${
-            isDark 
-              ? 'bg-[#121212] border border-[#0F52BA]' 
-              : 'bg-white border border-gray-200 shadow-[0_8px_24px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.9)]'
+          className={`hardware-panel relative p-8 rounded-lg overflow-hidden ${
+            isLight 
+              ? 'bg-[#F8F9FA] border border-[#E2E8F0]' 
+              : 'bg-[#121212] border border-[#0F52BA]'
           }`}
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -103,28 +104,28 @@ export default function ConfigurationBay(): JSX.Element {
               transition={{ duration: 0.3 }}
             >
               <label className="block mb-6">
-                <span className={`font-mono text-sm mb-3 block ${
-                  isDark ? 'text-[#0F52BA]' : 'text-[#0A3D7A]'
+                <span className={`font-sans text-sm font-semibold mb-3 block ${
+                  isLight ? 'text-[#0747A6]' : 'text-[#0F52BA]'
                 }`}>
-                  Define_Company_ID:
+                  Your Company Name:
                 </span>
                 <input
                   type="text"
                   value={companyId}
                   onChange={(e) => setCompanyId(e.target.value)}
-                  className={`w-full px-4 py-3 rounded-lg font-mono focus:outline-none transition-all duration-300 ${
-                    isDark 
-                      ? 'bg-[#000000] border border-[#0F52BA]/20 text-white focus:border-[#0F52BA]' 
-                      : 'bg-gray-50 border border-gray-300 text-gray-900 focus:border-[#0A3D7A]'
+                  className={`w-full px-4 py-3 rounded-lg font-sans focus:outline-none transition-all duration-300 ${
+                    isLight 
+                      ? 'bg-white border border-[#E2E8F0] text-[#0F172A] focus:border-[#0747A6] shadow-sm' 
+                      : 'bg-[#000000] border border-[#0F52BA]/20 text-white focus:border-[#0F52BA]'
                   }`}
-                  placeholder="Enter your Company ID"
+                  placeholder="Enter your company name"
                 />
               </label>
               <motion.button
                 onClick={handleNext}
                 disabled={!companyId.trim()}
                 className={`w-full px-6 py-3 rounded-lg text-white transition-all duration-300 font-mono disabled:opacity-50 disabled:cursor-not-allowed ${
-                  isDark ? 'bg-[#0F52BA] hover:bg-[#0F52BA]/80' : 'bg-[#0A3D7A] hover:bg-[#0A3D7A]/80'
+                  isLight ? 'bg-[#0747A6] hover:bg-[#0747A6]/90' : 'bg-[#0F52BA] hover:bg-[#0F52BA]/80'
                 }`}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
@@ -143,24 +144,24 @@ export default function ConfigurationBay(): JSX.Element {
               transition={{ duration: 0.3 }}
             >
               <label className="block mb-6">
-                <span className={`font-mono text-sm mb-4 block ${
-                  isDark ? 'text-[#0F52BA]' : 'text-[#0A3D7A]'
+                <span className={`font-sans text-sm font-semibold mb-4 block ${
+                  isLight ? 'text-[#0747A6]' : 'text-[#0F52BA]'
                 }`}>
-                  Primary_Objective:
+                  What's your main goal?
                 </span>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {primaryObjectives.map((objective) => (
                     <motion.button
                       key={objective}
                       onClick={() => setSelectedObjective(objective)}
-                      className={`px-6 py-3 rounded-lg border transition-all duration-300 font-mono text-sm tactile-button ${
+                      className={`px-6 py-3 rounded-lg border transition-all duration-300 font-mono text-sm ${
                         selectedObjective === objective
-                          ? isDark
-                            ? "border-[#50C878] bg-[#50C878]/20 text-[#50C878]"
-                            : "border-[#2D8659] bg-[#2D8659]/10 text-[#2D8659]"
-                          : isDark
-                            ? "border-[#0F52BA]/20 bg-[#121212] hover:border-[#0F52BA] text-white/70"
-                            : "border-gray-300 bg-white hover:border-[#0A3D7A] text-gray-700 shadow-sm"
+                          ? isLight
+                            ? "border-[#2D8A4E] bg-[#2D8A4E]/10 text-[#2D8A4E]"
+                            : "border-[#50C878] bg-[#50C878]/20 text-[#50C878]"
+                          : isLight
+                            ? "border-[#E2E8F0] bg-white hover:border-[#0747A6] text-[#475569] shadow-sm"
+                            : "border-[#0F52BA]/20 bg-[#121212] hover:border-[#0F52BA] text-white/70"
                       }`}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
@@ -174,9 +175,9 @@ export default function ConfigurationBay(): JSX.Element {
                 <motion.button
                   onClick={handleBack}
                   className={`flex-1 px-6 py-3 rounded-lg transition-all duration-300 font-mono ${
-                    isDark 
-                      ? 'bg-[#121212] border border-[#0F52BA]/20 text-white hover:border-[#0F52BA]' 
-                      : 'bg-white border border-gray-300 text-gray-700 hover:border-[#0A3D7A] shadow-sm'
+                    isLight 
+                      ? 'bg-white border border-[#E2E8F0] text-[#475569] hover:border-[#0747A6] shadow-sm' 
+                      : 'bg-[#121212] border border-[#0F52BA]/20 text-white hover:border-[#0F52BA]'
                   }`}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
@@ -186,8 +187,8 @@ export default function ConfigurationBay(): JSX.Element {
                 <motion.button
                   onClick={handleNext}
                   disabled={!selectedObjective}
-                  className={`flex-1 px-6 py-3 rounded-lg text-white transition-all duration-300 font-mono disabled:opacity-50 disabled:cursor-not-allowed ${
-                    isDark ? 'bg-[#0F52BA] hover:bg-[#0F52BA]/80' : 'bg-[#0A3D7A] hover:bg-[#0A3D7A]/80'
+                  className={`flex-1 px-6 py-3 rounded-lg text-white transition-all duration-300 font-sans disabled:opacity-50 disabled:cursor-not-allowed ${
+                    isLight ? 'bg-[#0747A6] hover:bg-[#0747A6]/90' : 'bg-[#0F52BA] hover:bg-[#0F52BA]/80'
                   }`}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
@@ -198,7 +199,7 @@ export default function ConfigurationBay(): JSX.Element {
             </motion.div>
           )}
 
-          {/* Step 3: Module Selection - LED Snap Effect */}
+          {/* Step 3: Module Selection - Snap Effect */}
           {step === 3 && (
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -207,10 +208,10 @@ export default function ConfigurationBay(): JSX.Element {
               transition={{ duration: 0.3 }}
             >
               <label className="block mb-6">
-                <span className={`font-mono text-sm mb-4 block ${
-                  isDark ? 'text-[#0F52BA]' : 'text-[#0A3D7A]'
+                <span className={`font-sans text-sm font-semibold mb-4 block ${
+                  isLight ? 'text-[#0747A6]' : 'text-[#0F52BA]'
                 }`}>
-                  Module_Selection:
+                  Select the features you need:
                 </span>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                   {modules.map((module) => {
@@ -220,44 +221,50 @@ export default function ConfigurationBay(): JSX.Element {
                       <motion.button
                         key={module.id}
                         onClick={() => handleModuleClick(module.id)}
-                        className={`relative p-4 rounded-lg border transition-all duration-300 flex flex-col items-center justify-center tactile-button ${
+                        className={`relative p-4 flex flex-col items-center justify-center transition-all duration-300 ${
                           isSelected
-                            ? isDark
-                              ? "border-[#50C878] bg-[#50C878]/20 text-[#50C878]"
-                              : "border-[#2D8659] bg-[#2D8659]/10 text-[#2D8659]"
-                            : isDark
-                              ? "border-[#0F52BA]/20 bg-[#121212] hover:border-[#0F52BA] text-white/70"
-                              : "border-gray-300 bg-white hover:border-[#0A3D7A] text-gray-700 shadow-sm"
-                        } led-snap ${isSelected ? 'active' : ''}`}
+                            ? isLight
+                              ? "frost-panel-active border-forest-emerald bg-forest-emerald/10 text-forest-emerald"
+                              : "border-[#50C878] bg-[#50C878]/20 text-[#50C878] rounded-lg"
+                            : isLight
+                              ? "frost-panel hover:border-sapphire-ink text-[#475569]"
+                              : "border-[#0F52BA]/20 bg-[#121212] hover:border-[#0F52BA] text-white/70 rounded-lg"
+                        }`}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                         animate={{
+                          scale: isSelected ? [1, 1.1, 1] : 1,
                           boxShadow: isSelected
-                            ? isDark
-                              ? "0 0 12px rgba(80, 200, 120, 0.4)"
-                              : "0 0 12px rgba(45, 134, 89, 0.3)"
+                            ? isLight
+                              ? "0 0 12px rgba(45, 138, 78, 0.3)"
+                              : "0 0 12px rgba(80, 200, 120, 0.4)"
                             : "none",
                         }}
-                        transition={{ duration: 0.05 }}
+                        transition={{ duration: 0.2 }}
                       >
                         <IconComponent 
                           className={`w-8 h-8 mb-2 transition-colors duration-75 ${
                             isSelected 
-                              ? (isDark ? "text-[#50C878]" : "text-[#2D8659]")
-                              : (isDark ? "text-[#0F52BA]" : "text-[#0A3D7A]")
+                              ? (isLight ? "text-forest-emerald" : "text-[#50C878]")
+                              : (isLight ? "text-sapphire-ink" : "text-[#0F52BA]")
                           }`}
                         />
-                        <span className="font-mono text-xs text-center">{module.name}</span>
-                        {isSelected && (
-                          <motion.div
-                            className={`absolute top-2 right-2 w-3 h-3 rounded-full ${
-                              isDark ? 'bg-[#50C878]' : 'bg-[#2D8659]'
-                            }`}
-                            initial={{ scale: 0 }}
-                            animate={{ scale: [0, 1.2, 1], opacity: [0, 1, 1] }}
-                            transition={{ duration: 0.2, ease: "easeOut" }}
-                          />
-                        )}
+                        <span className="font-sans text-xs text-center">{module.name}</span>
+                        {/* LED Pearl Indicator */}
+                        <div className={`absolute top-2 right-2 ${
+                          isSelected 
+                            ? (isLight ? "led-pearl-emerald" : "w-3 h-3 rounded-full bg-[#50C878]")
+                            : (isLight ? "led-pearl-sapphire" : "w-3 h-3 rounded-full bg-[#0F52BA]")
+                        }`}>
+                          {isSelected && (
+                            <motion.div
+                              className="w-full h-full"
+                              initial={{ scale: 0 }}
+                              animate={{ scale: [0, 1.2, 1], opacity: [0, 1, 1] }}
+                              transition={{ duration: 0.2, ease: "easeOut" }}
+                            />
+                          )}
+                        </div>
                       </motion.button>
                     );
                   })}
@@ -267,9 +274,9 @@ export default function ConfigurationBay(): JSX.Element {
                 <motion.button
                   onClick={handleBack}
                   className={`flex-1 px-6 py-3 rounded-lg transition-all duration-300 font-mono ${
-                    isDark 
-                      ? 'bg-[#121212] border border-[#0F52BA]/20 text-white hover:border-[#0F52BA]' 
-                      : 'bg-white border border-gray-300 text-gray-700 hover:border-[#0A3D7A] shadow-sm'
+                    isLight 
+                      ? 'bg-white border border-[#E2E8F0] text-[#475569] hover:border-[#0747A6] shadow-sm' 
+                      : 'bg-[#121212] border border-[#0F52BA]/20 text-white hover:border-[#0F52BA]'
                   }`}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
@@ -279,19 +286,19 @@ export default function ConfigurationBay(): JSX.Element {
                 <motion.button
                   onClick={handleSubmit}
                   disabled={isProvisioning || selectedModules.length === 0}
-                  className={`flex-1 px-6 py-3 rounded-lg text-white transition-all duration-300 font-mono disabled:opacity-50 disabled:cursor-not-allowed ${
-                    isDark ? 'bg-[#50C878] hover:bg-[#50C878]/80' : 'bg-[#2D8659] hover:bg-[#2D8659]/80'
+                  className={`flex-1 px-6 py-3 rounded-lg text-white transition-all duration-300 font-sans disabled:opacity-50 disabled:cursor-not-allowed ${
+                    isLight ? 'bg-[#2D8A4E] hover:bg-[#2D8A4E]/90' : 'bg-[#50C878] hover:bg-[#50C878]/80'
                   }`}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  {isProvisioning ? "Provisioning..." : "Master Switch"}
+                  {isProvisioning ? "Processing..." : "Request Quote"}
                 </motion.button>
               </div>
             </motion.div>
           )}
 
-          {/* Step 4: Provisioning / Completion */}
+          {/* Step 4: System Provisioning */}
           {step === 4 && (
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
@@ -301,37 +308,37 @@ export default function ConfigurationBay(): JSX.Element {
               {isProvisioning ? (
                 <div className="text-center">
                   <Loader2 className={`w-12 h-12 animate-spin mx-auto mb-4 ${
-                    isDark ? 'text-[#50C878]' : 'text-[#2D8659]'
+                    isLight ? 'text-[#2D8A4E]' : 'text-[#50C878]'
                   }`} />
-                  <p className="text-xl font-mono mb-4" style={{ color: 'var(--text-primary)' }}>
-                    Provisioning Workspace...
+                  <p className="text-xl font-sans mb-4" style={{ color: isLight ? '#0F172A' : '#FFFFFF' }}>
+                    Processing Your Request...
                   </p>
                   <div className={`w-full rounded-full h-3 mb-4 overflow-hidden border ${
-                    isDark ? 'bg-[#000000] border-[#0F52BA]/20' : 'bg-gray-100 border-gray-300'
+                    isLight ? 'bg-[#F8F9FA] border-[#E2E8F0]' : 'bg-[#000000] border-[#0F52BA]/20'
                   }`}>
                     <motion.div
                       className={`h-full rounded-full ${
-                        isDark ? 'bg-[#50C878]' : 'bg-[#2D8659]'
+                        isLight ? 'bg-[#2D8A4E]' : 'bg-[#50C878]'
                       }`}
                       initial={{ width: 0 }}
                       animate={{ width: `${provisionProgress}%` }}
                       transition={{ duration: 0.3 }}
                     />
                   </div>
-                  <p className="text-sm font-mono" style={{ color: 'var(--text-secondary)' }}>
+                  <p className="text-sm font-sans" style={{ color: isLight ? '#475569' : 'rgba(255,255,255,0.7)' }}>
                     {provisionProgress}% Complete
                   </p>
                 </div>
               ) : (
                 <div className="text-center">
                   <CheckCircle2 className={`w-12 h-12 mx-auto mb-4 ${
-                    isDark ? 'text-[#50C878]' : 'text-[#2D8659]'
+                    isLight ? 'text-[#2D8A4E]' : 'text-[#50C878]'
                   }`} />
-                  <h3 className="text-2xl font-serif font-bold mb-2" style={{ color: 'var(--text-primary)' }}>
-                    Workspace Provisioned!
+                  <h3 className="text-2xl font-serif font-bold mb-2" style={{ color: isLight ? '#0F172A' : '#FFFFFF' }}>
+                    Request Received!
                   </h3>
-                  <p style={{ color: 'var(--text-secondary)' }}>
-                    Your custom business ecosystem is ready.
+                  <p style={{ color: isLight ? '#475569' : 'rgba(255,255,255,0.7)' }}>
+                    We'll contact you within 24 hours with a custom quote for your business.
                   </p>
                 </div>
               )}

@@ -6,28 +6,28 @@ import { useTheme } from "@/contexts/ThemeContext";
 
 export default function ArchitecturePillars(): JSX.Element {
   const { resolvedTheme } = useTheme();
-  const isDark = resolvedTheme === "dark";
+  const isLight = resolvedTheme === "light";
 
   const pillars = [
     {
       icon: Lock,
-      title: "Isolated Sovereignty",
-      description: "Dedicated repositories and isolated server environments ensuring complete data autonomy and security.",
+      title: "Bank-Level Security",
+      description: "Your data stays private and secure. Unlike shared hosting, you get dedicated infrastructure with complete data autonomy.",
     },
     {
       icon: Puzzle,
-      title: "Modular Intelligence",
-      description: "Plug-and-play logic powered by Go-based microservices for seamless scalability and integration.",
+      title: "Infinite Scalability",
+      description: "Your site won't crash when you grow. Add features instantly with our modular system that scales with your business.",
     },
     {
       icon: Terminal,
-      title: "The Shell Interface",
-      description: "Private management consoles providing real-time monitoring and control over your infrastructure.",
+      title: "Business Command Center",
+      description: "Your private dashboard to monitor performance, manage content, and scale your system as your business grows.",
     },
   ];
 
   return (
-    <section className="relative" style={{ backgroundColor: 'var(--bg-primary)' }}>
+    <section className="relative architect-section" style={{ backgroundColor: isLight ? '#F8F9FA' : '#000000' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           className="text-center mb-16"
@@ -36,11 +36,11 @@ export default function ArchitecturePillars(): JSX.Element {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-4xl md:text-5xl font-serif font-bold mb-4" style={{ color: 'var(--text-primary)' }}>
-            Core Modules
+          <h2 className="text-4xl md:text-5xl font-serif font-bold mb-4" style={{ color: isLight ? '#0F172A' : '#FFFFFF' }}>
+            Why Choose Tathya?
           </h2>
-          <p className="text-xl font-sans" style={{ color: 'var(--text-secondary)' }}>
-            The foundation of engineered excellence
+          <p className="text-xl font-sans" style={{ color: isLight ? '#475569' : 'rgba(255,255,255,0.7)' }}>
+            Technology that works as hard as you do
           </p>
         </motion.div>
 
@@ -56,56 +56,40 @@ export default function ArchitecturePillars(): JSX.Element {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className="relative group"
               >
-                {/* Module Card - Tactile Button Press Effect */}
+                {/* Module Card - 2px Lift on Hover with Deeper Shadow */}
                 <motion.div
-                  className={`relative p-8 rounded-lg transition-all duration-300 ease-in-out overflow-hidden tactile-card ${
-                    isDark 
-                      ? 'bg-[#121212] border border-[#0F52BA]' 
-                      : 'bg-white border border-gray-200 shadow-[0_8px_24px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.9)]'
+                  className={`relative p-8 overflow-hidden card-lift ${
+                    isLight 
+                      ? 'frost-panel' 
+                      : 'bg-[#121212] border border-[#0F52BA] shadow-[0_4px_16px_rgba(0,0,0,0.5)] rounded-lg transition-all duration-300 ease-in-out'
                   }`}
                   whileHover={{ 
-                    y: -4,
-                    boxShadow: isDark 
-                      ? "0 8px 24px rgba(0,0,0,0.5), 0 0 20px rgba(15,82,186,0.4)"
-                      : "0 12px 32px rgba(0,0,0,0.12), 0 0 20px rgba(10,61,122,0.2)"
+                    y: -2,
+                    boxShadow: isLight 
+                      ? "0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05)"
+                      : "0 8px 24px rgba(0,0,0,0.5), 0 0 20px rgba(15,82,186,0.4)"
                   }}
                   whileTap={{ y: 1 }}
                   transition={{ duration: 0.2 }}
                 >
-                  {/* Icon with inner glow */}
+                  {/* Icon */}
                   <div className="mb-6 relative">
-                    <div 
-                      className={`absolute inset-0 blur-xl ${
-                        isDark ? 'bg-[#0F52BA]/20' : 'bg-[#0A3D7A]/10'
-                      }`}
-                    />
                     <IconComponent 
-                      className={`relative w-14 h-14 ${
-                        isDark ? 'text-[#0F52BA]' : 'text-[#0A3D7A]'
+                      className={`w-14 h-14 ${
+                        isLight ? 'text-[#0747A6]' : 'text-[#0F52BA]'
                       }`}
                     />
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-2xl font-serif font-bold mb-4" style={{ color: 'var(--text-primary)' }}>
+                  <h3 className="text-2xl font-serif font-bold mb-4" style={{ color: isLight ? '#0F172A' : '#FFFFFF' }}>
                     {pillar.title}
                   </h3>
 
                   {/* Description */}
-                  <p className="leading-relaxed font-sans" style={{ color: 'var(--text-secondary)' }}>
+                  <p className="leading-relaxed font-sans" style={{ color: isLight ? '#475569' : 'rgba(255,255,255,0.7)' }}>
                     {pillar.description}
                   </p>
-
-                  {/* Hover glow effect */}
-                  <motion.div
-                    className={`absolute inset-0 rounded-lg pointer-events-none ${
-                      isDark ? 'bg-[#0F52BA]/0' : 'bg-[#0A3D7A]/0'
-                    }`}
-                    whileHover={{ 
-                      backgroundColor: isDark ? "rgba(15, 82, 186, 0.05)" : "rgba(10, 61, 122, 0.03)"
-                    }}
-                    transition={{ duration: 0.3 }}
-                  />
                 </motion.div>
               </motion.div>
             );

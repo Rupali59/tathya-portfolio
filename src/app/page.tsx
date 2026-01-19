@@ -1,7 +1,10 @@
 import dynamicImport from "next/dynamic";
 import Hero from "@/components/hero/Hero";
 import ArchitecturePillars from "@/components/content/ArchitecturePillars";
+import Services from "@/components/content/Services";
 import Portfolio from "@/components/content/Portfolio";
+import FAQ from "@/components/content/FAQ";
+import Team from "@/components/content/Team";
 import Footer from "@/components/layout/Footer";
 
 // Lazy load heavy interactive components
@@ -30,13 +33,12 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <div className="section-spacing" />
       <ArchitecturePillars />
-      <div className="section-spacing" />
+      <Services />
       <Portfolio />
-      <div className="section-spacing" />
       <ConfigurationBay />
-      <div className="section-spacing" />
+      <FAQ />
+      <Team />
       <Footer />
     </>
   );
