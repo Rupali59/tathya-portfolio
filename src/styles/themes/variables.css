@@ -1,42 +1,53 @@
 /* Tathya Theme Variables - CSS Custom Properties */
+/* Tactile Dark-Engine Theme */
 
 :root {
-    /* Base Palette Colors - Tathya Ocean Theme */
-    --primary: #0d5c63;
-    /* Caribbean Current - Dark teal base */
-    --secondary: #44a1a0;
-    /* Verdigris - Muted teal for secondary */
-    --accent: #78cdd7;
-    /* Tiffany Blue - Friendly accent */
-    --background: #fffffa;
-    /* Baby Powder - Very light near-white */
-    --text: #0d5c63;
-    /* Caribbean Current - Dark teal for text */
+    /* Base Palette Colors - Tactile Dark-Engine Theme */
+    --primary: #0F52BA;
+    /* Sapphire Blue - Primary Glow */
+    --secondary: #50C878;
+    /* Emerald Green - Success/Action Glow */
+    --accent: #0F52BA;
+    /* Sapphire Blue accent */
+    --background: #000000;
+    /* Pure Black - Primary Background */
+    --surface: #121212;
+    /* Dark Charcoal - Surface Material */
+    --text: #FFFFFF;
+    /* White text for contrast */
 
-    /* Semantic Color System - Light Theme (Default) */
+    /* Semantic Color System - Tactile Dark-Engine Theme */
     --bg-primary: var(--background);
-    --bg-secondary: var(--baby-powder-100);
-    /* Baby Powder-100 for subtle contrast */
+    /* Pure Black */
+    --bg-secondary: var(--surface);
+    /* Dark Charcoal */
 
     --text-primary: var(--text);
-    --text-secondary: var(--primary);
+    --text-secondary: rgba(255, 255, 255, 0.7);
 
     --btn-cta-bg: var(--secondary);
-    --btn-cta-hover: var(--teal);
-    /* Teal for hover */
+    /* Emerald Green */
+    --btn-cta-hover: #5FD88A;
+    /* Lighter Emerald */
     --btn-cta-text: var(--background);
 
-    --btn-secondary-bg: var(--accent);
-    --btn-secondary-hover: var(--tiffany-blue-300);
-    /* Tiffany Blue-300 for hover */
+    --btn-secondary-bg: var(--primary);
+    /* Sapphire Blue */
+    --btn-secondary-hover: #1E6FD4;
+    /* Lighter Sapphire */
     --btn-secondary-text: var(--text);
 
-    --card-bg: var(--background);
-    --card-border: var(--tiffany-blue-200);
-    /* Tiffany Blue-200 for subtle border */
+    --card-bg: var(--surface);
+    /* Dark Charcoal */
+    --card-border: rgba(15, 82, 186, 0.2);
+    /* Sapphire Blue at 0.2 opacity */
+    --card-border-hover: rgba(15, 82, 186, 1.0);
+    /* Sapphire Blue at full opacity on hover */
+    --card-shadow: rgba(15, 82, 186, 0.1);
+    /* Sapphire Blue shadow at 0.1 opacity */
 
-    --divider: var(--tiffany-blue-200);
-    /* Tiffany Blue-200 for subtle dividers */
+    --divider: rgba(15, 82, 186, 0.2);
+    /* Sapphire Blue divider */
 
     /* Extended Ocean Palette - Caribbean Current */
     --primary-50: #f0fdfa;

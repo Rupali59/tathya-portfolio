@@ -18,7 +18,7 @@ export function trackEdgeEvent(event: string, properties: Record<string, any>) {
     event,
     properties,
     timestamp: new Date().toISOString(),
-    region: process.env.VERCEL_REGION || 'unknown',
+    region: process.env.VERCEL_REGION || process.env.NEXT_PUBLIC_VERCEL_REGION || 'unknown',
   };
 
   // In production, send to edge-compatible analytics service

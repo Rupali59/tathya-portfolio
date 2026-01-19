@@ -17,27 +17,23 @@ export function middleware(request: NextRequest) {
     return response;
   }
 
-  // Track page views server-side
-  const analyticsData = {
-    path: pathname,
-    timestamp: new Date().toISOString(),
-    userAgent: request.headers.get('user-agent'),
-    referer: request.headers.get('referer'),
-    ip: request.ip || request.headers.get('x-forwarded-for'),
-  };
-
-  // Log analytics data (in production, send to analytics service)
-  console.log('Page view:', analyticsData);
+  // Track page views server-side (async, non-blocking)
+  // Only log in development to avoid performance impact
+  const timestamp = new Date().toISOString();
+  if (process.env.NODE_ENV === 'development') {
+    console.log('Page view:', { path: pathname, timestamp });
+  }
 
   // Add custom headers for client-side analytics
   response.headers.set('x-page-path', pathname);
-  response.headers.set('x-timestamp', analyticsData.timestamp);
+  response.headers.set('x-timestamp', timestamp);
 
-  // A/B Testing headers
-  const variant = getABTestVariant(pathname, request);
-  if (variant) {
-    response.headers.set('x-ab-variant', variant);
-  }
+  // A/B Testing headers (only for homepage, skip for performance)
+  // Disabled for better performance - enable if needed
+  // const variant = getABTestVariant(pathname, request);
+  // if (variant) {
+  //   response.headers.set('x-ab-variant', variant);
+  // }
 
   // Security headers
   response.headers.set('X-Frame-Options', 'DENY');
@@ -52,8 +48,8 @@ export function middleware(request: NextRequest) {
     // Static pages - cache for 1 hour
     response.headers.set('Cache-Control', 'public, max-age=3600, stale-while-revalidate=86400');
   } else if (pathname === '/') {
-    // Homepage - shorter cache
-    response.headers.set('Cache-Control', 'public, max-age=1800, stale-while-revalidate=3600');
+    // Homepage - longer cache for static generation
+    response.headers.set('Cache-Control', 'public, max-age=3600, stale-while-revalidate=86400');
   }
 
   // Handle redirects

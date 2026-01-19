@@ -23,7 +23,7 @@ export default function Analytics({
   clarityProjectId,
 }: AnalyticsProps) {
   useEffect(() => {
-    // Only initialize analytics in production or when explicitly enabled
+    // Check if analytics is enabled
     const isAnalyticsEnabled =
       process.env.NODE_ENV === "production" ||
       process.env.NEXT_PUBLIC_ANALYTICS_ENABLED === "true";
@@ -150,6 +150,7 @@ export default function Analytics({
 // Hook for tracking custom events
 export const useAnalytics = () => {
   const trackEvent = (eventName: string, parameters?: Record<string, any>) => {
+    // Check if analytics is enabled
     const isAnalyticsEnabled =
       process.env.NODE_ENV === "production" ||
       process.env.NEXT_PUBLIC_ANALYTICS_ENABLED === "true";
@@ -169,7 +170,8 @@ export const useAnalytics = () => {
     }
   };
 
-  const trackPageView = (url: string, title?: string) => {
+  const trackPageView = (url: string, title?: string, gaMeasurementId?: string) => {
+    // Check if analytics is enabled
     const isAnalyticsEnabled =
       process.env.NODE_ENV === "production" ||
       process.env.NEXT_PUBLIC_ANALYTICS_ENABLED === "true";
@@ -179,8 +181,9 @@ export const useAnalytics = () => {
     }
 
     // Google Analytics page view
-    if (window.gtag && process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID) {
-      window.gtag("config", process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID, {
+    const measurementId = gaMeasurementId || process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+    if (window.gtag && measurementId) {
+      window.gtag("config", measurementId, {
         page_title: title || document.title,
         page_location: url,
       });

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Instrument_Serif, Inter, JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import Navigation from "@/components/layout/Navigation";
 import Analytics from "@/components/analytics/Analytics";
@@ -9,28 +9,44 @@ import {
   generateOrganizationSchema,
   generateWebsiteSchema,
 } from "@/lib/structured-data";
+import { siteConfig, analyticsConfig, getOgImageUrl, getCanonicalUrl } from "@/lib/env";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+// Premium Font Configuration
+// Headlines: Instrument Serif (weight 400 only)
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-serif",
   subsets: ["latin"],
+  weight: "400",
   display: "swap",
-  preload: true,
-  fallback: ["system-ui", "arial"],
+  preload: true, // Preload critical headline font
+  fallback: ["Georgia", "Times New Roman", "serif"],
+  adjustFontFallback: true,
 });
 
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
+// Body: Geist Sans (using Inter as fallback - Geist requires special setup)
+const geistSans = Inter({
+  variable: "--font-sans",
   subsets: ["latin"],
   display: "swap",
-  preload: true,
+  preload: true, // Preload critical body font
+  fallback: ["system-ui", "-apple-system", "sans-serif"],
+  adjustFontFallback: true,
+});
+
+// System/Mono: JetBrains Mono
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-mono",
+  subsets: ["latin"],
+  display: "swap",
+  preload: false, // Defer monospace font
   fallback: ["monospace"],
+  adjustFontFallback: true,
 });
 
 export const metadata: Metadata = {
-  title: "Tathya | Business Websites & CRM Solutions",
-  description:
-    "Tathya delivers full-stack business websites, CRM integration, and campaign management. We're a passionate team building clean, functional solutions that drive business growth.",
+  title: `${siteConfig.name} | Business Websites & CRM Solutions`,
+  description: siteConfig.description,
   keywords: [
     "business websites",
     "CRM solutions",
@@ -45,9 +61,9 @@ export const metadata: Metadata = {
     "custom software",
     "technical consulting",
   ],
-  authors: [{ name: "Tathya Team" }],
-  creator: "Tathya",
-  publisher: "Tathya",
+  authors: [{ name: `${siteConfig.name} Team` }],
+  creator: siteConfig.name,
+  publisher: siteConfig.name,
   robots: {
     index: true,
     follow: true,
@@ -60,31 +76,31 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: "https://tathya.dev",
+    canonical: getCanonicalUrl(),
   },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://tathya.dev",
-    title: "Tathya - Digital Growth Partner",
-    description: "End-to-End Business Websites & CRM Solutions",
-    siteName: "Tathya",
+    url: siteConfig.url,
+    title: `${siteConfig.name} - Digital Growth Partner`,
+    description: siteConfig.description,
+    siteName: siteConfig.name,
     images: [
       {
-        url: "https://tathya.dev/og-image.jpg",
+        url: getOgImageUrl(),
         width: 1200,
         height: 630,
-        alt: "Tathya - Digital Growth Partner",
+        alt: `${siteConfig.name} - Digital Growth Partner`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tathya - Digital Growth Partner",
-    description: "End-to-End Business Websites & CRM Solutions",
-    images: ["https://tathya.dev/og-image.jpg"],
-    creator: "@tathya_dev",
-    site: "@tathya_dev",
+    title: `${siteConfig.name} - Digital Growth Partner`,
+    description: siteConfig.description,
+    images: [getOgImageUrl()],
+    creator: siteConfig.twitterHandle,
+    site: siteConfig.twitterSite,
   },
 };
 
@@ -93,11 +109,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Get analytics configuration from environment variables
-  const analyticsConfig = {
-    gaMeasurementId: process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID,
-    hotjarSiteId: process.env.NEXT_PUBLIC_HOTJAR_SITE_ID,
-    clarityProjectId: process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID,
+  // Get analytics configuration from centralized config
+  const analyticsProps = {
+    gaMeasurementId: analyticsConfig.gaMeasurementId,
+    hotjarSiteId: analyticsConfig.hotjarSiteId,
+    clarityProjectId: analyticsConfig.clarityProjectId,
   };
 
   // Generate structured data
@@ -107,27 +123,34 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Preconnect to Google Fonts for faster font loading */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        
         <link
           rel="icon"
           href="/images/assets/logos/favicon.png"
           type="image/png"
         />
-        {/* Structured Data */}
+        
+        {/* Structured Data - Load asynchronously */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(organizationSchema),
           }}
+          defer
         />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(websiteSchema),
           }}
+          defer
         />
       </head>
       <body
-        className={`${inter.variable} ${jetbrainsMono.variable} antialiased bg-background-primary text-text-primary`}
+        className={`${instrumentSerif.variable} ${geistSans.variable} ${jetbrainsMono.variable} antialiased`}
       >
         <ThemeProvider>
           <Navigation />
@@ -135,11 +158,11 @@ export default function RootLayout({
           <FloatingActionButton />
         </ThemeProvider>
 
-        {/* Analytics Components */}
-        <Analytics {...analyticsConfig} />
+        {/* Analytics Components - Load asynchronously */}
+        <Analytics {...analyticsProps} />
 
-        {/* Performance Monitor (Development Only) */}
-        <PerformanceMonitor />
+        {/* Performance Monitor (Development Only) - Load after page load */}
+        {process.env.NODE_ENV === 'development' && <PerformanceMonitor />}
       </body>
     </html>
   );

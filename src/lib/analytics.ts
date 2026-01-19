@@ -1,4 +1,5 @@
 // Analytics configuration and utility functions
+import { analyticsConfig } from './env';
 
 export interface AnalyticsConfig {
   gaMeasurementId?: string;
@@ -8,15 +9,11 @@ export interface AnalyticsConfig {
 }
 
 export const getAnalyticsConfig = (): AnalyticsConfig => {
-  const isEnabled = 
-    process.env.NODE_ENV === 'production' || 
-    process.env.NEXT_PUBLIC_ANALYTICS_ENABLED === 'true';
-
   return {
-    gaMeasurementId: process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID,
-    hotjarSiteId: process.env.NEXT_PUBLIC_HOTJAR_SITE_ID,
-    clarityProjectId: process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID,
-    enabled: isEnabled,
+    gaMeasurementId: analyticsConfig.gaMeasurementId,
+    hotjarSiteId: analyticsConfig.hotjarSiteId,
+    clarityProjectId: analyticsConfig.clarityProjectId,
+    enabled: analyticsConfig.enabled,
   };
 };
 

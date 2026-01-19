@@ -137,11 +137,11 @@ const nextConfig = {
     return config;
   },
 
-  // Enable source maps in production for debugging
-  productionBrowserSourceMaps: true,
+  // Disable source maps in production for better performance
+  productionBrowserSourceMaps: false,
 
-  // Output configuration
-  output: "standalone",
+  // Output configuration - use default for better static optimization
+  // output: "standalone", // Removed for better static generation
 
   // Environment variables
   env: {

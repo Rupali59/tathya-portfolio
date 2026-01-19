@@ -40,13 +40,16 @@ export default function PerformanceMonitor() {
       const lcp =
         performance.getEntriesByType("largest-contentful-paint")[0]
           ?.startTime || 0;
-      const fid =
-        performance.getEntriesByType("first-input")[0]?.processingStart || 0;
+      const firstInputEntry = performance.getEntriesByType("first-input")[0] as any;
+      const fid = firstInputEntry?.processingStart || 0;
       const cls = performance
         .getEntriesByType("layout-shift")
-        .reduce((acc, entry) => acc + entry.value, 0);
+        .reduce((acc, entry) => {
+          const layoutShiftEntry = entry as PerformanceEntry & { value?: number };
+          return acc + (layoutShiftEntry.value || 0);
+        }, 0);
       const ttfb = navigation.responseStart - navigation.requestStart;
-      const loadTime = navigation.loadEventEnd - navigation.navigationStart;
+      const loadTime = navigation.loadEventEnd - navigation.fetchStart;
 
       setMetrics({
         fcp: Math.round(fcp),

@@ -4,14 +4,14 @@
 
 /* Import structured CSS modules */
 @import '../styles/themes/variables.css';
+@import '../styles/themes/tactile-hardware.css';
 @import '../styles/utilities/utilities.css';
+@import '../styles/utilities/brushed-metal.css';
 @import '../styles/components/animations.css';
 
-/* Base body styles */
-body {
-    color: var(--text-primary);
-    background: var(--bg-primary);
-    font-family: Arial, Helvetica, sans-serif;
+/* Smooth transitions */
+* {
+    transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 /* Ensure content doesn't overlap with fixed navigation */

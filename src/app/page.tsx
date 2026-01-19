@@ -1,21 +1,42 @@
+import dynamicImport from "next/dynamic";
 import Hero from "@/components/hero/Hero";
-import Services from "@/components/content/Services";
+import ArchitecturePillars from "@/components/content/ArchitecturePillars";
 import Portfolio from "@/components/content/Portfolio";
-import Team from "@/components/content/Team";
-import FAQ from "@/components/content/FAQ";
 import Footer from "@/components/layout/Footer";
 
-// Force SSR for this page
-export const dynamic = "force-dynamic";
+// Lazy load heavy interactive components
+const ConfigurationBay = dynamicImport(
+  () => import("@/components/content/ConfigurationBay"),
+  {
+    loading: () => (
+      <div className="py-20 bg-pure-black relative">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-dark-charcoal p-8 rounded-lg border border-sapphire-blue-20 animate-pulse">
+            <div className="h-8 bg-sapphire-blue-10 rounded w-1/3 mb-4"></div>
+            <div className="h-4 bg-sapphire-blue-10 rounded w-2/3"></div>
+          </div>
+        </div>
+      </div>
+    ),
+    ssr: false, // Load on client only since it's interactive
+  }
+);
+
+// Static generation for better performance
+export const dynamic = "force-static";
+export const revalidate = 3600; // Revalidate every hour
 
 export default function HomePage() {
   return (
     <>
       <Hero />
-      <Services />
+      <div className="section-spacing" />
+      <ArchitecturePillars />
+      <div className="section-spacing" />
       <Portfolio />
-      <Team />
-      <FAQ />
+      <div className="section-spacing" />
+      <ConfigurationBay />
+      <div className="section-spacing" />
       <Footer />
     </>
   );

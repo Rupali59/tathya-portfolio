@@ -51,7 +51,7 @@ export interface FAQData {
 }
 
 // Organization structured data
-export function generateOrganizationSchema(): OrganizationData {
+export function generateOrganizationSchema(): any {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -85,7 +85,7 @@ export function generateOrganizationSchema(): OrganizationData {
 }
 
 // Service structured data
-export function generateServiceSchema(service: ServiceData): ServiceData {
+export function generateServiceSchema(service: ServiceData): any {
   return {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -109,7 +109,7 @@ export function generateServiceSchema(service: ServiceData): ServiceData {
 }
 
 // Person structured data for team members
-export function generatePersonSchema(person: PersonData): PersonData {
+export function generatePersonSchema(person: PersonData): any {
   return {
     "@context": "https://schema.org",
     "@type": "Person",

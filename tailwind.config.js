@@ -8,12 +8,21 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Base Palette Colors - Tathya Ocean Theme
-        primary: "#0d5c63", // Caribbean Current - Dark teal base
-        secondary: "#44a1a0", // Verdigris - Muted teal for secondary
-        accent: "#78cdd7", // Tiffany Blue - Friendly accent
-        background: "#fffffa", // Baby Powder - Very light near-white
-        text: "#0d5c63", // Caribbean Current - Dark teal for text
+        // Base Palette Colors - Tactile Dark-Engine Theme
+        primary: "#0F52BA", // Sapphire Blue - Primary Glow
+        secondary: "#50C878", // Emerald Green - Success/Action Glow
+        accent: "#0F52BA", // Sapphire Blue accent
+        background: "#000000", // Pure Black - Primary Background
+        surface: "#121212", // Dark Charcoal - Surface Material
+        text: "#FFFFFF", // White text for contrast
+        
+        // Tactile Dark-Engine Theme Colors
+        "sapphire-blue": "#0F52BA",
+        "sapphire-blue-20": "rgba(15, 82, 186, 0.2)",
+        "sapphire-blue-10": "rgba(15, 82, 186, 0.1)",
+        "emerald-green": "#50C878",
+        "pure-black": "#000000",
+        "dark-charcoal": "#121212",
 
         // Extended Ocean Palette - Caribbean Current
         "primary-50": "#f0fdfa",
@@ -208,8 +217,9 @@ module.exports = {
         "dark-divider": "var(--dark-divider)",
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "system-ui", "-apple-system", "sans-serif"],
-        mono: ["var(--font-jetbrains-mono)", "monospace"],
+        sans: ["var(--font-sans)", "system-ui", "-apple-system", "sans-serif"],
+        serif: ["var(--font-serif)", "Georgia", "Times New Roman", "serif"],
+        mono: ["var(--font-mono)", "monospace"],
       },
       fontSize: {
         xs: "var(--font-size-xs)",

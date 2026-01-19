@@ -51,3 +51,10 @@ next-env.d.ts
 
 # Keep the template
 !.env.example
+
+# One-time scripts (not needed in repository)
+scripts/one-time/
+
+# Logs
+logs/
+*.log
