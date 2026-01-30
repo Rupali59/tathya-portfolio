@@ -1,7 +1,6 @@
 import { Suspense } from "react";
-import Navigation from "@/components/layout/Navigation";
 import Footer from "@/components/layout/Footer";
-import FloatingActionButton from "@/components/common/FloatingActionButton";
+import Navigation from "@/components/layout/Navigation";
 import { generateOrganizationSchema } from "@/lib/structured-data";
 
 // Marketing layout with shared components
@@ -28,9 +27,6 @@ export default function MarketingLayout({
       <Suspense fallback={<div>Loading footer...</div>}>
         <Footer />
       </Suspense>
-
-      <FloatingActionButton />
     </>
   );
 }
-

@@ -1,219 +1,128 @@
-'use server';
+"use server";
 
-import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
+import { revalidatePath } from "next/cache";
+import { z } from "zod";
 
-// Types for form data
-export interface ContactFormData {
-  name: string;
-  email: string;
-  company?: string;
-  phone?: string;
-  service: string;
-  message: string;
-  budget?: string;
-  timeline?: string;
-}
+// Zod Schemas for robust validation
+const ContactSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Invalid email address"),
+  company: z.string().optional(),
+  phone: z.string().optional(),
+  service: z.string().min(1, "Service selection is required"),
+  message: z.string().min(10, "Message must be at least 10 characters"),
+  budget: z.string().optional(),
+  timeline: z.string().optional(),
+});
 
-export interface NewsletterFormData {
-  email: string;
-  name?: string;
-  interests?: string[];
-}
+const NewsletterSchema = z.object({
+  email: z.string().email("Invalid email address"),
+});
 
-// Contact form server action
+// Types inferred from schemas
+export type ContactFormData = z.infer<typeof ContactSchema>;
+
+/**
+ * Contact form server action
+ * Hardened with Zod validation and server-only logic
+ */
 export async function submitContactForm(formData: FormData) {
-  const data: ContactFormData = {
-    name: formData.get('name') as string,
-    email: formData.get('email') as string,
-    company: formData.get('company') as string || '',
-    phone: formData.get('phone') as string || '',
-    service: formData.get('service') as string,
-    message: formData.get('message') as string,
-    budget: formData.get('budget') as string || '',
-    timeline: formData.get('timeline') as string || '',
-  };
+  // 1. Extract and Validate
+  const rawData = Object.fromEntries(formData.entries());
+  const validated = ContactSchema.safeParse(rawData);
 
-  // Validate required fields
-  if (!data.name || !data.email || !data.service || !data.message) {
+  if (!validated.success) {
     return {
       success: false,
-      error: 'Please fill in all required fields.',
+      error: validated.error.issues[0].message,
     };
   }
 
-  // Validate email format
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(data.email)) {
-    return {
-      success: false,
-      error: 'Please enter a valid email address.',
-    };
-  }
+  const { data } = validated;
 
   try {
-    // In production, you would:
-    // 1. Save to database
-    // 2. Send email notification
-    // 3. Add to CRM
-    // 4. Send confirmation email to user
+    // In production, sync with CRM/Database here
+    console.log("Verified Contact Submission:", data);
 
-    // For now, we'll simulate the process
-    console.log('Contact form submission:', data);
+    // Simulate network delay
+    await new Promise((resolve) => setTimeout(resolve, 800));
 
-    // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
-
-    // Track conversion event
-    if (typeof window !== 'undefined') {
-      // This will be handled client-side
-      console.log('Tracking contact form submission');
-    }
-
-    // Revalidate any relevant pages
-    revalidatePath('/contact');
-    revalidatePath('/services');
+    // Revalidate relevant cache tags or paths
+    revalidatePath("/");
 
     return {
       success: true,
-      message: 'Thank you for your message! We\'ll get back to you within 24 hours.',
+      message: "Manifest received. Our architects will contact you shortly.",
     };
-  } catch (error) {
-    console.error('Contact form submission error:', error);
+  } catch (_err) {
+    console.error("Action Failure [submitContactForm]:", _err);
     return {
       success: false,
-      error: 'Something went wrong. Please try again later.',
+      error: "System error during transmission. Please try again.",
     };
   }
 }
 
-// Newsletter subscription server action
+const DemoSchema = z.object({
+  name: z.string().min(2),
+  email: z.string().email(),
+  service: z.string().min(1),
+  company: z.string().optional(),
+});
+
+/**
+ * Newsletter subscription server action
+ */
 export async function subscribeNewsletter(formData: FormData) {
-  const data: NewsletterFormData = {
-    email: formData.get('email') as string,
-    name: formData.get('name') as string || '',
-    interests: formData.getAll('interests') as string[],
-  };
+  const email = formData.get("email") as string;
+  const validated = NewsletterSchema.safeParse({ email });
 
-  // Validate email
-  if (!data.email) {
-    return {
-      success: false,
-      error: 'Email is required.',
-    };
-  }
-
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(data.email)) {
-    return {
-      success: false,
-      error: 'Please enter a valid email address.',
-    };
+  if (!validated.success) {
+    return { success: false, error: validated.error.issues[0].message };
   }
 
   try {
-    // In production, integrate with email service (Mailchimp, ConvertKit, etc.)
-    console.log('Newsletter subscription:', data);
-
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 500));
-
-    return {
-      success: true,
-      message: 'Successfully subscribed to our newsletter!',
-    };
-  } catch (error) {
-    console.error('Newsletter subscription error:', error);
-    return {
-      success: false,
-      error: 'Subscription failed. Please try again.',
-    };
+    console.log("Newsletter Opt-in:", validated.data.email);
+    await new Promise((resolve) => setTimeout(resolve, 400));
+    return { success: true, message: "Frequency established." };
+  } catch (_err) {
+    return { success: false, error: "Link failed." };
   }
 }
 
-// Demo request server action
+/**
+ * Demo request server action
+ */
 export async function requestDemo(formData: FormData) {
-  const data = {
-    name: formData.get('name') as string,
-    email: formData.get('email') as string,
-    company: formData.get('company') as string || '',
-    service: formData.get('service') as string,
-    message: formData.get('message') as string || '',
-  };
+  const rawData = Object.fromEntries(formData.entries());
+  const validated = DemoSchema.safeParse(rawData);
 
-  if (!data.name || !data.email || !data.service) {
-    return {
-      success: false,
-      error: 'Please fill in all required fields.',
-    };
+  if (!validated.success) {
+    return { success: false, error: validated.error.issues[0].message };
   }
 
   try {
-    console.log('Demo request:', data);
-    
-    // In production: schedule demo, send calendar invite, notify sales team
-    await new Promise(resolve => setTimeout(resolve, 1000));
-
-    return {
-      success: true,
-      message: 'Demo request received! We\'ll contact you to schedule a meeting.',
-    };
-  } catch (error) {
-    console.error('Demo request error:', error);
-    return {
-      success: false,
-      error: 'Demo request failed. Please try again.',
-    };
+    console.log("Demo Request:", validated.data);
+    await new Promise((resolve) => setTimeout(resolve, 800));
+    return { success: true, message: "Demo scheduled. Stand by for link." };
+  } catch (_err) {
+    return { success: false, error: "Transmission failed." };
   }
 }
 
-// Lead scoring server action
+/**
+ * Lead scoring helper
+ */
 export async function scoreLead(formData: FormData) {
-  const data = {
-    company: formData.get('company') as string || '',
-    budget: formData.get('budget') as string || '',
-    timeline: formData.get('timeline') as string || '',
-    service: formData.get('service') as string || '',
-  };
+  const budget = formData.get("budget") as string;
+  const timeline = formData.get("timeline") as string;
 
   let score = 0;
-  const factors: string[] = [];
-
-  // Budget scoring
-  if (data.budget === 'high') {
-    score += 30;
-    factors.push('High budget');
-  } else if (data.budget === 'medium') {
-    score += 20;
-    factors.push('Medium budget');
-  }
-
-  // Timeline scoring
-  if (data.timeline === 'urgent') {
-    score += 25;
-    factors.push('Urgent timeline');
-  } else if (data.timeline === 'soon') {
-    score += 15;
-    factors.push('Near-term timeline');
-  }
-
-  // Service complexity scoring
-  const complexServices = ['crm-integration', 'web-development', 'mobile-development'];
-  if (complexServices.includes(data.service)) {
-    score += 20;
-    factors.push('Complex service');
-  }
-
-  // Company size estimation
-  if (data.company && data.company.length > 10) {
-    score += 10;
-    factors.push('Established company');
-  }
+  if (budget === "high") score += 30;
+  if (timeline === "urgent") score += 30;
 
   return {
-    score: Math.min(score, 100),
-    factors,
-    priority: score > 60 ? 'high' : score > 30 ? 'medium' : 'low',
+    score,
+    priority: score > 50 ? "high" : "low",
   };
 }
-

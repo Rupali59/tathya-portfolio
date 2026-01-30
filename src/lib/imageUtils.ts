@@ -9,7 +9,7 @@
  */
 export const getTeamImagePath = (imagePath?: string): string | null => {
   if (!imagePath) return null;
-  return imagePath.startsWith('/') ? imagePath : `/${imagePath}`;
+  return imagePath.startsWith("/") ? imagePath : `/${imagePath}`;
 };
 
 /**
@@ -28,7 +28,7 @@ export const getTeamImageFallback = (emoji: string): string => {
  */
 export const imageExists = async (imagePath: string): Promise<boolean> => {
   try {
-    const response = await fetch(imagePath, { method: 'HEAD' });
+    const response = await fetch(imagePath, { method: "HEAD" });
     return response.ok;
   } catch {
     return false;
@@ -40,7 +40,7 @@ export const imageExists = async (imagePath: string): Promise<boolean> => {
  * @param imagePaths - Array of image paths to preload
  */
 export const preloadTeamImages = (imagePaths: string[]): void => {
-  imagePaths.forEach(path => {
+  imagePaths.forEach((path) => {
     if (path) {
       const img = new Image();
       img.src = path;

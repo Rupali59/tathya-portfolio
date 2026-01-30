@@ -1,39 +1,69 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Github, Linkedin, Twitter, Globe } from "lucide-react";
+import { Github, Globe, Linkedin, Twitter } from "lucide-react";
+import OptimizedImage from "@/components/common/OptimizedImage";
+import NextLink from "next/link";
+import TrustLedger from "@/components/sections/TrustLedger";
+import Logo from "@/components/common/Logo";
+import { contactConfig, siteConfig, socialConfig } from "@/lib/env";
 import { getTeamImagePath } from "@/lib/imageUtils";
-import { socialConfig, siteConfig, contactConfig } from "@/lib/env";
-import { useTheme } from "@/contexts/ThemeContext";
 
-const teamMembers = [
+interface TeamMember {
+  id: number;
+  name: string;
+  role: string;
+  description: string;
+  imagePath: string;
+  linkedin: string;
+  github?: string;
+  website?: string;
+}
+
+const teamMembers: TeamMember[] = [
   {
+    id: 1,
     name: "Rupali B",
     role: "Founder & Lead Developer",
+    description:
+      "Passionate developer with 9+ years of experience in web development and software engineering. Expert in building scalable infrastructure and leading technical teams.",
     imagePath: "/images/team/rupali-b.jpeg",
     linkedin: "https://linkedin.com/in/rupali-bhatnagar-b4864957",
+    github: "https://github.com/Rupali59",
   },
   {
+    id: 2,
     name: "Keerti Kaushik",
     role: "UI/UX Designer",
+    description:
+      "Creative designer specializing in premium hardware aesthetics and user experience design. Focused on creating intuitive interfaces for complex systems.",
     imagePath: "/images/team/keerti-kaushik.jpeg",
     linkedin: "https://linkedin.com/in/kumkirt",
   },
   {
+    id: 3,
     name: "Khushboo P",
     role: "Business Development",
+    description:
+      "Strategic business professional with expertise in enterprise partnerships and growth strategies. Passionate about building meaningful client relationships.",
     imagePath: "/images/team/khushboo-p.jpeg",
     linkedin: "https://www.linkedin.com/in/khushbooparasrampuria/",
   },
   {
+    id: 4,
     name: "Tipu Ali Khan",
     role: "Technical Consultant",
+    description:
+      "Experienced technical consultant with deep expertise in software architecture and infrastructure design. Committed to delivering high-quality solutions.",
     imagePath: "/images/team/tipu-ali-khan.jpeg",
     linkedin: "https://www.linkedin.com/in/tipu-ali-khan/",
   },
   {
+    id: 5,
     name: "Pooja H Patel",
     role: "Marketing & Communications",
+    description:
+      "Creative marketing professional specializing in digital marketing and brand strategy. Expert in building compelling narratives for technical products.",
     imagePath: "/images/team/pooja-h-patel.webp",
     linkedin: "https://www.linkedin.com/in/poojahpatel/",
   },
@@ -47,59 +77,94 @@ const socialLinks = [
 ];
 
 export default function Footer(): JSX.Element {
-  const { resolvedTheme } = useTheme();
-  const isDark = resolvedTheme === "dark";
-  const isLight = resolvedTheme === "light";
-
   return (
-    <footer className={`border-t py-8 architect-section ${
-      isLight 
-        ? 'bg-[#F8F9FA] border-[#E2E8F0]' 
-        : 'bg-[#000000] border-[#0F52BA]/20'
-    }`}>
+    <footer className="relative border-t py-16 md:py-24 border-border bg-muted">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-4 gap-8 mb-8">
-          {/* Logo and Contact */}
+        <div className="grid md:grid-cols-4 gap-12 mb-16">
+          {/* System Identification */}
           <div>
-            <h4 className="text-sm font-serif font-semibold mb-3" style={{ color: 'var(--text-primary)' }}>
-              {siteConfig.name}
+            <Logo size="sm" className="!items-start mb-4" />
+            <h4 className="text-sm sm:text-base font-mono font-bold uppercase tracking-widest mb-3 text-foreground">
+              [ SYSTEM_ID ]
             </h4>
-            <p className="text-xs font-mono" style={{ color: 'var(--text-tertiary)' }}>
+            <p className="text-xs sm:text-sm font-mono text-muted-foreground">
               {contactConfig.email}
             </p>
           </div>
 
           {/* Services Links */}
           <div>
-            <h4 className="text-sm font-serif font-semibold mb-3" style={{ color: 'var(--text-primary)' }}>
+            <h4 className="text-sm sm:text-base font-serif font-semibold mb-3 text-foreground">
               Services
             </h4>
-            <ul className="space-y-2 text-xs font-sans" style={{ color: 'var(--text-secondary)' }}>
-              <li><a href="/services/web-development" className="hover:underline">Web Infrastructure</a></li>
-              <li><a href="/services/crm-integration" className="hover:underline">CRM Integration</a></li>
-              <li><a href="/services/performance" className="hover:underline">Performance</a></li>
+            <ul className="space-y-2 text-xs sm:text-sm font-sans text-muted-foreground">
+              <li>
+                <NextLink
+                  href="/services/web-development"
+                  className="hover:text-primary transition-colors min-h-[32px] flex items-center"
+                >
+                  Web Infrastructure
+                </NextLink>
+              </li>
+              <li>
+                <NextLink
+                  href="/services/crm-integration"
+                  className="hover:text-primary transition-colors min-h-[32px] flex items-center"
+                >
+                  CRM Integration
+                </NextLink>
+              </li>
+              <li>
+                <NextLink
+                  href="/services/performance"
+                  className="hover:text-primary transition-colors min-h-[32px] flex items-center"
+                >
+                  Performance
+                </NextLink>
+              </li>
             </ul>
           </div>
 
           {/* Company Links */}
           <div>
-            <h4 className="text-sm font-serif font-semibold mb-3" style={{ color: 'var(--text-primary)' }}>
+            <h4 className="text-sm sm:text-base font-serif font-semibold mb-3 text-white">
               Company
             </h4>
-            <ul className="space-y-2 text-xs font-sans" style={{ color: 'var(--text-secondary)' }}>
-              <li><a href="/about" className="hover:underline">About</a></li>
-              <li><a href="/pricing" className="hover:underline">Pricing</a></li>
-              <li><a href="/demo" className="hover:underline">Demo</a></li>
+            <ul className="space-y-2 text-xs sm:text-sm font-sans text-muted-foreground">
+              <li>
+                <NextLink
+                  href="/about"
+                  className="hover:text-primary transition-colors min-h-[32px] flex items-center"
+                >
+                  About
+                </NextLink>
+              </li>
+              <li>
+                <NextLink
+                  href="/pricing"
+                  className="hover:text-primary transition-colors min-h-[32px] flex items-center"
+                >
+                  Pricing
+                </NextLink>
+              </li>
+              <li>
+                <NextLink
+                  href="/#configuration-bay"
+                  className="hover:text-primary transition-colors min-h-[32px] flex items-center"
+                >
+                  Demo
+                </NextLink>
+              </li>
             </ul>
           </div>
 
           {/* Social Links */}
           <div>
-            <h4 className="text-sm font-serif font-semibold mb-3" style={{ color: 'var(--text-primary)' }}>
-              Connect
+            <h4 className="text-sm sm:text-base font-mono font-bold uppercase tracking-widest mb-3 text-white">
+              [ EXTERNAL_HOOKS ]
             </h4>
-            <ul className="space-y-2 text-xs font-sans">
-              {socialLinks.map((link, index) => {
+            <ul className="space-y-2 text-xs sm:text-sm font-sans">
+              {socialLinks.map((link, _index) => {
                 const IconComponent = link.icon;
                 return (
                   <motion.li
@@ -111,10 +176,9 @@ export default function Footer(): JSX.Element {
                       href={link.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 hover:underline"
-                      style={{ color: 'var(--text-secondary)' }}
+                      className="flex items-center gap-2 hover:text-primary transition-colors text-zinc-400 min-h-[32px]"
                     >
-                      <IconComponent className="w-4 h-4" />
+                      <IconComponent className="w-4 h-4 sm:w-5 sm:h-5 text-primary opacity-50 hover:opacity-100 transition-opacity" />
                       {link.label}
                     </a>
                   </motion.li>
@@ -124,72 +188,151 @@ export default function Footer(): JSX.Element {
           </div>
         </div>
 
-        {/* Understated Team Profiles - Grayscale to Color */}
-        <div className="border-t pt-6 mb-6" style={{ borderColor: isDark ? 'rgba(15,82,186,0.2)' : 'rgba(229,231,235,1)' }}>
-          <p className="text-xs font-mono mb-4 text-center" style={{ color: 'var(--text-tertiary)' }}>
-            System Architects
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
+        {/* Team Section */}
+        <div className="border-t pt-20 mb-12 mt-20 border-zinc-800">
+          <div className="text-center mb-6">
+            <h3 className="text-foreground text-2xl font-bold mb-2">
+              System Architects
+            </h3>
+            <p className="text-muted-foreground text-sm">
+              The experts behind the Motherboard infrastructure
+            </p>
+          </div>
+
+          <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 list-none m-0 p-0">
             {teamMembers.map((member, index) => (
-              <motion.a
-                key={member.name}
-                href={member.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="relative w-12 h-12 rounded-full overflow-hidden group
-                         border border-transparent hover:border-opacity-50
-                         transition-all duration-300 grayscale hover:grayscale-0"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
+              <motion.li
+                key={member.id}
+                className="text-center"
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.3, delay: index * 0.05 }}
               >
-                {getTeamImagePath(member.imagePath) ? (
-                  <img
-                    src={getTeamImagePath(member.imagePath)!}
-                    alt={member.name}
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <div className={`w-full h-full flex items-center justify-center ${
-                    isDark ? 'bg-[#121212]' : 'bg-gray-200'
-                  }`}>
-                    <span className={`text-xs ${
-                      isDark ? 'text-white/50' : 'text-gray-500'
-                    }`}>{member.name.charAt(0)}</span>
-                  </div>
-                )}
-                {/* Hover tooltip */}
-                <div className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/30 transition-all duration-300 opacity-0 group-hover:opacity-100">
-                  <Linkedin className="w-5 h-5 text-white" />
-                </div>
-              </motion.a>
+                <article>
+                  {/* Profile Image */}
+                  <figure className="mb-3">
+                    <motion.a
+                      href={member.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="relative block w-16 h-16 mx-auto rounded-full overflow-hidden border-2 border-border hover:border-primary transition-all duration-300 grayscale hover:grayscale-0"
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      {getTeamImagePath(member.imagePath) ? (
+                        <OptimizedImage
+                          src={getTeamImagePath(member.imagePath)!}
+                          alt={`${member.name}, ${member.role}`}
+                          width={64}
+                          height={64}
+                          className="object-cover w-full h-full"
+                        />
+                      ) : (
+                        <div
+                          className="w-full h-full flex items-center justify-center bg-card"
+                          aria-hidden="true"
+                        >
+                          <span className="text-lg text-primary">
+                            {member.name.charAt(0)}
+                          </span>
+                        </div>
+                      )}
+                    </motion.a>
+                  </figure>
+
+                  {/* Name & Role */}
+                  <header>
+                    <h4 className="text-foreground text-sm font-semibold mb-1">
+                      {member.name}
+                    </h4>
+                    <p className="text-primary text-xs font-mono mb-2">
+                      {member.role}
+                    </p>
+                  </header>
+
+                  {/* Description */}
+                  <p className="text-muted-foreground text-xs leading-relaxed mb-3">
+                    {member.description}
+                  </p>
+
+                  {/* Social Links */}
+                  <nav
+                    className="flex justify-center gap-2"
+                    aria-label={`${member.name} social links`}
+                  >
+                    <motion.a
+                      href={member.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-primary hover:text-secondary transition-colors"
+                      whileHover={{ scale: 1.2 }}
+                      whileTap={{ scale: 0.9 }}
+                      aria-label={`${member.name} LinkedIn profile`}
+                    >
+                      <Linkedin className="w-4 h-4" />
+                    </motion.a>
+                    {member.github && (
+                      <motion.a
+                        href={member.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-primary hover:text-secondary transition-colors"
+                        whileHover={{ scale: 1.2 }}
+                        whileTap={{ scale: 0.9 }}
+                        aria-label={`${member.name} GitHub profile`}
+                      >
+                        <Github className="w-4 h-4" />
+                      </motion.a>
+                    )}
+                    {member.website && (
+                      <motion.a
+                        href={member.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-primary hover:text-secondary transition-colors"
+                        whileHover={{ scale: 1.2 }}
+                        whileTap={{ scale: 0.9 }}
+                        aria-label={`${member.name} website`}
+                      >
+                        <Globe className="w-4 h-4" />
+                      </motion.a>
+                    )}
+                  </nav>
+                </article>
+              </motion.li>
             ))}
-          </div>
+          </ul>
         </div>
 
-        {/* Copyright & CTA */}
-        <div className="border-t pt-6 text-center space-y-4" style={{ borderColor: isDark ? 'rgba(15,82,186,0.2)' : 'rgba(229,231,235,1)' }}>
-          <div>
-            <p className="text-sm font-serif mb-2" style={{ color: isLight ? '#0F172A' : '#FFFFFF' }}>
-              Crafted in India for Global Growth
-            </p>
-            <a
-              href="/contact"
-              className={`inline-block px-6 py-2 rounded-lg font-sans text-sm font-semibold transition-all duration-300 ${
-                isLight
-                  ? 'bg-sapphire-ink text-white hover:bg-sapphire-ink/90'
-                  : 'bg-[#0F52BA] text-white hover:bg-[#0F52BA]/80'
-              }`}
-            >
-              Talk to an Architect
-            </a>
-          </div>
-          <p className="text-xs font-sans" style={{ color: 'var(--text-tertiary)' }}>
-            &copy; {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
+        {/* Live Ticker */}
+        <div className="mb-8">
+          <TrustLedger />
+        </div>
+
+        {/* Copyright */}
+        <div className="border-t pt-6 text-center border-zinc-800">
+          <p className="text-sm sm:text-base font-serif mb-2 text-foreground">
+            Crafted in India for Global Growth
           </p>
+          <p className="text-sm font-sans text-muted-foreground">
+            &copy; {new Date().getFullYear()} {siteConfig.name}. All rights
+            reserved.
+          </p>
+          <div className="flex justify-center gap-6 mt-4 text-xs font-sans text-muted-foreground opacity-60">
+            <NextLink
+              href="/privacy"
+              className="hover:text-primary transition-colors"
+            >
+              Privacy Policy
+            </NextLink>
+            <NextLink
+              href="/terms"
+              className="hover:text-primary transition-colors"
+            >
+              Terms of Service
+            </NextLink>
+          </div>
         </div>
       </div>
     </footer>

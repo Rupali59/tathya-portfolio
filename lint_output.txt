@@ -1,0 +1,41 @@
+
+> tathya-portfolio@0.1.0 lint
+> eslint .
+
+
+/Users/rupali.b/Documents/GitHub/Tathya/Tathya-potfolio/scripts/kill-server.js
+  36:12  warning  'error' is defined but never used. Allowed unused caught errors must match /^_/u  @typescript-eslint/no-unused-vars
+  41:10  warning  'error' is defined but never used. Allowed unused caught errors must match /^_/u  @typescript-eslint/no-unused-vars
+
+/Users/rupali.b/Documents/GitHub/Tathya/Tathya-potfolio/scripts/start-server.js
+  8:9  warning  'config' is assigned a value but never used. Allowed unused vars must match /^_/u  @typescript-eslint/no-unused-vars
+
+/Users/rupali.b/Documents/GitHub/Tathya/Tathya-potfolio/src/app/api/analytics/route.ts
+  61:37  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  71:47  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  80:43  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/rupali.b/Documents/GitHub/Tathya/Tathya-potfolio/src/app/not-found.tsx
+  12:16  error  Avoid inline style objects. Use Tailwind classes. Only use inline styles for true dynamic values (e.g., CSS variables)  no-restricted-syntax
+
+/Users/rupali.b/Documents/GitHub/Tathya/Tathya-potfolio/src/components/analytics/PerformanceMonitor.tsx
+   59:42  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  242:41  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/rupali.b/Documents/GitHub/Tathya/Tathya-potfolio/src/components/common/AnimatedBackground.tsx
+  190:14  error  Avoid inline style objects. Use Tailwind classes. Only use inline styles for true dynamic values (e.g., CSS variables)  no-restricted-syntax
+  200:14  error  Avoid inline style objects. Use Tailwind classes. Only use inline styles for true dynamic values (e.g., CSS variables)  no-restricted-syntax
+  224:14  error  Avoid inline style objects. Use Tailwind classes. Only use inline styles for true dynamic values (e.g., CSS variables)  no-restricted-syntax
+
+/Users/rupali.b/Documents/GitHub/Tathya/Tathya-potfolio/src/components/common/WebAuthnHandshake.tsx
+  101:30  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/rupali.b/Documents/GitHub/Tathya/Tathya-potfolio/src/components/sections/hero/AIHeroChat.tsx
+   53:58  error  Unexpected any. Specify a different type                                                                                @typescript-eslint/no-explicit-any
+  479:41  error  Unexpected any. Specify a different type                                                                                @typescript-eslint/no-explicit-any
+  722:30  error  Avoid inline style objects. Use Tailwind classes. Only use inline styles for true dynamic values (e.g., CSS variables)  no-restricted-syntax
+  726:30  error  Avoid inline style objects. Use Tailwind classes. Only use inline styles for true dynamic values (e.g., CSS variables)  no-restricted-syntax
+  847:28  error  Avoid inline style objects. Use Tailwind classes. Only use inline styles for true dynamic values (e.g., CSS variables)  no-restricted-syntax
+
+✖ 18 problems (15 errors, 3 warnings)
+

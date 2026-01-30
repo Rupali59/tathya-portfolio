@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import * as React from "react";
 import { useState } from "react";
 
 interface OptimizedImageProps {
@@ -30,7 +33,7 @@ export default function OptimizedImage({
   fill = false,
   style,
 }: OptimizedImageProps) {
-  const [isLoading, setIsLoading] = useState(true);
+  // Placeholder state for error handling
   const [hasError, setHasError] = useState(false);
 
   // Generate blur placeholder if not provided
@@ -38,12 +41,11 @@ export default function OptimizedImage({
     "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k=";
 
   const handleLoad = () => {
-    setIsLoading(false);
+    // Optional: add loading completion logic here
   };
 
   const handleError = () => {
     setHasError(true);
-    setIsLoading(false);
   };
 
   if (hasError) {
@@ -63,9 +65,7 @@ export default function OptimizedImage({
     quality,
     priority,
     sizes,
-    className: `${className} ${
-      isLoading ? "opacity-0" : "opacity-100"
-    } transition-opacity duration-300`,
+    className: `${className} transition-opacity duration-300 block w-full h-full`,
     style,
     onLoad: handleLoad,
     onError: handleError,
@@ -74,10 +74,17 @@ export default function OptimizedImage({
   };
 
   if (fill) {
-    return <Image {...imageProps} fill />;
+    return <Image {...imageProps} alt={alt} fill />;
   }
 
-  return <Image {...imageProps} width={width || 800} height={height || 600} />;
+  return (
+    <Image
+      {...imageProps}
+      alt={alt}
+      width={width || 800}
+      height={height || 600}
+    />
+  );
 }
 
 // Specialized components for different use cases
@@ -166,4 +173,3 @@ export function PortfolioImage({
     />
   );
 }
-

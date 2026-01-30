@@ -1,6 +1,7 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState } from "react";
+import type React from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 type Theme = "light" | "dark" | "system";
 
@@ -30,7 +31,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
         // Set default theme immediately to prevent flash
         setTheme("system");
       }
-    } catch (error) {
+    } catch (_error) {
       // Handle localStorage access errors during SSR
       setTheme("system");
     }

@@ -1,191 +1,215 @@
 "use client";
 
-import Link from "next/link";
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { useTheme } from "@/contexts/ThemeContext";
-import { usePathname } from "next/navigation";
+import { AnimatePresence, motion } from "framer-motion";
+import NextLink from "next/link";
+import { useEffect, useState } from "react";
+import { ThemeToggle } from "@/components/common/ThemeToggle";
+import WebAuthnHandshake from "@/components/common/WebAuthnHandshake";
+import { useScroll, useSpring } from "framer-motion";
+import { useRouter } from "next/navigation";
+import Logo from "@/components/common/Logo";
+import { useTactileEvents } from "@/providers/TactileProvider";
 
 export default function Navigation(): JSX.Element {
-  const [isScrolledToProvision, setIsScrolledToProvision] = useState(false);
-  const [utcTime, setUtcTime] = useState("");
-  const { resolvedTheme } = useTheme();
-  const pathname = usePathname();
-  const isLight = resolvedTheme === "light";
+  const mobileTactile = useTactileEvents("soft");
+  const soft = useTactileEvents("soft");
+  const heavy = useTactileEvents("heavy");
+  const [isScrolledToBuild, setIsScrolledToBuild] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const [showHandshake, setShowHandshake] = useState(false);
+  const router = useRouter();
 
-  // UTC Clock
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
+
   useEffect(() => {
-    const updateTime = () => {
-      const now = new Date();
-      const utc = now.toISOString().substring(11, 19) + " UTC";
-      setUtcTime(utc);
-    };
-    updateTime();
-    const interval = setInterval(updateTime, 1000);
-    return () => clearInterval(interval);
-  }, []);
+    setMounted(true);
 
-  // Scroll detection for Provision section
-  useEffect(() => {
-    const handleScroll = () => {
-      const configBay = document.getElementById("configuration-bay");
-      if (configBay) {
-        const rect = configBay.getBoundingClientRect();
-        setIsScrolledToProvision(rect.top < window.innerHeight / 2);
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    // IntersectionObserver is significantly more performant than scroll listeners
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsScrolledToBuild(entry.isIntersecting);
+      },
+      { threshold: 0.1 }, // Trigger when 10% of the section is visible
+    );
 
-  const handleAccessShell = () => {
-    const configBay = document.getElementById("configuration-bay");
-    if (configBay) {
-      configBay.scrollIntoView({ behavior: "smooth", block: "start" });
+    const buildSection = document.getElementById("configuration-bay");
+    if (buildSection) {
+      observer.observe(buildSection);
     }
+
+    return () => {
+      if (buildSection) observer.unobserve(buildSection);
+    };
+  }, []);
+
+  const handleClientLogin = () => {
+    setShowHandshake(true);
   };
+
+  const handleHandshakeComplete = () => {
+    setShowHandshake(false);
+    // After handshake, scroll to build or show a dashboard simulation
+    setShowHandshake(false);
+    router.push("/dashboard");
+  };
+
+  // Avoid hydration mismatch by rendering a stable structure initially
+  const statusLedClass = mounted && isScrolledToBuild ? "emerald" : "sapphire";
 
   return (
     <>
-      {/* Desktop: Command Strip */}
-      <nav className="hidden md:block fixed top-0 left-0 right-0 z-50">
-        <div className="frosted-glass border-b" style={{ borderColor: isLight ? '#E2E8F0' : 'rgba(15,82,186,0.2)' }}>
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="flex items-center justify-between h-16">
-              {/* Left: TATHYA.DEV + Sapphire Pearl */}
-              <div className="flex items-center gap-3">
-                <Link href="/" className="font-mono text-sm font-semibold tracking-wider" style={{ color: isLight ? '#0F172A' : '#FFFFFF' }}>
+      <AnimatePresence>
+        {showHandshake && (
+          <WebAuthnHandshake onComplete={handleHandshakeComplete} />
+        )}
+      </AnimatePresence>
+
+      {/* Scroll Progress Indicator */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-[2px] bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.8)] z-[60] origin-left"
+        // eslint-disable-next-line no-restricted-syntax
+        style={{ scaleX }}
+      />
+
+      {/* Desktop: System Bar */}
+      <nav
+        className="hidden md:block fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl shadow-sm"
+        aria-label="Main navigation"
+      >
+        <div className="max-w-7xl mx-auto px-6 h-full">
+          <div className="flex items-center justify-between h-20">
+            {/* Left Section: Logo - flex-1 to push center to middle */}
+            <div className="flex-1 flex items-center">
+              <NextLink
+                href="/"
+                className="flex items-center gap-2 group transition-all"
+                aria-label="Tathya.dev homepage"
+                onPointerDown={soft.onPointerDown}
+              >
+                <Logo size="xs" layoutId="tathya-main-logo" />
+                <span className="font-mono text-base font-bold tracking-widest text-foreground group-hover:text-primary transition-colors">
                   TATHYA.DEV
-                </Link>
-                {isLight ? (
-                  <motion.div
-                    className={isScrolledToProvision ? "led-pearl-emerald" : "led-pearl-sapphire"}
-                    animate={{
-                      scale: isScrolledToProvision ? [1, 1.2, 1] : 1,
-                    }}
-                    transition={{ duration: 0.3 }}
-                  />
-                ) : (
-                  <motion.div
-                    className={`sapphire-pearl ${isScrolledToProvision ? 'active' : ''}`}
-                    animate={{
-                      scale: isScrolledToProvision ? [1, 1.2, 1] : 1,
-                    }}
-                    transition={{ duration: 0.3 }}
-                  />
-                )}
-              </div>
+                </span>
+              </NextLink>
+              <div
+                className={`ml-4 w-2 h-2 rounded-full shadow-[0_0_8px] ${
+                  statusLedClass === "emerald"
+                    ? "bg-secondary shadow-[0_0_8px_var(--glow-emerald-color)]"
+                    : "bg-primary shadow-[0_0_8px_var(--glow-sapphire-color)]"
+                }`}
+                role="status"
+              />
+            </div>
 
-              {/* Center: Navigation Links */}
-              <div className="flex items-center gap-8">
-                <Link
-                  href="/#core"
-                  className="font-sans text-sm font-medium tracking-wide transition-colors duration-200"
-                  style={{ color: isLight ? '#475569' : 'rgba(255,255,255,0.7)' }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.color = isLight ? '#0747A6' : '#0F52BA';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.color = isLight ? '#475569' : 'rgba(255,255,255,0.7)';
-                  }}
-                >
-                  THE TECH
-                </Link>
-                <Link
-                  href="/#blades"
-                  className="font-sans text-sm font-medium tracking-wide transition-colors duration-200"
-                  style={{ color: isLight ? '#475569' : 'rgba(255,255,255,0.7)' }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.color = isLight ? '#0747A6' : '#0F52BA';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.color = isLight ? '#475569' : 'rgba(255,255,255,0.7)';
-                  }}
-                >
-                  SOLUTIONS
-                </Link>
-                <Link
-                  href="/#configuration-bay"
-                  className="font-sans text-sm font-medium tracking-wide transition-colors duration-200"
-                  style={{ color: isLight ? '#475569' : 'rgba(255,255,255,0.7)' }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.color = isLight ? '#0747A6' : '#0F52BA';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.color = isLight ? '#475569' : 'rgba(255,255,255,0.7)';
-                  }}
-                >
-                  BUILD MINE
-                </Link>
-              </div>
+            {/* Center Section: Navigation Links - flex-1 and justify-center */}
+            <div className="flex-[2] flex justify-center">
+              <ul className="flex items-center gap-12 list-none m-0 p-0">
+                <li>
+                  <NextLink
+                    href="/#the-engine"
+                    className="font-mono text-[11px] font-bold tracking-[0.2em] transition-all text-muted-foreground hover:text-primary"
+                    onPointerDown={soft.onPointerDown}
+                  >
+                    THE_ENGINE
+                  </NextLink>
+                </li>
+                <li>
+                  <NextLink
+                    href="/#the-inventory"
+                    className="font-mono text-[11px] font-bold tracking-[0.2em] transition-all text-muted-foreground hover:text-primary"
+                    onPointerDown={soft.onPointerDown}
+                  >
+                    THE_INVENTORY
+                  </NextLink>
+                </li>
+                <li>
+                  <NextLink
+                    href="/#configuration-bay"
+                    className="font-mono text-[11px] font-bold tracking-[0.2em] transition-all text-muted-foreground hover:text-primary"
+                    onPointerDown={soft.onPointerDown}
+                  >
+                    REQUEST_BUILD
+                  </NextLink>
+                </li>
+              </ul>
+            </div>
 
-              {/* Right: ACCESS SHELL Button + UTC Clock */}
-              <div className="flex items-center gap-4">
-                <motion.button
-                  onClick={handleAccessShell}
-                  className={`px-4 py-1.5 rounded font-sans text-sm font-semibold transition-all duration-200 ${
-                    isLight
-                      ? 'bg-white border border-[#E2E8F0] text-[#0747A6] shadow-[inset_0_2px_4px_rgba(0,0,0,0.06)] hover:shadow-[inset_0_2px_4px_rgba(0,0,0,0.06),0_2px_4px_rgba(0,0,0,0.1)]'
-                      : 'bg-[#121212] border border-[#0F52BA]/20 text-white shadow-[inset_0_2px_4px_rgba(0,0,0,0.5)] hover:border-[#0F52BA]'
-                  }`}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  CLIENT LOGIN
-                </motion.button>
-                <div className="font-mono text-xs" style={{ color: isLight ? '#94A3B8' : 'rgba(255,255,255,0.5)' }}>
-                  {utcTime}
-                </div>
-              </div>
+            {/* Right Section: Toggle + Shell - flex-1 to push center to middle */}
+            <div className="flex-1 flex items-center justify-end gap-6">
+              <ThemeToggle />
+              <motion.button
+                onPointerDown={(e) => {
+                  heavy.onPointerDown(e);
+                  handleClientLogin();
+                }}
+                className="px-5 py-2 rounded-lg font-mono text-xs font-bold transition-all border border-border hover:border-primary/50 bg-muted text-foreground hover:text-primary whitespace-nowrap shadow-sm"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                aria-label="Access system shell"
+              >
+                [ ENTER_VAULT ]
+              </motion.button>
             </div>
           </div>
         </div>
       </nav>
 
       {/* Mobile: Bottom Command Bar */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50">
-        <div className="frosted-glass border-t" style={{ borderColor: isLight ? '#E2E8F0' : 'rgba(15,82,186,0.2)' }}>
-          <div className="px-4 py-3">
-            <div className="flex items-center justify-between">
-              {/* Navigation Links */}
-              <div className="flex items-center gap-3 flex-1 overflow-x-auto">
-                <Link
-                  href="/#core"
-                  className="font-sans text-xs font-medium whitespace-nowrap px-2 py-1 rounded transition-colors"
-                  style={{ color: isLight ? '#475569' : 'rgba(255,255,255,0.7)' }}
-                >
-                  THE TECH
-                </Link>
-                <Link
-                  href="/#blades"
-                  className="font-sans text-xs font-medium whitespace-nowrap px-2 py-1 rounded transition-colors"
-                  style={{ color: isLight ? '#475569' : 'rgba(255,255,255,0.7)' }}
-                >
-                  SOLUTIONS
-                </Link>
-                <Link
-                  href="/#configuration-bay"
-                  className="font-sans text-xs font-medium whitespace-nowrap px-2 py-1 rounded transition-colors"
-                  style={{ color: isLight ? '#475569' : 'rgba(255,255,255,0.7)' }}
-                >
-                  BUILD MINE
-                </Link>
-              </div>
+      <nav
+        className="md:hidden fixed bottom-0 left-0 right-0 z-50 border-t border-border bg-background/80 backdrop-blur-2xl px-6 py-4"
+        aria-label="Mobile navigation"
+      >
+        <div className="flex items-center justify-between gap-6">
+          <NextLink href="/" className="flex-shrink-0">
+            <Logo size="xs" />
+          </NextLink>
 
-              {/* CLIENT LOGIN Button */}
-              <motion.button
-                onClick={handleAccessShell}
-                className={`ml-3 px-3 py-1.5 rounded font-sans text-xs font-semibold transition-all duration-200 whitespace-nowrap ${
-                  isLight
-                    ? 'bg-white border border-[#E2E8F0] text-[#0747A6] shadow-[inset_0_2px_4px_rgba(0,0,0,0.06)]'
-                    : 'bg-[#121212] border border-[#0F52BA]/20 text-white shadow-[inset_0_2px_4px_rgba(0,0,0,0.5)]'
-                }`}
-                whileTap={{ scale: 0.95 }}
+          <ul className="flex items-center justify-center gap-8 flex-1 overflow-x-auto no-scrollbar scrollbar-hide list-none m-0 p-0">
+            <li>
+              <NextLink
+                href="/#the-engine"
+                className="font-mono text-[10px] font-bold tracking-widest text-muted-foreground hover:text-primary transition-colors py-2 whitespace-nowrap"
+                onPointerDown={mobileTactile.onPointerDown}
               >
-                LOGIN
-              </motion.button>
-            </div>
-          </div>
+                ENGINE
+              </NextLink>
+            </li>
+            <li>
+              <NextLink
+                href="/#the-inventory"
+                className="font-mono text-[10px] font-bold tracking-widest text-muted-foreground hover:text-primary transition-colors py-2 whitespace-nowrap"
+                onPointerDown={mobileTactile.onPointerDown}
+              >
+                INVENTORY
+              </NextLink>
+            </li>
+            <li>
+              <NextLink
+                href="/#configuration-bay"
+                className="font-mono text-[10px] font-bold tracking-widest text-muted-foreground hover:text-primary transition-colors py-2 whitespace-nowrap"
+                onPointerDown={mobileTactile.onPointerDown}
+              >
+                BUILD
+              </NextLink>
+            </li>
+          </ul>
+
+          <motion.button
+            onPointerDown={(e) => {
+              mobileTactile.onPointerDown(e);
+              handleClientLogin();
+            }}
+            className="px-4 py-2 rounded-md font-mono text-[10px] font-bold border border-border bg-muted text-foreground shadow-sm whitespace-nowrap"
+            whileTap={{ scale: 0.95 }}
+            aria-label="Access system shell"
+          >
+            VAULT
+          </motion.button>
         </div>
       </nav>
     </>

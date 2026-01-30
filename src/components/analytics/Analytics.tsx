@@ -4,10 +4,11 @@ import { useEffect } from "react";
 
 declare global {
   interface Window {
-    gtag?: (...args: any[]) => void;
-    hj?: (...args: any[]) => void;
-    clarity?: (...args: any[]) => void;
-    dataLayer?: any[];
+    gtag?: (command: string, ...args: unknown[]) => void;
+    hj?: ((...args: unknown[]) => void) & { q?: unknown[] };
+    _hjSettings?: { hjid: string; hjsv: number };
+    clarity?: (...args: unknown[]) => void;
+    dataLayer?: unknown[];
   }
 }
 
@@ -36,7 +37,7 @@ export default function Analytics({
     const hasValidConfig = gaMeasurementId || hotjarSiteId || clarityProjectId;
     if (!hasValidConfig) {
       console.log(
-        "Analytics: No valid configuration found, skipping initialization"
+        "Analytics: No valid configuration found, skipping initialization",
       );
       return;
     }
@@ -66,8 +67,8 @@ export default function Analytics({
 
         // Initialize gtag
         window.dataLayer = window.dataLayer || [];
-        const gtag = (...args: any[]) => {
-          window.dataLayer!.push(args);
+        const gtag = (command: string, ...args: unknown[]) => {
+          window.dataLayer?.push([command, ...args]);
         };
         window.gtag = gtag;
 
@@ -100,16 +101,18 @@ export default function Analytics({
     // Initialize Hotjar
     if (hotjarSiteId && hotjarSiteId.trim() !== "") {
       try {
-        (function (h: any, o: any, t: any, j: any, a?: any, r?: any) {
+        ((h: Window, o: Document, t: string, j: string) => {
           h.hj =
             h.hj ||
-            function (...args: any[]) {
-              (h.hj.q = h.hj.q || []).push(args);
-            };
+            ((...args: unknown[]) => {
+              const queue = (h.hj as { q?: unknown[] }).q || [];
+              (h.hj as { q?: unknown[] }).q = queue;
+              queue.push(args);
+            });
           h._hjSettings = { hjid: hotjarSiteId, hjsv: 6 };
-          a = o.getElementsByTagName("head")[0];
-          r = o.createElement("script");
-          r.async = 1;
+          const a = o.getElementsByTagName("head")[0];
+          const r = o.createElement("script");
+          r.async = true;
           r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
           a.appendChild(r);
         })(window, document, "https://static.hotjar.com/c/hotjar-", ".js?sv=");
@@ -121,18 +124,32 @@ export default function Analytics({
     // Initialize Microsoft Clarity
     if (clarityProjectId && clarityProjectId.trim() !== "") {
       try {
-        (function (c: any, l: any, a: any, r: any, i: any, t?: any, y?: any) {
+        ((
+          c: Record<string, { q?: unknown[] }>,
+          l: Document,
+          a: string,
+          r: string,
+          i: string,
+        ) => {
           c[a] =
             c[a] ||
-            function () {
-              (c[a].q = c[a].q || []).push(arguments);
+            function (...args: unknown[]) {
+              const queue = (c[a] as { q?: unknown[] }).q || [];
+              (c[a] as { q?: unknown[] }).q = queue;
+              queue.push(args);
             };
-          t = l.createElement(r);
-          t.async = 1;
-          t.src = "https://www.clarity.ms/tag/" + i;
-          y = l.getElementsByTagName(r)[0];
-          y.parentNode.insertBefore(t, y);
-        })(window, document, "clarity", "script", clarityProjectId);
+          const t = l.createElement(r) as HTMLScriptElement;
+          t.async = true;
+          t.src = `https://www.clarity.ms/tag/${i}`;
+          const y = l.getElementsByTagName(r)[0];
+          y.parentNode?.insertBefore(t, y);
+        })(
+          window as unknown as Record<string, { q?: unknown[] }>,
+          document,
+          "clarity",
+          "script",
+          clarityProjectId,
+        );
       } catch (error) {
         console.warn("Failed to initialize Microsoft Clarity:", error);
       }
@@ -149,7 +166,10 @@ export default function Analytics({
 
 // Hook for tracking custom events
 export const useAnalytics = () => {
-  const trackEvent = (eventName: string, parameters?: Record<string, any>) => {
+  const trackEvent = (
+    eventName: string,
+    parameters?: Record<string, unknown>,
+  ) => {
     // Check if analytics is enabled
     const isAnalyticsEnabled =
       process.env.NODE_ENV === "production" ||
@@ -170,7 +190,11 @@ export const useAnalytics = () => {
     }
   };
 
-  const trackPageView = (url: string, title?: string, gaMeasurementId?: string) => {
+  const trackPageView = (
+    url: string,
+    title?: string,
+    gaMeasurementId?: string,
+  ) => {
     // Check if analytics is enabled
     const isAnalyticsEnabled =
       process.env.NODE_ENV === "production" ||
@@ -181,7 +205,8 @@ export const useAnalytics = () => {
     }
 
     // Google Analytics page view
-    const measurementId = gaMeasurementId || process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+    const measurementId =
+      gaMeasurementId || process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
     if (window.gtag && measurementId) {
       window.gtag("config", measurementId, {
         page_title: title || document.title,

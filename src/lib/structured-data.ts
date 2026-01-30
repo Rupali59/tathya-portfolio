@@ -50,20 +50,28 @@ export interface FAQData {
   answer: string;
 }
 
+// JSON-LD Base Type
+interface SchemaBase {
+  "@context": "https://schema.org";
+  "@type": string;
+}
+
 // Organization structured data
-export function generateOrganizationSchema(): any {
+export function generateOrganizationSchema(): SchemaBase &
+  Record<string, unknown> {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Tathya",
-    description: "Tathya delivers full-stack business websites, CRM integration, and campaign management. We're a passionate team building clean, functional solutions that drive business growth.",
+    description:
+      "Tathya delivers full-stack business websites, CRM integration, and campaign management. We're a passionate team building clean, functional solutions that drive business growth.",
     url: "https://tathya.dev",
     logo: "https://tathya.dev/images/assets/logos/logo.png",
     contactPoint: {
       "@type": "ContactPoint",
       telephone: "+1-555-0123",
       contactType: "customer service",
-      email: "hello@tathya.dev"
+      email: "hello@tathya.dev",
     },
     address: {
       "@type": "PostalAddress",
@@ -71,21 +79,23 @@ export function generateOrganizationSchema(): any {
       addressLocality: "San Francisco",
       addressRegion: "CA",
       postalCode: "94105",
-      addressCountry: "US"
+      addressCountry: "US",
     },
     sameAs: [
       "https://linkedin.com/company/tathya",
       "https://twitter.com/tathya_dev",
-      "https://github.com/Rupali59/tathya-portfolio"
+      "https://github.com/Rupali59/tathya-portfolio",
     ],
     foundingDate: "2020",
     numberOfEmployees: "5-10",
-    industry: "Software Development"
+    industry: "Software Development",
   };
 }
 
 // Service structured data
-export function generateServiceSchema(service: ServiceData): any {
+export function generateServiceSchema(
+  service: ServiceData,
+): SchemaBase & Record<string, unknown> {
   return {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -94,22 +104,24 @@ export function generateServiceSchema(service: ServiceData): any {
     provider: {
       "@type": "Organization",
       name: "Tathya",
-      url: "https://tathya.dev"
+      url: "https://tathya.dev",
     },
     category: service.category,
     offers: {
       "@type": "Offer",
       price: service.offers.price,
       priceCurrency: service.offers.priceCurrency,
-      availability: service.offers.availability
+      availability: service.offers.availability,
     },
     areaServed: service.areaServed,
-    serviceType: service.serviceType
+    serviceType: service.serviceType,
   };
 }
 
 // Person structured data for team members
-export function generatePersonSchema(person: PersonData): any {
+export function generatePersonSchema(
+  person: PersonData,
+): SchemaBase & Record<string, unknown> {
   return {
     "@context": "https://schema.org",
     "@type": "Person",
@@ -118,32 +130,34 @@ export function generatePersonSchema(person: PersonData): any {
     worksFor: {
       "@type": "Organization",
       name: "Tathya",
-      url: "https://tathya.dev"
+      url: "https://tathya.dev",
     },
     image: person.image,
     url: person.url,
-    sameAs: person.sameAs
+    sameAs: person.sameAs,
   };
 }
 
 // FAQ structured data
-export function generateFAQSchema(faqs: FAQData[]): any {
+export function generateFAQSchema(
+  faqs: FAQData[],
+): SchemaBase & Record<string, unknown> {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: faqs.map(faq => ({
+    mainEntity: faqs.map((faq) => ({
       "@type": "Question",
       name: faq.question,
       acceptedAnswer: {
         "@type": "Answer",
-        text: faq.answer
-      }
-    }))
+        text: faq.answer,
+      },
+    })),
   };
 }
 
 // Website structured data
-export function generateWebsiteSchema(): any {
+export function generateWebsiteSchema(): SchemaBase & Record<string, unknown> {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -153,18 +167,20 @@ export function generateWebsiteSchema(): any {
     publisher: {
       "@type": "Organization",
       name: "Tathya",
-      logo: "https://tathya.dev/images/assets/logos/logo.png"
+      logo: "https://tathya.dev/images/assets/logos/logo.png",
     },
     potentialAction: {
       "@type": "SearchAction",
       target: "https://tathya.dev/search?q={search_term_string}",
-      "query-input": "required name=search_term_string"
-    }
+      "query-input": "required name=search_term_string",
+    },
   };
 }
 
 // Breadcrumb structured data
-export function generateBreadcrumbSchema(items: Array<{name: string, url: string}>): any {
+export function generateBreadcrumbSchema(
+  items: Array<{ name: string; url: string }>,
+): SchemaBase & Record<string, unknown> {
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -172,13 +188,14 @@ export function generateBreadcrumbSchema(items: Array<{name: string, url: string
       "@type": "ListItem",
       position: index + 1,
       name: item.name,
-      item: item.url
-    }))
+      item: item.url,
+    })),
   };
 }
 
 // Local Business structured data
-export function generateLocalBusinessSchema(): any {
+export function generateLocalBusinessSchema(): SchemaBase &
+  Record<string, unknown> {
   return {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
@@ -193,12 +210,12 @@ export function generateLocalBusinessSchema(): any {
       addressLocality: "San Francisco",
       addressRegion: "CA",
       postalCode: "94105",
-      addressCountry: "US"
+      addressCountry: "US",
     },
     geo: {
       "@type": "GeoCoordinates",
       latitude: "37.7749",
-      longitude: "-122.4194"
+      longitude: "-122.4194",
     },
     openingHours: "Mo-Fr 09:00-17:00",
     priceRange: "$$",
@@ -207,15 +224,16 @@ export function generateLocalBusinessSchema(): any {
       geoMidpoint: {
         "@type": "GeoCoordinates",
         latitude: "37.7749",
-        longitude: "-122.4194"
+        longitude: "-122.4194",
       },
-      geoRadius: "100"
-    }
+      geoRadius: "100",
+    },
   };
 }
 
 // Software Application structured data
-export function generateSoftwareApplicationSchema(): any {
+export function generateSoftwareApplicationSchema(): SchemaBase &
+  Record<string, unknown> {
   return {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
@@ -226,45 +244,46 @@ export function generateSoftwareApplicationSchema(): any {
     offers: {
       "@type": "Offer",
       price: "3500",
-      priceCurrency: "USD"
+      priceCurrency: "USD",
     },
     publisher: {
       "@type": "Organization",
-      name: "Tathya"
+      name: "Tathya",
     },
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: "4.9",
-      reviewCount: "25"
-    }
+      reviewCount: "25",
+    },
   };
 }
 
 // Review structured data
-export function generateReviewSchema(): any {
+export function generateReviewSchema(): SchemaBase & Record<string, unknown> {
   return {
     "@context": "https://schema.org",
     "@type": "Review",
     itemReviewed: {
       "@type": "Organization",
-      name: "Tathya"
+      name: "Tathya",
     },
     reviewRating: {
       "@type": "Rating",
       ratingValue: "5",
-      bestRating: "5"
+      bestRating: "5",
     },
     author: {
       "@type": "Person",
-      name: "Sarah Johnson"
+      name: "Sarah Johnson",
     },
-    reviewBody: "Tathya delivered an exceptional website that exceeded our expectations. Their team is professional, responsive, and truly understands business needs.",
-    datePublished: "2024-01-15"
+    reviewBody:
+      "Tathya delivered an exceptional website that exceeded our expectations. Their team is professional, responsive, and truly understands business needs.",
+    datePublished: "2024-01-15",
   };
 }
 
 // Event structured data (for webinars, demos, etc.)
-export function generateEventSchema(): any {
+export function generateEventSchema(): SchemaBase & Record<string, unknown> {
   return {
     "@context": "https://schema.org",
     "@type": "Event",
@@ -276,19 +295,18 @@ export function generateEventSchema(): any {
     eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
     location: {
       "@type": "VirtualLocation",
-      url: "https://tathya.dev/demo"
+      url: "https://tathya.dev/demo",
     },
     organizer: {
       "@type": "Organization",
       name: "Tathya",
-      url: "https://tathya.dev"
+      url: "https://tathya.dev",
     },
     offers: {
       "@type": "Offer",
       price: "0",
       priceCurrency: "USD",
-      availability: "https://schema.org/InStock"
-    }
+      availability: "https://schema.org/InStock",
+    },
   };
 }
-

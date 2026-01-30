@@ -1,12 +1,12 @@
 /**
  * Centralized Environment Configuration
- * 
+ *
  * This module provides type-safe access to environment variables
  * with proper defaults and validation.
  * Uses config reader utilities for type conversion.
  */
 
-import { config } from './config';
+import { config } from "./config";
 
 // Re-export config for backward compatibility
 export const appConfig = config.app;
@@ -22,4 +22,4 @@ export const serverConfig = config.server;
 // All configs are now imported from config.ts
 
 // Re-export helper functions from config
-export { getOgImageUrl, getCanonicalUrl } from './config';
+export { getCanonicalUrl, getOgImageUrl } from "./config";

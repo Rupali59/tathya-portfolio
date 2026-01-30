@@ -5,15 +5,15 @@
  * ensures proper configuration and logging.
  */
 
-const { config } = require('../src/lib/config.ts');
+const { config: _config } = require("../src/lib/config.ts");
 
 // Next.js will automatically use PORT from process.env
 // Default to 3000 if not set
 const port = process.env.PORT || 3000;
-const hostname = process.env.HOSTNAME || '0.0.0.0';
+const hostname = process.env.HOSTNAME || "0.0.0.0";
 
 console.log(`Starting server on ${hostname}:${port}`);
-console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+console.log(`Environment: ${process.env.NODE_ENV || "development"}`);
 
 // Export for use in next.config.js if needed
 module.exports = { port, hostname };

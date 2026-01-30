@@ -2,14 +2,21 @@
 const nextConfig = {
   // Let Vercel handle all optimizations
   reactStrictMode: true,
-  swcMinify: true,
+  // swcMinify is default in Next.js 16, no need to specify
+
+  // Server external packages (moved from experimental in Next.js 16)
+  serverExternalPackages: [],
 
   // Experimental features
   experimental: {
-    // Enable server components logging
-    serverComponentsExternalPackages: [],
     // Optimize package imports
     optimizePackageImports: ["@heroicons/react", "lucide-react"],
+  },
+
+  // Use webpack explicitly (Turbopack is default in Next.js 16)
+  turbopack: {
+    // Explicitly set the workspace root to avoid warnings about multiple lockfiles
+    root: __dirname,
   },
 
   // Enhanced image configuration
@@ -111,34 +118,6 @@ const nextConfig = {
       },
     ];
   },
-
-  // Webpack configuration for bundle optimization
-  webpack: (config, { dev, isServer }) => {
-    // Optimize bundle splitting
-    if (!dev && !isServer) {
-      config.optimization.splitChunks = {
-        chunks: "all",
-        cacheGroups: {
-          vendor: {
-            test: /[\\/]node_modules[\\/]/,
-            name: "vendors",
-            chunks: "all",
-          },
-          common: {
-            name: "common",
-            minChunks: 2,
-            chunks: "all",
-            enforce: true,
-          },
-        },
-      };
-    }
-
-    return config;
-  },
-
-  // Disable source maps in production for better performance
-  productionBrowserSourceMaps: false,
 
   // Output configuration - use default for better static optimization
   // output: "standalone", // Removed for better static generation

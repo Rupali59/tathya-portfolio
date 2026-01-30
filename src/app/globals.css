@@ -2,93 +2,64 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components {
-  /* Frost Engine - Hardware Panel Utilities */
-  .frost-panel {
-    @apply bg-frost-card border border-silver-edge rounded-xl shadow-tactile-raised transition-all duration-300;
+@layer base {
+  :root {
+    /* Frost-Engine (Light Mode) */
+    --background: 0 0% 100%; /* Pure White */
+    --foreground: 224 71% 4%; /* Deep Ink Black */
+
+    --card: 0 0% 98%; /* Very Light Gray */
+    --card-foreground: 224 71% 4%;
+
+    --primary: 216 85% 39%; /* Sapphire Blue (Solid) */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 145 53% 55%; /* Emerald Green (Action) */
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 8% 46%; /* Added reasonable default based on context */
+    --accent: 216 85% 39%; /* Sapphire accents */
+    --border: 220 13% 91%; /* Soft Silver Border */
+
+    --glow-sapphire: 216 85% 39%; /* Storing just HSL for Tailwind opacity mod if needed, but user used hsla in example. Keeping user's direct hsla for custom props */
+    --glow-emerald: 145 53% 55%;
   }
 
-  /* When the user clicks a "Module Chip" */
-  .frost-panel-active {
-    @apply shadow-tactile-inner translate-y-0.5 border-sapphire-ink/30;
+  .dark {
+    /* Tactile Dark-Engine (Dark Mode) */
+    --background: 0 0% 0%; /* Pure Black (#000000) */
+    --foreground: 0 0% 100%; /* Pure White */
+
+    --card: 0 0% 4%; /* Charcoal Blade (#0A0A0A) */
+    --card-foreground: 0 0% 100%;
+
+    --primary: 216 85% 55%; /* Sapphire Blue (Glowing) */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 145 63% 49%; /* Emerald Green (LED) */
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 0 0% 10%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 216 85% 55%;
+    --border: 0 0% 15%; /* Dark Steel Border */
   }
 
-  /* The "Pearl" LED indicator */
-  .led-pearl-sapphire {
-    @apply w-1.5 h-1.5 rounded-full bg-sapphire-ink shadow-sapphire-pearl;
-    background: radial-gradient(circle at 30% 30%, #4a90e2, #0747a6);
+  /* Custom Properties for Glows (Pre-composed HSLA) */
+  :root {
+    --glow-sapphire-color: hsla(216, 85%, 39%, 0.3);
+    --glow-emerald-color: hsla(145, 53%, 55%, 0.3);
   }
 
-  .led-pearl-emerald {
-    @apply w-1.5 h-1.5 rounded-full bg-forest-emerald;
-    background: radial-gradient(circle at 30% 30%, #76d38e, #2d8a4e);
-    box-shadow: 0 0 10px rgba(45, 138, 78, 0.4);
+  .dark {
+    --glow-sapphire-color: hsla(216, 85%, 55%, 0.6);
+    --glow-emerald-color: hsla(145, 63%, 49%, 0.6);
   }
 }
 
-/* Import structured CSS modules */
-@import '../styles/themes/variables.css';
-@import '../styles/themes/tactile-hardware.css';
-@import '../styles/themes/architect-studio.css';
-@import '../styles/utilities/utilities.css';
-@import '../styles/utilities/brushed-metal.css';
-@import '../styles/components/animations.css';
-
-/* Smooth transitions */
-* {
-    transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-}
-
-/* Ensure content doesn't overlap with fixed navigation */
-main {
-    padding-top: 4rem; /* 64px for desktop nav */
-    padding-bottom: 4rem; /* 64px for mobile bottom command bar */
-}
-
-@media (min-width: 768px) {
-    main {
-        padding-bottom: 0; /* No bottom padding on desktop */
-    }
-}
-
-/* Hero Grid Background - Removed */
-
-/* Team Carousel Animations */
-.auto-scroll-fast {
-    animation: scroll-left 15s linear infinite;
-    transition: animation-play-state 0.3s ease;
-}
-
-.pause-animation {
-    animation-play-state: paused;
-}
-
-/* Enhanced carousel hover effects */
-.carousel-container {
-    transition: transform 0.3s ease-out;
-}
-
-.carousel-container:hover {
-    transform: scale(1.01);
-}
-
-.team-card {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    will-change: transform, box-shadow;
-}
-
-.team-card:hover {
-    transform: translateY(-15px) scale(1.08);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-    z-index: 10;
-}
-
-@keyframes scroll-left {
-    0% {
-        transform: translateX(0);
-    }
-
-    100% {
-        transform: translateX(-50%);
-    }
+@layer base {
+  body {
+    @apply bg-background text-foreground transition-colors duration-300;
+  }
 }

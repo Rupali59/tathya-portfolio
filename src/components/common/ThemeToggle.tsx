@@ -1,139 +1,87 @@
 "use client";
 
-import React, { useState } from "react";
-import dynamic from "next/dynamic";
-import { useTheme } from "@/contexts/ThemeContext";
+import { Moon, Sun } from "lucide-react";
+import { useTheme } from "next-themes";
+import { useEffect, useState, useRef } from "react";
+import { motion } from "framer-motion";
 
-// Clean SVG icons for themes
-const SunIcon = ({ className }: { className?: string }) => (
-  <svg
-    className={className}
-    fill="none"
-    stroke="currentColor"
-    viewBox="0 0 24 24"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={1.5}
-      d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-    />
-  </svg>
-);
+export function ThemeToggle() {
+  const { setTheme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
-const MoonIcon = ({ className }: { className?: string }) => (
-  <svg
-    className={className}
-    fill="none"
-    stroke="currentColor"
-    viewBox="0 0 24 24"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={1.5}
-      d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-    />
-  </svg>
-);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
-const MonitorIcon = ({ className }: { className?: string }) => (
-  <svg
-    className={className}
-    fill="none"
-    stroke="currentColor"
-    viewBox="0 0 24 24"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={1.5}
-      d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-    />
-  </svg>
-);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
-// Internal component that uses the theme context
-function ThemeToggleInternal() {
-  const { theme, setTheme } = useTheme();
-  const [isOpen, setIsOpen] = useState(false);
+  useEffect(() => {
+    audioRef.current = new Audio("/audio/soft-click.mp3");
+    audioRef.current.volume = 0.4;
+  }, []);
 
-  const themes = [
-    {
-      value: "light",
-      label: "Light",
-      icon: SunIcon,
-    },
-    {
-      value: "dark",
-      label: "Dark",
-      icon: MoonIcon,
-    },
-    {
-      value: "system",
-      label: "System",
-      icon: MonitorIcon,
-    },
-  ] as const;
+  if (!mounted) {
+    return (
+      <div
+        className="w-16 h-8 rounded-full bg-muted border border-border"
+        aria-hidden="true"
+      />
+    );
+  }
 
-  const currentTheme = themes.find((t) => t.value === theme) || themes[1];
-  const CurrentIcon = currentTheme.icon;
+  const toggleTheme = () => {
+    const nextTheme = resolvedTheme === "dark" ? "light" : "dark";
+    setTheme(nextTheme);
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play().catch(() => {}); // Ignore play errors (e.g. user hasn't interacted)
+    }
+  };
+
+  const isDark = resolvedTheme === "dark";
 
   return (
-    <div
-      className="relative group"
-      onMouseEnter={() => setIsOpen(true)}
-      onMouseLeave={() => setIsOpen(false)}
+    <button
+      onClick={toggleTheme}
+      className={`
+        relative w-16 h-8 rounded-full border border-border transition-colors duration-500
+        ${isDark ? "bg-card shadow-[inset_0_2px_4px_rgba(0,0,0,0.4)]" : "bg-zinc-200 shadow-[inset_0_2px_4px_rgba(0,0,0,0.1)]"}
+      `}
+      aria-label="Toggle Theme"
     >
-      <button
-        className="p-2 rounded-lg hover:scale-105 hover:shadow-md transition-all duration-200 focus:outline-none theme-toggle-button"
-        aria-label="Toggle theme"
-      >
-        <CurrentIcon className="w-5 h-5" />
-      </button>
+      {/* Mechanical Track */}
+      <div className="absolute inset-x-2 top-1/2 h-[1px] bg-border/50 -translate-y-1/2" />
 
-      {/* Dropdown */}
-      <div
-        className={`absolute right-0 top-full mt-2 w-12 bg-background-elevated/95 backdrop-blur-sm border border-border-primary/50 rounded-lg shadow-lg z-50 overflow-hidden hover:shadow-xl transition-all duration-200 ${
-          isOpen
-            ? "opacity-100 visible translate-y-0"
-            : "opacity-0 invisible -translate-y-2"
-        }`}
+      {/* Sliding Thumb */}
+      <motion.div
+        className="absolute top-1 left-1"
+        initial={false}
+        animate={{
+          x: isDark ? 32 : 0,
+        }}
+        transition={{
+          type: "spring",
+          stiffness: 400,
+          damping: 25,
+        }}
       >
-        {themes.map((themeOption) => {
-          const IconComponent = themeOption.icon;
-          return (
-            <button
-              key={themeOption.value}
-              onClick={() => {
-                setTheme(themeOption.value);
-                setIsOpen(false);
-              }}
-              className={`w-full flex items-center justify-center p-2 ${
-                theme === themeOption.value
-                  ? "dropdown-item-active"
-                  : "dropdown-item"
-              }`}
-              title={themeOption.label}
-            >
-              <IconComponent className="w-4 h-4" />
-            </button>
-          );
-        })}
-      </div>
-    </div>
+        <div
+          className={`
+            w-6 h-6 rounded-full shadow-md flex items-center justify-center border
+            ${
+              isDark
+                ? "bg-zinc-900 border-zinc-700 shadow-[0_0_10px_var(--glow-sapphire-color)] text-primary"
+                : "bg-white border-white text-yellow-500"
+            }
+          `}
+        >
+          {isDark ? (
+            <Moon className="w-3 h-3 text-primary animate-pulse-slow" />
+          ) : (
+            <Sun className="w-3 h-3 text-yellow-500" />
+          )}
+        </div>
+      </motion.div>
+    </button>
   );
 }
-
-// Export the dynamically imported component to prevent SSR issues
-export const ThemeToggle = dynamic(() => Promise.resolve(ThemeToggleInternal), {
-  ssr: false,
-  loading: () => (
-    <div className="p-2 rounded-lg theme-toggle-button">
-      <div className="w-5 h-5" />
-    </div>
-  ),
-});

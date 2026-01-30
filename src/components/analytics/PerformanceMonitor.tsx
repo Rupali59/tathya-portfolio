@@ -25,52 +25,106 @@ export default function PerformanceMonitor() {
 
     setIsVisible(true);
 
-    // Wait for page to load
+    let lcpValue = 0;
+    let clsValue = 0;
+    let fidValue = 0;
+    let fcpValue = 0;
+    let ttfbValue = 0;
+    let loadTimeValue = 0;
+
+    // Modern PerformanceObserver for LCP
+    const lcpObserver = new PerformanceObserver((list) => {
+      const entries = list.getEntries();
+      const lastEntry = entries[entries.length - 1];
+      lcpValue = lastEntry.startTime;
+    });
+
+    // Modern PerformanceObserver for CLS
+    const clsObserver = new PerformanceObserver((list) => {
+      for (const entry of list.getEntries()) {
+        const layoutShiftEntry = entry as PerformanceEntry & {
+          value?: number;
+          hadRecentInput?: boolean;
+        };
+        if (!layoutShiftEntry.hadRecentInput) {
+          clsValue += layoutShiftEntry.value || 0;
+        }
+      }
+    });
+
+    // Modern PerformanceObserver for FID
+    const fidObserver = new PerformanceObserver((list) => {
+      const entries = list.getEntries();
+      if (entries.length > 0) {
+        const firstInput = entries[0] as PerformanceEntry & {
+          processingStart: number;
+        };
+        fidValue = firstInput.processingStart - firstInput.startTime;
+      }
+    });
+
+    // Modern PerformanceObserver for Paint (FCP)
+    const paintObserver = new PerformanceObserver((list) => {
+      for (const entry of list.getEntries()) {
+        if (entry.name === "first-contentful-paint") {
+          fcpValue = entry.startTime;
+        }
+      }
+    });
+
+    // Modern PerformanceObserver for Navigation Timing
+    const navigationObserver = new PerformanceObserver((list) => {
+      const entries = list.getEntries();
+      if (entries.length > 0) {
+        const navigation = entries[0] as PerformanceNavigationTiming;
+        ttfbValue = navigation.responseStart - navigation.requestStart;
+        loadTimeValue = navigation.loadEventEnd - navigation.fetchStart;
+      }
+    });
+
+    // Start observing
+    try {
+      lcpObserver.observe({ type: "largest-contentful-paint", buffered: true });
+      clsObserver.observe({ type: "layout-shift", buffered: true });
+      fidObserver.observe({ type: "first-input", buffered: true });
+      paintObserver.observe({ type: "paint", buffered: true });
+      navigationObserver.observe({ type: "navigation", buffered: true });
+    } catch (e) {
+      // Fallback for browsers that don't support these observers
+      console.warn("PerformanceObserver not fully supported", e);
+    }
+
+    // Wait for page to load and update metrics
     const measurePerformance = () => {
       if (typeof window === "undefined" || !window.performance) return;
 
-      const navigation = performance.getEntriesByType(
-        "navigation"
-      )[0] as PerformanceNavigationTiming;
-      const paintEntries = performance.getEntriesByType("paint");
-
-      const fcp =
-        paintEntries.find((entry) => entry.name === "first-contentful-paint")
-          ?.startTime || 0;
-      const lcp =
-        performance.getEntriesByType("largest-contentful-paint")[0]
-          ?.startTime || 0;
-      const firstInputEntry = performance.getEntriesByType("first-input")[0] as any;
-      const fid = firstInputEntry?.processingStart || 0;
-      const cls = performance
-        .getEntriesByType("layout-shift")
-        .reduce((acc, entry) => {
-          const layoutShiftEntry = entry as PerformanceEntry & { value?: number };
-          return acc + (layoutShiftEntry.value || 0);
-        }, 0);
-      const ttfb = navigation.responseStart - navigation.requestStart;
-      const loadTime = navigation.loadEventEnd - navigation.fetchStart;
-
       setMetrics({
-        fcp: Math.round(fcp),
-        lcp: Math.round(lcp),
-        fid: Math.round(fid),
-        cls: Math.round(cls * 1000) / 1000,
-        ttfb: Math.round(ttfb),
-        loadTime: Math.round(loadTime),
+        fcp: Math.round(fcpValue),
+        lcp: Math.round(lcpValue),
+        fid: Math.round(fidValue),
+        cls: Math.round(clsValue * 1000) / 1000,
+        ttfb: Math.round(ttfbValue),
+        loadTime: Math.round(loadTimeValue),
       });
     };
 
     // Measure after page load
     if (document.readyState === "complete") {
-      measurePerformance();
+      // Give observers time to collect data
+      setTimeout(measurePerformance, 100);
     } else {
-      window.addEventListener("load", measurePerformance);
+      window.addEventListener("load", () => {
+        setTimeout(measurePerformance, 100);
+      });
     }
 
     // Cleanup
     return () => {
-      window.removeEventListener("load", measurePerformance);
+      lcpObserver.disconnect();
+      clsObserver.disconnect();
+      fidObserver.disconnect();
+      paintObserver.disconnect();
+      navigationObserver.disconnect();
     };
   }, []);
 
@@ -78,7 +132,7 @@ export default function PerformanceMonitor() {
 
   const getScoreColor = (
     value: number,
-    thresholds: { good: number; poor: number }
+    thresholds: { good: number; poor: number },
   ) => {
     if (value <= thresholds.good) return "text-green-600";
     if (value <= thresholds.poor) return "text-yellow-600";
@@ -87,7 +141,7 @@ export default function PerformanceMonitor() {
 
   const getScoreText = (
     value: number,
-    thresholds: { good: number; poor: number }
+    thresholds: { good: number; poor: number },
   ) => {
     if (value <= thresholds.good) return "Good";
     if (value <= thresholds.poor) return "Needs Improvement";
@@ -187,7 +241,11 @@ export default function PerformanceMonitor() {
 }
 
 // Web Vitals reporting
-export function reportWebVitals(metric: any) {
+export function reportWebVitals(metric: {
+  name: string;
+  value: number;
+  id: string;
+}) {
   // In production, send to analytics service
   if (process.env.NODE_ENV === "production") {
     // Send to Google Analytics, Vercel Analytics, etc.
@@ -196,4 +254,3 @@ export function reportWebVitals(metric: any) {
     console.log("Web Vital (dev):", metric);
   }
 }
-

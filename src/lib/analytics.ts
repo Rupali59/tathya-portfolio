@@ -1,5 +1,5 @@
 // Analytics configuration and utility functions
-import { analyticsConfig } from './env';
+import { analyticsConfig } from "./env";
 
 export interface AnalyticsConfig {
   gaMeasurementId?: string;
@@ -23,32 +23,35 @@ export const isAnalyticsEnabled = (): boolean => {
 };
 
 // Common event tracking functions
-export const trackEvent = (eventName: string, parameters?: Record<string, any>) => {
-  if (typeof window === 'undefined' || !isAnalyticsEnabled()) {
+export const trackEvent = (
+  eventName: string,
+  parameters?: Record<string, string | number | boolean>,
+) => {
+  if (typeof window === "undefined" || !isAnalyticsEnabled()) {
     return;
   }
 
   // Google Analytics event tracking
   if (window.gtag) {
-    window.gtag('event', eventName, parameters);
+    window.gtag("event", eventName, parameters);
   }
 
   // Hotjar event tracking
   if (window.hj) {
-    window.hj('event', eventName);
+    window.hj("event", eventName);
   }
 };
 
 export const trackPageView = (url: string, title?: string) => {
-  if (typeof window === 'undefined' || !isAnalyticsEnabled()) {
+  if (typeof window === "undefined" || !isAnalyticsEnabled()) {
     return;
   }
 
   const config = getAnalyticsConfig();
-  
+
   // Google Analytics page view
   if (window.gtag && config.gaMeasurementId) {
-    window.gtag('config', config.gaMeasurementId, {
+    window.gtag("config", config.gaMeasurementId, {
       page_title: title || document.title,
       page_location: url,
     });
@@ -58,22 +61,22 @@ export const trackPageView = (url: string, title?: string) => {
 // Common business events to track
 
 export const trackServicePageView = (serviceName: string) => {
-  trackEvent('service_page_view', {
-    event_category: 'engagement',
+  trackEvent("service_page_view", {
+    event_category: "engagement",
     event_label: serviceName,
   });
 };
 
 export const trackPricingPageView = () => {
-  trackEvent('pricing_page_view', {
-    event_category: 'engagement',
-    event_label: 'pricing',
+  trackEvent("pricing_page_view", {
+    event_category: "engagement",
+    event_label: "pricing",
   });
 };
 
 export const trackDemoRequest = () => {
-  trackEvent('demo_request', {
-    event_category: 'conversion',
-    event_label: 'demo_request',
+  trackEvent("demo_request", {
+    event_category: "conversion",
+    event_label: "demo_request",
   });
 };

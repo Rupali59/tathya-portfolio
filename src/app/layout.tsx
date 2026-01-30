@@ -1,15 +1,19 @@
 import type { Metadata } from "next";
 import { Instrument_Serif, Inter, JetBrains_Mono } from "next/font/google";
-import { ThemeProvider } from "@/contexts/ThemeContext";
-import Navigation from "@/components/layout/Navigation";
 import Analytics from "@/components/analytics/Analytics";
-import FloatingActionButton from "@/components/common/FloatingActionButton";
 import PerformanceMonitor from "@/components/analytics/PerformanceMonitor";
+import {
+  analyticsConfig,
+  getCanonicalUrl,
+  getOgImageUrl,
+  siteConfig,
+} from "@/lib/env";
 import {
   generateOrganizationSchema,
   generateWebsiteSchema,
 } from "@/lib/structured-data";
-import { siteConfig, analyticsConfig, getOgImageUrl, getCanonicalUrl } from "@/lib/env";
+import { TactileProvider } from "@/providers/TactileProvider";
+import { ThemeProvider } from "@/providers/ThemeProvider";
 import "./globals.css";
 
 // Premium Font Configuration
@@ -18,8 +22,8 @@ const instrumentSerif = Instrument_Serif({
   variable: "--font-serif",
   subsets: ["latin"],
   weight: "400",
-  display: "swap",
-  preload: true, // Preload critical headline font
+  display: "optional",
+  preload: false,
   fallback: ["Georgia", "Times New Roman", "serif"],
   adjustFontFallback: true,
 });
@@ -38,8 +42,8 @@ const geistSans = Inter({
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-mono",
   subsets: ["latin"],
-  display: "swap",
-  preload: false, // Defer monospace font
+  display: "optional",
+  preload: false,
   fallback: ["monospace"],
   adjustFontFallback: true,
 });
@@ -104,6 +108,10 @@ export const metadata: Metadata = {
   },
 };
 
+import StartupSequence from "@/components/layout/StartupSequence";
+
+// ... existing imports
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -121,18 +129,26 @@ export default function RootLayout({
   const websiteSchema = generateWebsiteSchema();
 
   return (
-    <html lang="en">
+    // Next.js automatically adds <!DOCTYPE html> before this <html> tag
+    // This ensures the page renders in Standards Mode, not Quirks Mode
+    <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Prevent flash of unstyled content - sync with next-themes storageKey */}
+        {/* This script runs before React hydrates to prevent theme flash */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{const s=localStorage.getItem('tathya-theme');const d=window.matchMedia('(prefers-color-scheme: dark)').matches;let t=s||'dark';if(t==='system')t=d?'dark':'light';document.documentElement.classList.toggle('dark',t==='dark');document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.classList.add('dark');document.documentElement.setAttribute('data-theme','dark');}})();`,
+          }}
+        />
+
         {/* Preconnect to Google Fonts for faster font loading */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        
         <link
-          rel="icon"
-          href="/images/assets/logos/favicon.png"
-          type="image/png"
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
         />
-        
+
         {/* Structured Data - Load asynchronously */}
         <script
           type="application/ld+json"
@@ -151,18 +167,21 @@ export default function RootLayout({
       </head>
       <body
         className={`${instrumentSerif.variable} ${geistSans.variable} ${jetbrainsMono.variable} antialiased`}
+        suppressHydrationWarning
       >
         <ThemeProvider>
-          <Navigation />
-          <main>{children}</main>
-          <FloatingActionButton />
+          <StartupSequence>
+            <main>
+              <TactileProvider>{children}</TactileProvider>
+            </main>
+          </StartupSequence>
         </ThemeProvider>
 
         {/* Analytics Components - Load asynchronously */}
         <Analytics {...analyticsProps} />
 
         {/* Performance Monitor (Development Only) - Load after page load */}
-        {process.env.NODE_ENV === 'development' && <PerformanceMonitor />}
+        {process.env.NODE_ENV === "development" && <PerformanceMonitor />}
       </body>
     </html>
   );

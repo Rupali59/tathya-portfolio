@@ -4,7 +4,7 @@
  */
 
 export interface IssueTemplateOptions {
-  template?: 'bug_report' | 'feature_request' | 'documentation' | 'question';
+  template?: "bug_report" | "feature_request" | "documentation" | "question";
   title?: string;
   body?: string;
   labels?: string[];
@@ -19,9 +19,9 @@ export interface GitHubIssueConfig {
 
 // Default configuration for your repository
 const DEFAULT_CONFIG: GitHubIssueConfig = {
-  owner: 'Rupali59',
-  repo: 'tathya-portfolio',
-  baseUrl: 'https://github.com'
+  owner: "Rupali59",
+  repo: "tathya-portfolio",
+  baseUrl: "https://github.com",
 };
 
 /**
@@ -29,7 +29,7 @@ const DEFAULT_CONFIG: GitHubIssueConfig = {
  */
 export function createGitHubIssueUrl(
   config: GitHubIssueConfig = DEFAULT_CONFIG,
-  options: IssueTemplateOptions = {}
+  options: IssueTemplateOptions = {},
 ): string {
   const { owner, repo, baseUrl } = config;
   const { template, title, body, labels, assignees } = options;
@@ -46,25 +46,25 @@ export function createGitHubIssueUrl(
   const params = new URLSearchParams();
 
   if (title) {
-    params.append('title', title);
+    params.append("title", title);
   }
 
   if (body) {
-    params.append('body', body);
+    params.append("body", body);
   }
 
   if (labels && labels.length > 0) {
-    params.append('labels', labels.join(','));
+    params.append("labels", labels.join(","));
   }
 
   if (assignees && assignees.length > 0) {
-    params.append('assignees', assignees.join(','));
+    params.append("assignees", assignees.join(","));
   }
 
   // Append parameters to URL
   const paramString = params.toString();
   if (paramString) {
-    url += template ? '&' : '?';
+    url += template ? "&" : "?";
     url += paramString;
   }
 
@@ -76,10 +76,10 @@ export function createGitHubIssueUrl(
  */
 export function openGitHubIssue(
   config: GitHubIssueConfig = DEFAULT_CONFIG,
-  options: IssueTemplateOptions = {}
+  options: IssueTemplateOptions = {},
 ): void {
   const url = createGitHubIssueUrl(config, options);
-  window.open(url, '_blank');
+  window.open(url, "_blank");
 }
 
 /**
@@ -90,11 +90,13 @@ export const GitHubIssues = {
    * Create a bug report issue
    */
   bugReport: (title?: string, additionalInfo?: string) => {
-    const body = additionalInfo ? `\n\nAdditional Information:\n${additionalInfo}` : '';
+    const body = additionalInfo
+      ? `\n\nAdditional Information:\n${additionalInfo}`
+      : "";
     return openGitHubIssue(DEFAULT_CONFIG, {
-      template: 'bug_report',
+      template: "bug_report",
       title: title ? `[Bug]: ${title}` : undefined,
-      body: body || undefined
+      body: body || undefined,
     });
   },
 
@@ -102,11 +104,11 @@ export const GitHubIssues = {
    * Create a feature request issue
    */
   featureRequest: (title?: string, description?: string) => {
-    const body = description ? `\n\nFeature Description:\n${description}` : '';
+    const body = description ? `\n\nFeature Description:\n${description}` : "";
     return openGitHubIssue(DEFAULT_CONFIG, {
-      template: 'feature_request',
+      template: "feature_request",
       title: title ? `[Feature]: ${title}` : undefined,
-      body: body || undefined
+      body: body || undefined,
     });
   },
 
@@ -114,11 +116,11 @@ export const GitHubIssues = {
    * Create a documentation issue
    */
   documentation: (title?: string, details?: string) => {
-    const body = details ? `\n\nDocumentation Details:\n${details}` : '';
+    const body = details ? `\n\nDocumentation Details:\n${details}` : "";
     return openGitHubIssue(DEFAULT_CONFIG, {
-      template: 'documentation',
+      template: "documentation",
       title: title ? `[Docs]: ${title}` : undefined,
-      body: body || undefined
+      body: body || undefined,
     });
   },
 
@@ -126,11 +128,11 @@ export const GitHubIssues = {
    * Create a question issue
    */
   question: (title?: string, question?: string) => {
-    const body = question ? `\n\nQuestion:\n${question}` : '';
+    const body = question ? `\n\nQuestion:\n${question}` : "";
     return openGitHubIssue(DEFAULT_CONFIG, {
-      template: 'question',
+      template: "question",
       title: title ? `[Question]: ${title}` : undefined,
-      body: body || undefined
+      body: body || undefined,
     });
   },
 
@@ -139,30 +141,27 @@ export const GitHubIssues = {
    */
   selectTemplate: () => {
     return openGitHubIssue(DEFAULT_CONFIG);
-  }
+  },
 };
 
 /**
  * Utility to detect the current page context and suggest appropriate templates
  */
-export function getContextualIssueTemplate(): IssueTemplateOptions['template'] {
+export function getContextualIssueTemplate(): IssueTemplateOptions["template"] {
   // You can extend this based on your application's routing
-  const pathname = typeof window !== 'undefined' ? window.location.pathname : '';
-  
-  if (pathname.includes('/demo') || pathname.includes('/test')) {
-    return 'bug_report';
+  const pathname =
+    typeof window !== "undefined" ? window.location.pathname : "";
+
+  if (pathname.includes("/demo") || pathname.includes("/test")) {
+    return "bug_report";
   }
-  
-  if (pathname.includes('/services') || pathname.includes('/about')) {
-    return 'feature_request';
+
+  if (pathname.includes("/services") || pathname.includes("/about")) {
+    return "feature_request";
   }
-  
-  if (pathname.includes('/contact')) {
-    return 'question';
-  }
-  
+
   // Default to bug report for general issues
-  return 'bug_report';
+  return "bug_report";
 }
 
 /**
@@ -173,6 +172,6 @@ export function createContextualIssue(title?: string, body?: string): void {
   openGitHubIssue(DEFAULT_CONFIG, {
     template,
     title,
-    body
+    body,
   });
 }

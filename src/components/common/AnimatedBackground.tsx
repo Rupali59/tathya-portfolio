@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 interface AnimatedBackgroundProps {
   className?: string;
@@ -186,8 +186,7 @@ export function AnimatedBackground({
   return (
     <canvas
       ref={canvasRef}
-      className={`fixed inset-0 pointer-events-none ${className}`}
-      style={{ zIndex: -1 }}
+      className={`fixed inset-0 pointer-events-none -z-10 ${className}`}
     />
   );
 }
@@ -195,10 +194,7 @@ export function AnimatedBackground({
 // Floating geometric shapes component
 export function FloatingShapes() {
   return (
-    <div
-      className="fixed inset-0 pointer-events-none overflow-hidden"
-      style={{ zIndex: -1 }}
-    >
+    <div className="fixed inset-0 pointer-events-none overflow-hidden -z-10">
       {/* Large floating circles */}
       <div className="absolute top-1/4 left-1/4 w-32 h-32 rounded-full bg-primary-400/10 animate-pulse animate-delay-0 animate-duration-4" />
       <div className="absolute top-3/4 right-1/4 w-24 h-24 rounded-full bg-primary-500/15 animate-pulse animate-delay-6 animate-duration-6" />
@@ -219,10 +215,7 @@ export function FloatingShapes() {
 // Gradient orbs component
 export function GradientOrbs() {
   return (
-    <div
-      className="fixed inset-0 pointer-events-none overflow-hidden"
-      style={{ zIndex: -1 }}
-    >
+    <div className="fixed inset-0 pointer-events-none overflow-hidden -z-10">
       {/* Large gradient orbs */}
       <div className="absolute -top-1/2 -left-1/2 w-full h-full bg-gradient-radial from-primary-500/20 via-primary-600/10 to-transparent rounded-full animate-pulse animate-duration-8" />
       <div className="absolute -bottom-1/2 -right-1/2 w-full h-full bg-gradient-radial from-primary-400/15 via-primary-500/5 to-transparent rounded-full animate-pulse animate-delay-9 animate-duration-12" />

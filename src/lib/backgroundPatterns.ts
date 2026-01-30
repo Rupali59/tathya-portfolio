@@ -6,13 +6,13 @@
 export const BACKGROUND_PATTERNS = {
   // Primary background (light)
   PRIMARY: "bg-background-primary",
-  
+
   // Secondary background (slightly different shade)
   SECONDARY: "bg-background-secondary",
-  
+
   // Tertiary background (for forms, special sections)
   TERTIARY: "bg-background-tertiary",
-  
+
   // Hero background (custom image)
   HERO: "bg-hero-pattern",
 } as const;
@@ -22,11 +22,11 @@ export const BACKGROUND_PATTERNS = {
  * Defines the alternating pattern for main page sections
  */
 export const PAGE_SECTION_PATTERN = [
-  BACKGROUND_PATTERNS.HERO,      // Hero section (background image)
+  BACKGROUND_PATTERNS.HERO, // Hero section (background image)
   BACKGROUND_PATTERNS.SECONDARY, // Services
-  BACKGROUND_PATTERNS.HERO,      // Portfolio (background image)
+  BACKGROUND_PATTERNS.HERO, // Portfolio (background image)
   BACKGROUND_PATTERNS.SECONDARY, // Team
-  BACKGROUND_PATTERNS.HERO,      // FAQ (background image)
+  BACKGROUND_PATTERNS.HERO, // FAQ (background image)
 ] as const;
 
 /**
@@ -53,18 +53,18 @@ export function getPageBackground(pageName: string): string {
     contact: BACKGROUND_PATTERNS.SECONDARY,
     pricing: BACKGROUND_PATTERNS.PRIMARY,
     demo: BACKGROUND_PATTERNS.SECONDARY,
-    
+
     // Service pages
-    'web-development': BACKGROUND_PATTERNS.PRIMARY,
-    'seo': BACKGROUND_PATTERNS.SECONDARY,
-    'performance': BACKGROUND_PATTERNS.PRIMARY,
-    'crm-integration': BACKGROUND_PATTERNS.SECONDARY,
-    
+    "web-development": BACKGROUND_PATTERNS.PRIMARY,
+    seo: BACKGROUND_PATTERNS.SECONDARY,
+    performance: BACKGROUND_PATTERNS.PRIMARY,
+    "crm-integration": BACKGROUND_PATTERNS.SECONDARY,
+
     // Legal pages
     privacy: BACKGROUND_PATTERNS.PRIMARY,
     terms: BACKGROUND_PATTERNS.SECONDARY,
   };
-  
+
   return pageBackgrounds[pageName] || BACKGROUND_PATTERNS.PRIMARY;
 }
 
