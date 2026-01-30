@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 import { ImageResponse } from "next/og";
 
 // Route segment config
