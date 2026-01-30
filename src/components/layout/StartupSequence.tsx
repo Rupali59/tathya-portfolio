@@ -66,16 +66,13 @@ export default function StartupSequence({
           className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black pointer-events-auto"
           exit={{
             opacity: 0,
-            transition: { duration: 0.8, ease: [0.43, 0.13, 0.23, 0.96] },
+            scale: 0.95,
+            filter: "blur(10px)",
+            transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
             pointerEvents: "none",
           }}
         >
           {/* THE EMBLEM CORE */}
-          {/* 
-            We wrap the Logo in a motion div that handles the layoutId transition
-            The Logo component itself also accepts layoutId now but wrapping it ensures
-            correct positioning context for the morph
-          */}
           <Logo size="xl" layoutId={LOGO_LAYOUT_ID} className="z-10" />
 
           {/* THE PROGRESS TRACE */}
@@ -102,8 +99,24 @@ export default function StartupSequence({
       ) : (
         <motion.div
           key="main-site"
-          initial={isReady ? { opacity: 1 } : { opacity: 0 }}
-          animate={{ opacity: 1 }}
+          initial={
+            isReady
+              ? {
+                  opacity: 0,
+                  scale: 1.05,
+                  filter: "blur(20px) brightness(0.5)",
+                }
+              : { opacity: 0 }
+          }
+          animate={{
+            opacity: 1,
+            scale: 1,
+            filter: "blur(0px) brightness(1)",
+            transition: {
+              duration: 1.2,
+              ease: [0.16, 1, 0.3, 1], // Custom "Power-On" Cubic Bezier
+            },
+          }}
           className="contents" // Use contents so this div doesn't affect layout
         >
           {children}
